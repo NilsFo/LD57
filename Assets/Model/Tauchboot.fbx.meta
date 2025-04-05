@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: eebf91b0d7884064abd5d88d3e31acb1
+guid: 96d20bac8a32ce549888b5495bbffdc3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SM_TelPole_SM_TelPole1Mat
-    second: {fileID: 2100000, guid: 06ee8200dbe599c47b662212fe049a1b, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -21,8 +16,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -45,6 +38,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -111,10 +105,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 287164
-  packageName: Optimized Ropes And Cables Tool
-  packageVersion: 1.2
-  assetPath: Assets/GogoGaga/OptimizedRopesAndCables/Example/Model/SM_TelPole_02.obj
-  uploadId: 683666
