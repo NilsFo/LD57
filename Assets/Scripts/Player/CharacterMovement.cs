@@ -1,10 +1,16 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Serialization;
 
 public class CharacterMovement : MonoBehaviour
 {
+    [Header("Meta")] 
+    public GameState gameState;
+    public NodeGraph.NodeGraph nodeGraph;
+    
     [Header("Movement Parameters")] public float maximumSpeed = 6f;
     public float sprintSpeedModifier = 1.5f;
     public float crouchSpeedModifier = 0.5f;
@@ -44,7 +50,6 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 _ladderNormal;
     private int _myLayerMask;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +57,9 @@ public class CharacterMovement : MonoBehaviour
         _controller = GetComponent<CharacterController>();
         _camera = GetComponentInChildren<Camera>();
         _myLayerMask = GetPhysicsLayerMask(gameObject.layer);
-
+        gameState = FindFirstObjectByType<GameState>();
+        nodeGraph = gameState.GetComponent<NodeGraph.NodeGraph>();
+        
         if (_camera)
             _eyesToHeadDist = (playerHeightStanding - _camera.transform.localPosition.y * 2);
     }
@@ -304,8 +311,18 @@ public class CharacterMovement : MonoBehaviour
         velocity.y -= gravity * Time.deltaTime;
 
         // Move
-        var flags = _controller.Move(velocity * Time.deltaTime);
-
+        var moveDistance = velocity * Time.deltaTime;
+        CollisionFlags flags = _controller.Move(moveDistance);
+        Vector3 nearestPoint = nodeGraph.FindNearestPoint(transform.position);
+        
+        Vector3 distance = transform.position - nearestPoint;
+        if (distance.magnitude > nodeGraph.leashDistance)
+        {
+            Vector3 moveCorrection = nodeGraph.FindNearestBorderPoint(transform.position);
+            Vector3 diff = moveCorrection - transform.position;
+            flags |= _controller.Move(diff);
+        } 
+        
         if ((flags & CollisionFlags.Above) != 0)
         {
             // head bump :(

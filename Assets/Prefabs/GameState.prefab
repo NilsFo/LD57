@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7808556335404190444}
   - component: {fileID: 3442581181911886135}
+  - component: {fileID: 7659649879822091338}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -44,3 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3820817d91bfa44a79579777a66400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldOrigin: {fileID: 0}
+--- !u!114 &7659649879822091338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457107126804779812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7730eb51b2c74b579f0d24dab00d915d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabEdges: {fileID: 7220566443486828381, guid: 61bd6f6a0f9abfc46a85bc29876f9ae0, type: 3}
+  nodes: []
+  edges: []
+  partialNodeForEdge: {fileID: 0}
