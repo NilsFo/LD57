@@ -21,7 +21,7 @@ public class ViewmodelSway : MonoBehaviour
     public float walk_sway = 85f;
     public float walk_recover = 5f;
     public float view_rotation_recover = 5f;
-    public float view_rotation_intensity = 5f;
+    public Vector2 view_rotation_intensity;
 
 
     public float breath_period = 3f;
@@ -34,7 +34,7 @@ public class ViewmodelSway : MonoBehaviour
     void Update()
     {
         // Looking
-        mouseMovVec += mouseLook.GetMouseDelta() * Time.deltaTime;
+        mouseMovVec += mouseLook.GetMouseDelta();
         mouseMovVec = Vector2.Lerp(mouseMovVec, Vector2.zero, Time.deltaTime * view_rotation_recover);
         
         // Swaying
@@ -62,7 +62,7 @@ public class ViewmodelSway : MonoBehaviour
         Sway(hip * (Time.deltaTime * walk_sway));
 
         transform.localPosition = _sway_vec + _breath_pos;
-        transform.localRotation = quaternion.LookRotation(new Vector3(-mouseMovVec.x * view_rotation_intensity, -mouseMovVec.y * view_rotation_intensity, 1f), Vector3.up);
+        transform.localRotation = quaternion.LookRotation(new Vector3(-mouseMovVec.x * view_rotation_intensity.x, -mouseMovVec.y * view_rotation_intensity.y, 1f), Vector3.up);
     }
 
     public void Sway(Vector3 swayAmount)

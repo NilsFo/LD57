@@ -407,7 +407,7 @@ MonoBehaviour:
   walk_sway: 45
   walk_recover: 2
   view_rotation_recover: 5
-  view_rotation_intensity: 0.2
+  view_rotation_intensity: {x: 0.0001, y: 0.001}
   breath_period: 3
 --- !u!1 &8131139703991539679
 GameObject:
@@ -464,8 +464,8 @@ MonoBehaviour:
   maximumSpeed: 3
   sprintSpeedModifier: 1.5
   crouchSpeedModifier: 0.5
-  acceleration: 20
-  dampening: 10
+  acceleration: 10
+  dampening: 5
   terminalYVelocity: 55
   gravity: 20
   jumpSpeed: 10

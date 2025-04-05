@@ -82,9 +82,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: activationDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: fishDiscoveryRange
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: onHoseAvailable.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: onHoseAvailable.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: onHoseAvailable.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2996966229815422221}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: onHoseAvailable.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: onHoseAvailable.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: onHoseAvailable.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: onHoseAvailable.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: onHoseAvailable.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5464689811284795101, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
       propertyPath: m_Name
       value: BeaconTerminal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8911938525289829927, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -108,21 +152,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.24
       objectReference: {fileID: 0}
+    - target: {fileID: 4128249225077574513, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6808262812365623065, guid: dead4d163de03b744a615c30da98e456, type: 3}
       propertyPath: m_Name
       value: NodeButton
       objectReference: {fileID: 0}
-    - target: {fileID: 8381245788897863888, guid: dead4d163de03b744a615c30da98e456, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381245788897863888, guid: dead4d163de03b744a615c30da98e456, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381245788897863888, guid: dead4d163de03b744a615c30da98e456, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
+    - target: {fileID: 6808262812365623065, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8381245788897863888, guid: dead4d163de03b744a615c30da98e456, type: 3}
       propertyPath: m_LocalPosition.x
@@ -169,6 +209,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dead4d163de03b744a615c30da98e456, type: 3}
+--- !u!1 &2996966229815422221 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4128249225077574513, guid: dead4d163de03b744a615c30da98e456, type: 3}
+  m_PrefabInstance: {fileID: 1215162815446951548}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7245458953944190636 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8381245788897863888, guid: dead4d163de03b744a615c30da98e456, type: 3}
