@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public MultiplayerPlayer parentPlayer;
+    private MouseLook playerLook;
 
     [FormerlySerializedAs("interactionDistance")]
     public float interactionCylinderRadius = 2.5f;
@@ -16,9 +14,10 @@ public class PlayerInteraction : MonoBehaviour
     private PlayerInteractable _interactableCache;
     public bool HasInteractableInFocus => GetInteractableInFocus() != null;
 
-    private void Awake()
+    private void Start()
     {
-        Debug.Assert(parentPlayer != null, "parentPlayer is missing!", gameObject);
+        playerLook = FindFirstObjectByType<MouseLook>();
+        Debug.Assert(playerLook != null, "parentPlayer is missing!", gameObject);
     }
 
     private void LateUpdate()
@@ -30,10 +29,10 @@ public class PlayerInteraction : MonoBehaviour
     public (bool, RaycastHit) GetInFocus(float distance, int layerMask = -1)
     {
         if (layerMask == -1)
-            layerMask = LayerMask.GetMask("Default", "Entities", "Slot");
+            layerMask = LayerMask.GetMask("Default");
 
-        MouseLook mainCamera = parentPlayer.mouseLook;
-        bool isHit = Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward,
+        // MouseLook mainCamera = parentPlayer.mouseLook;
+        bool isHit = Physics.Raycast(playerLook.transform.position, playerLook.transform.forward,
             out RaycastHit hit, distance, layerMask);
         return (isHit, hit);
     }
@@ -48,13 +47,14 @@ public class PlayerInteraction : MonoBehaviour
         if (layerMask == -1)
             layerMask = LayerMask.GetMask("Default", "Entities", "Slot");
 
-        MouseLook mainCamera = parentPlayer.mouseLook;
-        bool isHit = Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward,
+        //MouseLook mainCamera = parentPlayer.mouseLook;
+        bool isHit = Physics.Raycast(playerLook.transform.position, playerLook.transform.forward,
             out RaycastHit hit, Mathf.Sqrt(radius * radius + height * height), layerMask);
         if (isHit)
         {
-            if (Vector3.ProjectOnPlane(hit.point - mainCamera.transform.position, Vector3.up).magnitude <= radius)
+            if (Vector3.ProjectOnPlane(hit.point - playerLook.transform.position, Vector3.up).magnitude <= radius)
             {
+                print("hit");
                 return (true, hit);
             }
         }
@@ -77,6 +77,8 @@ public class PlayerInteraction : MonoBehaviour
             {
                 _interactableCache = hitInteractable;
             }
+            
+            print("hit");
 
             return hitInteractable;
         }
@@ -88,6 +90,11 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+        
         PlayerInteractable interactableInFocus = GetInteractableInFocus();
         if (interactableInFocus.IsDestroyed() || interactableInFocus == null)
         {
@@ -99,7 +106,7 @@ public class PlayerInteraction : MonoBehaviour
         if (c != null)
             Gizmos.DrawWireCube(c.bounds.center, c.bounds.size);
 
-        Gizmos.DrawLine(parentPlayer.sharedTransformOrigin.transform.position,
+        Gizmos.DrawLine(playerLook.transform.position,
             interactableInFocus.transform.position);
     }
 #endif

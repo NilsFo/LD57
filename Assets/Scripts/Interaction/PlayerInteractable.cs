@@ -1,12 +1,9 @@
-using Tumble2.Character;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerInteractable : MonoBehaviour
 {
-    [Header("Properties")] public NetworkVariable<bool> isInteractable = new NetworkVariable<bool>(true);
-    public bool interactableWhileCarryingParcel = false;
+    [Header("Properties")] public bool isInteractable = true;
 
     [Header("UI Prompt")] public string interactionPrompt = "";
     public bool HasInteractionPrompt => !string.IsNullOrEmpty(interactionPrompt);
@@ -27,6 +24,7 @@ public class PlayerInteractable : MonoBehaviour
 
     public void Interact()
     {
-        onPlayerInteract.Invoke();
+        if (isInteractable)
+            onPlayerInteract.Invoke();
     }
 }
