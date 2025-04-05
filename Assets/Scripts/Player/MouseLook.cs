@@ -101,4 +101,9 @@ public class MouseLook : MonoBehaviour
             transform.localRotation *= yRotation;
         }
     }
+
+    public Vector2 GetMouseDelta()
+    {
+        return _smoothMouse;
+    }
 }

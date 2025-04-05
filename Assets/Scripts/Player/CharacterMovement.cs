@@ -10,7 +10,6 @@ public class CharacterMovement : MonoBehaviour
     [Header("Meta")] 
     public GameState gameState;
     public NodeGraph.NodeGraph nodeGraph;
-    public float leashDistance = 30;
     
     [Header("Movement Parameters")] public float maximumSpeed = 6f;
     public float sprintSpeedModifier = 1.5f;
@@ -317,11 +316,11 @@ public class CharacterMovement : MonoBehaviour
         Vector3 nearestPoint = nodeGraph.FindNearestPoint(transform.position);
         
         Vector3 distance = transform.position - nearestPoint;
-        if (distance.magnitude > leashDistance)
+        if (distance.magnitude > nodeGraph.leashDistance)
         {
-            Vector3 moveCorrection = (distance.normalized * leashDistance) + nearestPoint;
+            Vector3 moveCorrection = nodeGraph.FindNearestBorderPoint(transform.position);
             Vector3 diff = moveCorrection - transform.position;
-            flags = _controller.Move(diff);
+            flags |= _controller.Move(diff);
         } 
         
         if ((flags & CollisionFlags.Above) != 0)
