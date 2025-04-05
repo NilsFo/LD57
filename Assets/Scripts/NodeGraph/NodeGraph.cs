@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace NodeGraph
@@ -15,6 +16,12 @@ namespace NodeGraph
 
         public float leashDistance = 30;
 
+        private void Start()
+        {
+            var localNodes = FindObjectsByType<GraphNode>(FindObjectsSortMode.InstanceID);
+            nodes = localNodes.OrderBy(node => node.ID).Select(node => node.gameObject ).ToList();
+        }
+        
         private GraphEdge AddEdge(GameObject startNode, GameObject endNode)
         {
             var instance = Instantiate(prefabEdges, transform);
