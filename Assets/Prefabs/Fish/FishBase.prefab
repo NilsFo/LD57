@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e177f1a65d4899448b9db690027545f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  mySpriteRenderer: {fileID: 8115313456832591430}
   myContainer: {fileID: 0}
   moveSpeed: 1
-  railPos: 0
   progress: 0
   currentStop: 0
