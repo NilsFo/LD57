@@ -48,6 +48,15 @@ public class PhotoCamera : MonoBehaviour
         }
         
         Debug.Log("Photoshoot hit " + hits.Count + " Entities");
+        
+        foreach (GameObject hit in hits)
+        {
+            PhotoListener listener = hit.GetComponentInChildren<PhotoListener>();
+            if (listener != null)
+            {
+                listener.OnPhotoTaken();
+            }
+        }
     }
 
     private GameObject ShootPhotoRay(Ray r)
