@@ -10,15 +10,16 @@ namespace NodeGraph
         [SerializeField]
         private GameState gameState;
         
-        private int _id;
+        [SerializeField]
+        private int id;
         
         [SerializeField]
         private List<GameObject> neighborNodes;
         
         public int ID
         {
-            get => _id;
-            set => _id = value;
+            get => id;
+            set => id = value;
         }
 
         public void AddNeighbor(GameObject start)
