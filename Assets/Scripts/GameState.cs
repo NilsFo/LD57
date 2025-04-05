@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
+    public Transform worldOrigin;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
