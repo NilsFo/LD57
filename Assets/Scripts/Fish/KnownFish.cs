@@ -28,14 +28,14 @@ public class KnownFish : MonoBehaviour
     {
         if (IsKnown(data))
         {
-            Debug.Log("Fish already known: " + data.albumName);
+            Debug.Log("Fish already known: " + data.displayName);
             return;
         }
 
         currentlyKnownFish.Add(data);
         currentlyKnownFish.Sort();
 
-        Debug.Log("New fish added to album: " + data.albumName);
+        Debug.Log("New fish added to album: " + data.displayName);
         Debug.Log("Fish known now: " + KnownFishCount + "/" + AllFishCount);
     }
 
