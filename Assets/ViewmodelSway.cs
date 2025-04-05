@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ViewmodelSway : MonoBehaviour
@@ -19,19 +20,22 @@ public class ViewmodelSway : MonoBehaviour
     public float step_size = 0.8f;
     public float walk_sway = 85f;
     public float walk_recover = 5f;
-    public float view_rotation = 5f;
+    public float view_rotation_recover = 5f;
+    public float view_rotation_intensity = 5f;
 
 
     public float breath_period = 3f;
-    public Vector3 breath_transform = Vector3.zero;
+    private Vector3 breath_transform = Vector3.zero;
 
     private float _breath = 0f;
+
+    private Vector2 mouseMovVec;
     // Update is called once per frame
     void Update()
     {
         // Looking
-        //var mouseMov = mouseLook.SmoothMouse;
-        // TODO Move by rotation
+        mouseMovVec += mouseLook.GetMouseDelta() * Time.deltaTime;
+        mouseMovVec = Vector2.Lerp(mouseMovVec, Vector2.zero, Time.deltaTime * view_rotation_recover);
         
         // Swaying
         _sway_vec.x = Mathf.Lerp(_sway_vec.x, 0f, Time.deltaTime*walk_recover);
@@ -58,6 +62,7 @@ public class ViewmodelSway : MonoBehaviour
         Sway(hip * (Time.deltaTime * walk_sway));
 
         transform.localPosition = _sway_vec + _breath_pos;
+        transform.localRotation = quaternion.LookRotation(new Vector3(-mouseMovVec.x * view_rotation_intensity, -mouseMovVec.y * view_rotation_intensity, 1f), Vector3.up);
     }
 
     public void Sway(Vector3 swayAmount)
