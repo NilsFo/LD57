@@ -97,6 +97,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeaderFish
       objectReference: {fileID: 0}
+    - target: {fileID: 6364039302074867547, guid: efa5cd95c0e9c8c449efc2869b95d62f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364039302074867547, guid: efa5cd95c0e9c8c449efc2869b95d62f, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
