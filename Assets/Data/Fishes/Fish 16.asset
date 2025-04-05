@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45cae087663433ca66985814fbcfa76, type: 3}
   m_Name: Fish 16
   m_EditorClassIdentifier: 
-  albumName: 
+  displayName: Mourning Bones
   albumSprite: {fileID: 21300000, guid: 7aa015f84fff1fa43bb3b7f4de8d6287, type: 3}
