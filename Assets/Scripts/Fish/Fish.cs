@@ -20,7 +20,8 @@ public class Fish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        progress += (moveSpeed * Time.deltaTime) % 1;
+        progress += (moveSpeed * Time.deltaTime);
+        progress = progress % _railLength;
 
         if (myContainer != null)
         {
