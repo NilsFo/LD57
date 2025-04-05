@@ -1,3 +1,4 @@
+using GogoGaga.OptimizedRopesAndCables;
 using UnityEngine;
 
 namespace NodeGraph
@@ -5,7 +6,19 @@ namespace NodeGraph
     public class GraphEdge: MonoBehaviour
     {
         [SerializeField]
-        GameObject[] nodes;
+        private GameObject[] nodes;
+        
+        [SerializeField]
+        private Rope rope;
+
+        [SerializeField]
+        private GameObject ropeStartNode;
+        
+        [SerializeField]
+        private GameObject ropeEndNode;
+        
+        [SerializeField]
+        private float slag;
         
         private Vector3 _direction;
         
@@ -34,6 +47,13 @@ namespace NodeGraph
         public GameObject[] AddNodes(GameObject startNode, GameObject endNode)
         {
             nodes = new [] { startNode, endNode };
+
+            ropeStartNode.transform.position = startNode.transform.position;
+            ropeEndNode.transform.position = endNode.transform.position;
+
+            rope.ropeLength = (startNode.transform.position - endNode.transform.position).magnitude + slag;
+            rope.RecalculateRope();
+            
             CalcDirection();
             return nodes;
         }
