@@ -530,17 +530,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6467932015882015342, guid: a2b4f008a39ae3210991107c7df478c2, type: 3}
-      propertyPath: dampening
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6467932015882015342, guid: a2b4f008a39ae3210991107c7df478c2, type: 3}
       propertyPath: gameState
       value: 
       objectReference: {fileID: 917328437}
-    - target: {fileID: 6467932015882015342, guid: a2b4f008a39ae3210991107c7df478c2, type: 3}
-      propertyPath: acceleration
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 8131139703991539679, guid: a2b4f008a39ae3210991107c7df478c2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -947,7 +939,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7062219796145172789, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
 --- !u!1001 &2038844280
 PrefabInstance:
@@ -1004,7 +999,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7062219796145172789, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
 --- !u!1 &2071478903
 GameObject:

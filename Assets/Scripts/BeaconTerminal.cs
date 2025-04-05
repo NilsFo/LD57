@@ -44,6 +44,7 @@ public class BeaconTerminal : MonoBehaviour
     {
         _knownFish = FindFirstObjectByType<KnownFish>();
         mouseLook = FindAnyObjectByType<MouseLook>();
+        hose_event_fired=false;
 
         if (onHoseAvailable == null) onHoseAvailable = new UnityEvent();
 
@@ -54,7 +55,7 @@ public class BeaconTerminal : MonoBehaviour
     void Update()
     {
         float player_distance = Vector3.Distance(transform.position, mouseLook.transform.position);
-        if (player_distance < activationDistance)
+        if (player_distance > activationDistance)
         {
             canvasHolder.SetActive(false);
             return;
@@ -69,17 +70,9 @@ public class BeaconTerminal : MonoBehaviour
                 break;
             case BeaconState.FISH_COUNT:
                 _hose_wait_time_current += Time.deltaTime;
-                if (_hose_wait_time_current > hose_wait_time)
-                {
-                    hose_available = true;
-                    if (!hose_event_fired)
-                    {
-                        hose_event_fired = true;
-                        OnHoseAvailable();
-                    }
-                }
 
-                float hose_progress = _hose_wait_time_current / hose_wait_time * 100;
+                int hose_progress = (int)(_hose_wait_time_current / hose_wait_time * 100);
+                hose_progress = Math.Min(hose_progress, 100);
                 string hose_progress_s = hose_progress + "";
                 if (hose_progress < 10)
                 {
@@ -89,6 +82,16 @@ public class BeaconTerminal : MonoBehaviour
                 if (hose_progress < 100)
                 {
                     hose_progress_s = "0" + hose_progress;
+                }
+
+                if (hose_progress == 100)
+                {
+                    hose_available = true;
+                    if (!hose_event_fired)
+                    {
+                        hose_event_fired = true;
+                        OnHoseAvailable();
+                    }
                 }
 
                 var progress_text = "COMPRESSING\n" +
@@ -124,6 +127,11 @@ public class BeaconTerminal : MonoBehaviour
         }
 
         return count;
+    }
+
+    public void ActivateByPlayer()
+    {
+        beaconState = BeaconState.FISH_COUNT;
     }
 
     private void OnHoseAvailable()

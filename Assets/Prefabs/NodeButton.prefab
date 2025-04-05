@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 510921448145408153}
   - component: {fileID: 4193119578840399194}
-  - component: {fileID: 4084894286764875592}
+  - component: {fileID: 548620199405623474}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -75,8 +75,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1.27, y: 2.34, z: 1.27}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8381245788897863888}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -101,7 +101,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4084894286764875592
+--- !u!114 &548620199405623474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,22 +114,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteractable: 1
-  interactionPrompt: Press
+  interactionPrompt: Attach your oxygin hose
   onPlayerInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6799079971684952742}
-        m_TargetAssemblyTypeName: NodeGraph.GraphNode, Assembly-CSharp
-        m_MethodName: AddAsPartialEdgeNode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6808262812365623065
 GameObject:
   m_ObjectHideFlags: 0
