@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5d34846f1145869f5daec166a670a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 0}
   neighborNodes: []
 --- !u!1 &4693970729325561958
 GameObject:
@@ -238,6 +239,34 @@ PrefabInstance:
     - target: {fileID: 4412624726569759819, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
       propertyPath: m_Name
       value: PlayerButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626890229341037594, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626890229341037594, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626890229341037594, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5658226553855380698}
+    - target: {fileID: 6626890229341037594, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626890229341037594, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddAsPartialEdgeNode
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626890229341037594, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NodeGraph.GraphNode, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626890229341037594, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7228326202120891339, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
       propertyPath: m_LocalPosition.x

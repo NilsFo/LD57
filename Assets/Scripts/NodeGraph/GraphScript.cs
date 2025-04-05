@@ -13,9 +13,11 @@ namespace NodeGraph
         
         [SerializeField]
         private List<GameObject> edges;
+
+        [SerializeField] 
+        private GameObject partialNodeForEdge;
         
-        //Add Edge
-        public GraphEdge AddEdge(GraphNode startNode, GraphNode endNode)
+        private GraphEdge AddEdge(GameObject startNode, GameObject endNode)
         {
             var instance = Instantiate(prefabEdges, transform);
             edges.Add(instance);
@@ -23,10 +25,39 @@ namespace NodeGraph
             var edge = instance.GetComponent<GraphEdge>();
             edge.AddNodes(startNode, endNode);
             
+            var start = startNode.GetComponent<GraphNode>();
+            var end = startNode.GetComponent<GraphNode>();
+            start.AddNeighbor(endNode);
+            end.AddNeighbor(startNode);
+            
             return edge;
         }
         
-        //Find Distance edges/nodes#
+        public void AddPartialNodeForEdge(GameObject node)
+        {
+            GraphNode comp = node.GetComponent<GraphNode>();
+            //if (comp ==null) return false;
+            if (partialNodeForEdge == null)
+            {
+                partialNodeForEdge = node;
+                //return true;
+            }
+            AddEdge(partialNodeForEdge, node);
+            partialNodeForEdge = null;
+            //return true;
+        }
+
+        public bool RemovePartialNodeForEdge()
+        {
+            if (partialNodeForEdge == null)
+            {
+                return false;
+            }
+
+            partialNodeForEdge = null;
+            return true;
+        }
+        
         public Vector3 FindNearestPoint(Vector3 point)
         {
             Vector3 nearestPoint = Vector3.positiveInfinity;
