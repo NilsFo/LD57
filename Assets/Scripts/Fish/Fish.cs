@@ -22,13 +22,13 @@ public class Fish : MonoBehaviour
         _pathLength = myContainer.CalculateLength();
         _gameState = FindFirstObjectByType<GameState>();
         _knownFish = FindFirstObjectByType<KnownFish>();
-
-        mySpriteRenderer.sprite = data.albumSprite;
     }
 
     // Update is called once per frame
     void Update()
     {
+        mySpriteRenderer.sprite = data.albumSprite;
+
         progress += (moveSpeed * Time.deltaTime);
         progress = progress % _pathLength;
 

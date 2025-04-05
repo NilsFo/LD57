@@ -8,6 +8,7 @@ public class FishData : ScriptableObject
 
     [Header("Visuals")] public Sprite albumSprite;
 
+
     private void OnValidate()
     {
     }

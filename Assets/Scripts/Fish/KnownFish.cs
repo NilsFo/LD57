@@ -33,7 +33,6 @@ public class KnownFish : MonoBehaviour
         }
 
         currentlyKnownFish.Add(data);
-        currentlyKnownFish.Sort();
 
         Debug.Log("New fish added to album: " + data.displayName);
         Debug.Log("Fish known now: " + KnownFishCount + "/" + AllFishCount);
