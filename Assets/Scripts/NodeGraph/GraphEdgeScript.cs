@@ -5,11 +5,11 @@ namespace NodeGraph
     public class GraphEdge: MonoBehaviour
     {
         [SerializeField]
-        GraphNode[] nodes;
+        GameObject[] nodes;
         
         private Vector3 _direction;
         
-        public GraphNode[] Nodes
+        public GameObject[] Nodes
         {
             get => nodes;
             set => nodes = value;
@@ -31,7 +31,7 @@ namespace NodeGraph
             get => nodes[1].transform.position;
         }
 
-        public GraphNode[] AddNodes(GraphNode startNode, GraphNode endNode)
+        public GameObject[] AddNodes(GameObject startNode, GameObject endNode)
         {
             nodes = new [] { startNode, endNode };
             CalcDirection();

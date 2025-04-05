@@ -255,6 +255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685d99d6e2b7433409c506c45da3d361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 0}
+  nodeGraph: {fileID: 0}
+  leashDistance: 6
   maximumSpeed: 6
   sprintSpeedModifier: 1.5
   crouchSpeedModifier: 0.5
