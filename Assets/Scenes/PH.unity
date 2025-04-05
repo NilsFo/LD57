@@ -135,18 +135,6 @@ PrefabInstance:
       propertyPath: leashDistance
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 7659649879822091338, guid: 1309fd76e974e194c81d34d2d1b68ece, type: 3}
-      propertyPath: nodes.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7659649879822091338, guid: 1309fd76e974e194c81d34d2d1b68ece, type: 3}
-      propertyPath: 'nodes.Array.data[0]'
-      value: 
-      objectReference: {fileID: 974117001}
-    - target: {fileID: 7659649879822091338, guid: 1309fd76e974e194c81d34d2d1b68ece, type: 3}
-      propertyPath: 'nodes.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1894360134}
     - target: {fileID: 7808556335404190444, guid: 1309fd76e974e194c81d34d2d1b68ece, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -311,11 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3820817d91bfa44a79579777a66400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &974117001 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5408278004960904155, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
-  m_PrefabInstance: {fileID: 2038844280}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1400067431
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,11 +617,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1894360134 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5408278004960904155, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
-  m_PrefabInstance: {fileID: 1976669302}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1905993643
 PrefabInstance:
   m_ObjectHideFlags: 0
