@@ -13,17 +13,22 @@ public class Fish : MonoBehaviour
     public float progress = 0;
     public int currentStop = 0;
 
+    private GameState _gameState;
+    private KnownFish _knownFish;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _pathLength = myContainer.CalculateLength();
-
-        mySpriteRenderer.sprite = data.albumSprite;
+        _gameState = FindFirstObjectByType<GameState>();
+        _knownFish = FindFirstObjectByType<KnownFish>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        mySpriteRenderer.sprite = data.albumSprite;
+
         progress += (moveSpeed * Time.deltaTime);
         progress = progress % _pathLength;
 
@@ -32,5 +37,10 @@ public class Fish : MonoBehaviour
             myContainer.Evaluate(progress / _pathLength, out var pos, out var tangent, out _);
             transform.position = pos;
         }
+    }
+
+    public void OnPhotoTaken()
+    {
+        _knownFish.RegisterFish(data);
     }
 }

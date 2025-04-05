@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45cae087663433ca66985814fbcfa76, type: 3}
   m_Name: Fish 6
   m_EditorClassIdentifier: 
-  albumName: 
+  displayName: Baltic Tinyfin
   albumSprite: {fileID: 21300000, guid: bba640fc3ba0852449fe149080db3a43, type: 3}
