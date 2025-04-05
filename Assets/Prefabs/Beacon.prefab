@@ -148,6 +148,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4329443657662874976}
     m_Modifications:
+    - target: {fileID: 510921448145408153, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 510921448145408153, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 510921448145408153, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 548620199405623474, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 548620199405623474, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 548620199405623474, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5658226553855380698}
+    - target: {fileID: 548620199405623474, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 548620199405623474, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddAsPartialEdgeNode
+      objectReference: {fileID: 0}
+    - target: {fileID: 548620199405623474, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NodeGraph.GraphNode, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 548620199405623474, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3856958451954455645, guid: dead4d163de03b744a615c30da98e456, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.24
@@ -155,6 +195,22 @@ PrefabInstance:
     - target: {fileID: 4128249225077574513, guid: dead4d163de03b744a615c30da98e456, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193119578840399194, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193119578840399194, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_Size.y
+      value: 3.8217163
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193119578840399194, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_Size.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193119578840399194, guid: dead4d163de03b744a615c30da98e456, type: 3}
+      propertyPath: m_Center.y
+      value: -0.0012440681
       objectReference: {fileID: 0}
     - target: {fileID: 6808262812365623065, guid: dead4d163de03b744a615c30da98e456, type: 3}
       propertyPath: m_Name
@@ -214,6 +270,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4128249225077574513, guid: dead4d163de03b744a615c30da98e456, type: 3}
   m_PrefabInstance: {fileID: 1215162815446951548}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5658226553855380698 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6799079971684952742, guid: dead4d163de03b744a615c30da98e456, type: 3}
+  m_PrefabInstance: {fileID: 1215162815446951548}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5d34846f1145869f5daec166a670a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7245458953944190636 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8381245788897863888, guid: dead4d163de03b744a615c30da98e456, type: 3}
