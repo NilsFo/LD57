@@ -54,7 +54,6 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (Vector3.ProjectOnPlane(hit.point - playerLook.transform.position, Vector3.up).magnitude <= radius)
             {
-                print("hit");
                 return (true, hit);
             }
         }
@@ -78,8 +77,6 @@ public class PlayerInteraction : MonoBehaviour
                 _interactableCache = hitInteractable;
             }
             
-            print("hit");
-
             return hitInteractable;
         }
 
