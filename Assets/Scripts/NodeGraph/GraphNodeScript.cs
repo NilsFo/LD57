@@ -28,8 +28,8 @@ namespace NodeGraph
 
         public void AddAsPartialEdgeNode()
         {
-            GraphScript graph = gameState.GetComponent<GraphScript>();
-            graph.AddPartialNodeForEdge(gameObject);
+            NodeGraph nodeGraph = gameState.GetComponent<NodeGraph>();
+            nodeGraph.AddPartialNodeForEdge(gameObject);
         }
         
         private void Start()

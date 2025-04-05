@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7730eb51b2c74b579f0d24dab00d915d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabEdges: {fileID: 0}
+  prefabEdges: {fileID: 7220566443486828381, guid: 61bd6f6a0f9abfc46a85bc29876f9ae0, type: 3}
   nodes: []
   edges: []
+  partialNodeForEdge: {fileID: 0}

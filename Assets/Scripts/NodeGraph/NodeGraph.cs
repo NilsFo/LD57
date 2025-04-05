@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NodeGraph
 {
-    public class GraphScript : MonoBehaviour
+    public class NodeGraph : MonoBehaviour
     {
         [SerializeField]
         private GameObject prefabEdges;
@@ -12,7 +12,7 @@ namespace NodeGraph
         private List<GameObject> nodes;
         
         [SerializeField]
-        private List<GameObject> edges;
+        private List<GraphEdge> edges;
 
         [SerializeField] 
         private GameObject partialNodeForEdge;
@@ -20,9 +20,8 @@ namespace NodeGraph
         private GraphEdge AddEdge(GameObject startNode, GameObject endNode)
         {
             var instance = Instantiate(prefabEdges, transform);
-            edges.Add(instance);
-            
             var edge = instance.GetComponent<GraphEdge>();
+            edges.Add(edge);
             edge.AddNodes(startNode, endNode);
             
             var start = startNode.GetComponent<GraphNode>();
@@ -36,15 +35,18 @@ namespace NodeGraph
         public void AddPartialNodeForEdge(GameObject node)
         {
             GraphNode comp = node.GetComponent<GraphNode>();
-            //if (comp ==null) return false;
+            if (comp ==null) return;
             if (partialNodeForEdge == null)
             {
                 partialNodeForEdge = node;
-                //return true;
+                return;
+            }
+            if (node == partialNodeForEdge)
+            {
+                return;
             }
             AddEdge(partialNodeForEdge, node);
             partialNodeForEdge = null;
-            //return true;
         }
 
         public bool RemovePartialNodeForEdge()
@@ -60,12 +62,11 @@ namespace NodeGraph
         
         public Vector3 FindNearestPoint(Vector3 point)
         {
-            Vector3 nearestPoint = Vector3.positiveInfinity;
-            foreach (var instance in edges)
+            var diff = point - nodes[0].transform.position;
+            Vector3 nearestPoint = diff.normalized * 5;
+            foreach (var edge in edges)
             {
-                var edge = instance.GetComponent<GraphEdge>();
                 var len = edge.Direction.magnitude;
-                
                 var v = point - edge.StartPoint;
                 var d = Vector3.Dot(v, edge.Direction);
                 d = Mathf.Clamp(d, 0f, len);

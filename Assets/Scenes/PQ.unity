@@ -371,10 +371,6 @@ PrefabInstance:
       value: GameState
       objectReference: {fileID: 0}
     - target: {fileID: 7659649879822091338, guid: 1309fd76e974e194c81d34d2d1b68ece, type: 3}
-      propertyPath: prefabEdges
-      value: 
-      objectReference: {fileID: 7220566443486828381, guid: 61bd6f6a0f9abfc46a85bc29876f9ae0, type: 3}
-    - target: {fileID: 7659649879822091338, guid: 1309fd76e974e194c81d34d2d1b68ece, type: 3}
       propertyPath: nodes.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -449,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2963022621328461671, guid: a2b4f008a39ae3210991107c7df478c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.1854072
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2963022621328461671, guid: a2b4f008a39ae3210991107c7df478c2, type: 3}
       propertyPath: m_LocalRotation.w
