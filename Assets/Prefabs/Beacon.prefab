@@ -239,9 +239,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: activationDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142999999949146012, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: fishDiscoveryRange
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5464689811284795101, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
       propertyPath: m_Name
       value: BeaconTerminal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8911938525289829927, guid: b94d7f301871e3544be4d73adc6d4ef0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
