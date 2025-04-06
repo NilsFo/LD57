@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -15,7 +16,8 @@ public class MusicManager : MonoBehaviour
     public static float userDesiredSoundVolume = 0.5f;
     public static float userDesiredMasterVolume = 0.5f;
 
-    [Header("Custom sound level balance")] [Range(0, 1)]
+    [Header("Custom sound level balance")]
+    [Range(0, 1)]
     public float baselineMusicVolume = 1.0f;
 
     [Range(0, 1)] public float baselineSoundVolume = 1.0f;
@@ -37,12 +39,20 @@ public class MusicManager : MonoBehaviour
 
     [Header("Config")] public float binningVolumeMult = 0.15f;
     public float musicFadeSpeed = 1;
+    public bool autoStopSilentMusic = false;
 
     [Header("Playlist")] public List<AudioSource> initiallyKnownSongs;
+
+    [Header("Events")]
+    public UnityEvent<int> onMusicStopped;
+
+    // ############
+    // internal states
     private AudioListener _listener;
 
     private List<AudioSource> _playList;
     private List<int> _desiredMixingVolumes;
+    private List<int> lastKnownPlayingStates;
 
     // Audio Binning
     private Dictionary<string, float> _audioJail;
@@ -51,32 +61,34 @@ public class MusicManager : MonoBehaviour
     {
         _playList = new List<AudioSource>();
         _desiredMixingVolumes = new List<int>();
+        lastKnownPlayingStates = new List<int>();
 
         foreach (AudioSource song in initiallyKnownSongs)
         {
             _playList.Add(song);
-            song.Play();
+            song.Stop();
             song.volume = 0;
             _desiredMixingVolumes.Add(0);
         }
 
         SkipFade();
 
-        _listener = FindObjectOfType<AudioListener>();
+        _listener = FindFirstObjectByType<AudioListener>();
         _audioJail = new Dictionary<string, float>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (onMusicStopped == null)
+        {
+            onMusicStopped = new UnityEvent<int>();
+        }
     }
 
     public void Play(int index, bool fromBeginning = false)
     {
-        for (var i = 0; i < _playList.Count; i++)
-        {
-            _desiredMixingVolumes[i] = 0;
-        }
+        Stop();
 
         if (fromBeginning)
         {
@@ -88,9 +100,14 @@ public class MusicManager : MonoBehaviour
         if (!_playList[index].isPlaying)
         {
             _playList[index].Play();
-        }
 
-        // print("Playing: " + _playList[index].gameObject.name);
+            if (lastKnownPlayingStates.Contains(index))
+            {
+                lastKnownPlayingStates.Add(index);
+            }
+
+            Debug.Log("MusicManager: Now Playing: " + _playList[index].gameObject.name);
+        }
     }
 
     public void SkipFade()
@@ -101,24 +118,38 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    public void Stop()
+    {
+        for (var i = 0; i < _playList.Count; i++)
+        {
+            _desiredMixingVolumes[i] = 0;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        // ################################
+        // Forcing Mixer Settings
         audioMixer.SetFloat(musicTrackName, userDesiredMusicVolumeDB);
         audioMixer.SetFloat(soundEffectsTrackName, userDesiredSoundVolumeDB);
         audioMixer.SetFloat(masterTrackName, userDesiredMasterVolumeDB);
 
+        // if setup failed, silently fail
         if (_audioJail == null) return;
 
+        // following the audio listener
         transform.position = _listener.transform.position;
         userDesiredSoundVolume = MathF.Min(userDesiredMusicVolume * 1.0f, 1.0f);
 
+        // ################################
+        // MUSIC FADE
         for (var i = 0; i < _playList.Count; i++)
         {
-            var audioSource = _playList[i];
-            var volumeMixing = _desiredMixingVolumes[i];
+            AudioSource audioSource = _playList[i];
+            int volumeMixing = _desiredMixingVolumes[i];
 
-            var trueVolume = Mathf.MoveTowards(audioSource.volume,
+            float trueVolume = Mathf.MoveTowards(audioSource.volume,
                 volumeMixing,
                 Time.deltaTime * musicFadeSpeed);
 
@@ -127,9 +158,41 @@ public class MusicManager : MonoBehaviour
                 trueVolume = 0;
             }
 
+            // setting the audio source volume
             audioSource.volume = trueVolume;
+
+            // if the volume is 0, we can stop
+            if (trueVolume == 0 && autoStopSilentMusic)
+            {
+                audioSource.Stop();
+                Debug.Log("MuscManager: Auto stopping: " + audioSource.gameObject.name);
+            }
+
+            // if the song is not looping and not playing audio, we can tune down the volume
+            if (!audioSource.isPlaying && !audioSource.loop)
+            {
+                _desiredMixingVolumes[i] = 0;
+                audioSource.volume = 0;
+            }
         }
 
+        // ################################
+        // DETECTING IF A SONG HAS FINISHED
+        for (var i = 0; i < _playList.Count; i++)
+        {
+            AudioSource audioSource = _playList[i];
+
+            // checking if we stopped (ether because of natural reasons or because the audio source has run out)
+            if (audioSource.isPlaying && lastKnownPlayingStates.Contains(i))
+            {
+                lastKnownPlayingStates.Remove(i);
+                Debug.Log("MuscManager: Stopped playing: " + audioSource.gameObject.name);
+                OnMusicStoppedPlaying(i);
+            }
+        }
+
+        // ################################
+        // AUDIO BINNING
         var keys = _audioJail.Keys.ToArrayPooled().ToList();
         List<string> releaseKeys = new List<string>();
         if (keys.Count > 0)
@@ -158,6 +221,23 @@ public class MusicManager : MonoBehaviour
         {
             pg += " - " + audioSource.time;
         }
+    }
+
+    public void OnMusicStoppedPlaying(int index)
+    {
+        onMusicStopped.Invoke(index);
+    }
+
+    public bool IsPlayingMusic()
+    {
+        for (var i = 0; i < _playList.Count; i++)
+        {
+            if (_desiredMixingVolumes[i] > 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void LateUpdate()
