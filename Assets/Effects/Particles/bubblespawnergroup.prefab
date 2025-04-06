@@ -14509,7 +14509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 216774005846599028}
   m_Layer: 0
-  m_Name: bubblespawnergroup
+  m_Name: Bubblespawnergroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
