@@ -67,9 +67,6 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector3 groundNormal = GetNormalBelow();
 
-        velocity.x = _controller.velocity.x;
-        velocity.z = _controller.velocity.z;
-
         var velocityXZ = Vector3.ProjectOnPlane(velocity, Vector3.up);
 
         bool isGrounded = _controller.isGrounded &&
@@ -164,7 +161,7 @@ public class CharacterMovement : MonoBehaviour
 
             if (isGrounded)
             {
-                DampenXZ();
+                //DampenXZ();
 
                 _acc.x = x;
                 _acc.z = z;
@@ -182,7 +179,7 @@ public class CharacterMovement : MonoBehaviour
                 {
                     // dot product
                     // Stop on backwards
-                    DampenXZ();
+                    //DampenXZ();
                 }
 
                 _acc.x = x;
@@ -276,7 +273,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (inputDisabled && isGrounded)
         {
-            DampenXZ();
+            //DampenXZ();
         }
 
         // local acceleration to world velocity
@@ -398,15 +395,20 @@ public class CharacterMovement : MonoBehaviour
         Mathf.Min(pushForceMultiplier * rb.mass / characterMass, 1f);*/
     }
 
+    private void FixedUpdate()
+    {
+        velocity.x = _controller.velocity.x;
+        velocity.z = _controller.velocity.z;
+        DampenXZ();
+    }
+
     private void DampenXZ()
     {
         Vector3 vXY = new Vector3(velocity.x, 0, velocity.z);
         if (vXY.magnitude == 0)
             return;
-        Vector3 damp = vXY.normalized;
-        damp.Normalize();
-        damp *= -dampening * Time.deltaTime;
-        if (damp.magnitude > vXY.magnitude)
+        var damp = Vector3.MoveTowards(vXY, Vector3.zero, dampening*vXY.magnitude);
+        /*if (damp.magnitude > vXY.magnitude)
         {
             vXY.x = 0;
             vXY.z = 0;
@@ -414,10 +416,10 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             vXY += damp;
-        }
+        }*/
 
-        velocity.x = vXY.x;
-        velocity.z = vXY.z;
+        velocity.x = damp.x;
+        velocity.z = damp.z;
     }
 
     public void SetUseGamepadOverKbm(bool newValue)

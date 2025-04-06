@@ -240,9 +240,9 @@ namespace GogoGaga.OptimizedRopesAndCables
         private void SimulatePhysics()
         {
             float dampingFactor = Mathf.Max(0, 1 - damping * Time.fixedDeltaTime);
-            Vector3 acceleration = (targetValue - currentValue) * stiffness * Time.fixedDeltaTime;
+            Vector3 acceleration = (targetValue - currentValue) * stiffness * Time.fixedDeltaTime / 3f;
             currentVelocity = currentVelocity * dampingFactor + acceleration + otherPhysicsFactors;
-            currentValue += currentVelocity * Time.fixedDeltaTime;
+            currentValue += currentVelocity * Time.fixedDeltaTime / 50f;
 
             if (Vector3.Distance(currentValue, targetValue) < valueThreshold && currentVelocity.magnitude < velocityThreshold)
             {
