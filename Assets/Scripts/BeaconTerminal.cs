@@ -23,6 +23,8 @@ public class BeaconTerminal : MonoBehaviour
     public TMP_Text displayText;
     public GameObject canvasHolder;
 
+    public bool activeOnStart = false;
+
     [Header("Hose timer")]
     public float hoseWaitTime = 10;
     private float _hoseWaitTimeCurrent = 0;
@@ -54,6 +56,14 @@ public class BeaconTerminal : MonoBehaviour
         if (onHoseAvailable == null) onHoseAvailable = new UnityEvent();
 
         foreach (var fish in nearbyFishForce) AddNearbyFish(fish);
+    }
+
+    private void Start()
+    {
+        if (activeOnStart)
+        {
+            ActivateByPlayer();
+        }
     }
 
     // Update is called once per frame
