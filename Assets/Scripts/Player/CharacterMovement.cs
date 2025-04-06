@@ -7,10 +7,9 @@ using UnityEngine.Serialization;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [Header("Meta")] 
-    public GameState gameState;
+    [Header("Meta")] public GameState gameState;
     public NodeGraph.NodeGraph nodeGraph;
-    
+
     [Header("Movement Parameters")] public float maximumSpeed = 6f;
     public float sprintSpeedModifier = 1.5f;
     public float crouchSpeedModifier = 0.5f;
@@ -59,7 +58,7 @@ public class CharacterMovement : MonoBehaviour
         _myLayerMask = GetPhysicsLayerMask(gameObject.layer);
         gameState = FindFirstObjectByType<GameState>();
         nodeGraph = gameState.GetComponent<NodeGraph.NodeGraph>();
-        
+
         if (_camera)
             _eyesToHeadDist = (playerHeightStanding - _camera.transform.localPosition.y * 2);
     }
@@ -74,7 +73,7 @@ public class CharacterMovement : MonoBehaviour
         var velocityXZ = Vector3.ProjectOnPlane(velocity, Vector3.up);
 
         bool isGrounded = _controller.isGrounded &&
-                            Vector3.Angle(groundNormal, Vector3.up) < _controller.slopeLimit;
+                          Vector3.Angle(groundNormal, Vector3.up) < _controller.slopeLimit;
         // Coyote Time
         if (isGrounded)
             _jumpCoyoteTimer = 0;
@@ -179,7 +178,7 @@ public class CharacterMovement : MonoBehaviour
                 var localVelocity = transform.worldToLocalMatrix.rotation * velocity;
                 if ((localVelocity.x * x + localVelocity.z * z) /
                     (Mathf.Sqrt(localVelocity.x * localVelocity.x + localVelocity.z * localVelocity.z) *
-                        Mathf.Sqrt(x * x + z * z)) < -0.5f)
+                     Mathf.Sqrt(x * x + z * z)) < -0.5f)
                 {
                     // dot product
                     // Stop on backwards
@@ -268,8 +267,8 @@ public class CharacterMovement : MonoBehaviour
                 _camera.transform.localPosition = new Vector3(0, (playerHeightCrouching - _eyesToHeadDist) / 2, 0);
             }
             else if (((crouchPressed && crouchEnabled) ||
-                        (jumpPressed && jumpEnabled) ||
-                        (sprintPressed && sprintEnabled)) && crouching)
+                      (jumpPressed && jumpEnabled) ||
+                      (sprintPressed && sprintEnabled)) && crouching)
             {
                 bool couldStandUp = StandUp();
             }
@@ -314,15 +313,15 @@ public class CharacterMovement : MonoBehaviour
         var moveDistance = velocity * Time.deltaTime;
         CollisionFlags flags = _controller.Move(moveDistance);
         Vector3 nearestPoint = nodeGraph.FindNearestPoint(transform.position);
-        
+
         Vector3 distance = transform.position - nearestPoint;
-        if (distance.magnitude > nodeGraph.leashDistance)
+        if (distance.magnitude > nodeGraph.GetLeashDistance())
         {
             Vector3 moveCorrection = nodeGraph.FindNearestBorderPoint(transform.position);
             Vector3 diff = moveCorrection - transform.position;
             flags |= _controller.Move(diff);
-        } 
-        
+        }
+
         if ((flags & CollisionFlags.Above) != 0)
         {
             // head bump :(

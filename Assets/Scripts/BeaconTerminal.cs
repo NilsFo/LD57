@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class BeaconTerminal : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class BeaconTerminal : MonoBehaviour
         FISH_COUNT
     }
 
-    private MouseLook mouseLook;
+    private MouseLook _mouseLook;
     public float activationDistance = 20f;
 
     public BeaconState beaconState = BeaconState.WAITING_FOR_PLAYER;
@@ -22,10 +23,10 @@ public class BeaconTerminal : MonoBehaviour
     public GameObject canvasHolder;
 
     [Header("Hose timer")]
-    public float hose_wait_time = 10;
-    public float _hose_wait_time_current = 0;
-    public bool hose_available = false;
-    private bool hose_event_fired = false;
+    public float hoseWaitTime = 10;
+    private float _hoseWaitTimeCurrent = 0;
+    public bool hoseAvailable = false;
+    private bool _hoseEventFired = false;
     public UnityEvent onHoseAvailable;
 
     [Header("Fish")]
@@ -43,8 +44,8 @@ public class BeaconTerminal : MonoBehaviour
     void Start()
     {
         _knownFish = FindFirstObjectByType<KnownFish>();
-        mouseLook = FindAnyObjectByType<MouseLook>();
-        hose_event_fired=false;
+        _mouseLook = FindAnyObjectByType<MouseLook>();
+        _hoseEventFired=false;
 
         if (onHoseAvailable == null) onHoseAvailable = new UnityEvent();
 
@@ -54,7 +55,7 @@ public class BeaconTerminal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float player_distance = Vector3.Distance(transform.position, mouseLook.transform.position);
+        float player_distance = Vector3.Distance(transform.position, _mouseLook.transform.position);
         if (player_distance > activationDistance)
         {
             canvasHolder.SetActive(false);
@@ -69,9 +70,9 @@ public class BeaconTerminal : MonoBehaviour
                 displayText.text = "AWAITING\n\nUSER\n\nINPUT";
                 break;
             case BeaconState.FISH_COUNT:
-                _hose_wait_time_current += Time.deltaTime;
+                _hoseWaitTimeCurrent += Time.deltaTime;
 
-                int hose_progress = (int)(_hose_wait_time_current / hose_wait_time * 100);
+                int hose_progress = (int)(_hoseWaitTimeCurrent / hoseWaitTime * 100);
                 hose_progress = Math.Min(hose_progress, 100);
                 string hose_progress_s = hose_progress + "";
                 if (hose_progress < 10)
@@ -86,10 +87,10 @@ public class BeaconTerminal : MonoBehaviour
 
                 if (hose_progress == 100)
                 {
-                    hose_available = true;
-                    if (!hose_event_fired)
+                    hoseAvailable = true;
+                    if (!_hoseEventFired)
                     {
-                        hose_event_fired = true;
+                        _hoseEventFired = true;
                         OnHoseAvailable();
                     }
                 }
