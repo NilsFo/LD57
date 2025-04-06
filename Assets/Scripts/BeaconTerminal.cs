@@ -56,6 +56,10 @@ public class BeaconTerminal : MonoBehaviour
         foreach (var fish in nearbyFishForce) AddNearbyFish(fish);
     }
 
+    private void Start()
+    {
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -71,7 +75,7 @@ public class BeaconTerminal : MonoBehaviour
         switch (beaconState)
         {
             case BeaconState.WAITING_FOR_PLAYER:
-                displayText.text = "AWAITING\n\nUSER\n\nINPUT";
+                displayText.text = "PLEASE\n\nSUPPLY\n\nWITH\n\nOXYGEN";
                 break;
             case BeaconState.FISH_COUNT:
                 _hoseWaitTimeCurrent += Time.deltaTime;
@@ -134,7 +138,7 @@ public class BeaconTerminal : MonoBehaviour
         return count;
     }
 
-    public void ActivateByPlayer()
+    public void StartLoading()
     {
         beaconState = BeaconState.FISH_COUNT;
     }

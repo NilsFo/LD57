@@ -7,7 +7,7 @@ public class PhotoCamera : MonoBehaviour
 {
     public float maxRange = 10f;
     public float paddingPercent = 0.1f;
-    private Camera _cam;
+    public Camera cam;
     private LayerMask _photoLayerMask;
 
     public List<GameObject> viewmodelsRaised;
@@ -25,7 +25,6 @@ public class PhotoCamera : MonoBehaviour
     {
         gameState = FindFirstObjectByType<GameState>();
         _photoLayerMask = LayerMask.GetMask("Default", "Entities");
-        _cam = GetComponent<Camera>();
     }
 
     private void Update()
@@ -110,15 +109,15 @@ public class PhotoCamera : MonoBehaviour
 
     public void TakePhoto()
     {
-        int width = Mathf.FloorToInt(_cam.pixelWidth * (1 - 2 * paddingPercent));
-        int height = Mathf.FloorToInt(_cam.pixelHeight * (1 - 2 * paddingPercent));
+        int width = Mathf.FloorToInt(cam.pixelWidth * (1 - 2 * paddingPercent));
+        int height = Mathf.FloorToInt(cam.pixelHeight * (1 - 2 * paddingPercent));
         var pixelStep = 32;
         List<GameObject> hits = new List<GameObject>();
-        for (int x = Mathf.FloorToInt(_cam.pixelWidth * paddingPercent); x < width; x += pixelStep)
+        for (int x = Mathf.FloorToInt(cam.pixelWidth * paddingPercent); x < width; x += pixelStep)
         {
-            for (int y = Mathf.FloorToInt(_cam.pixelHeight * paddingPercent); y < height; y += pixelStep)
+            for (int y = Mathf.FloorToInt(cam.pixelHeight * paddingPercent); y < height; y += pixelStep)
             {
-                var r = _cam.ScreenPointToRay(new Vector2(x, y));
+                var r = cam.ScreenPointToRay(new Vector2(x, y));
                 var foundObject = ShootPhotoRay(r);
                 if (foundObject == null)
                     continue;
