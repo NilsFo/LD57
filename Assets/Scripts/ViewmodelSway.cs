@@ -55,17 +55,18 @@ public class ViewmodelSway : MonoBehaviour
         walkSine += Time.deltaTime * v_xz.magnitude / step_size;
         if (walkSine > Mathf.PI * 2)
             walkSine -= Mathf.PI * 2;
-        if (v_xz.magnitude < 0.01)
+        if (v_xz.magnitude < 0.33)
             walkSine = 0;
         var left_foot = Mathf.Max(0, Mathf.Sin(walkSine + Mathf.PI));
         var right_foot = Mathf.Max(0, Mathf.Sin(walkSine));
+        var walk_lr = Mathf.Sin(walkSine);
         var hip = new Vector3(-1, -1, 0) * left_foot + new Vector3(1, -1, 0) * right_foot;
         Sway(hip * (Time.deltaTime * walk_sway));
 
         transform.localPosition = _sway_vec + _breath_pos;
         transform.localRotation =
             quaternion.LookRotation(
-                new Vector3(-mouseMovVec.x * view_rotation_intensity.x, -mouseMovVec.y * view_rotation_intensity.y, 1f),
+                new Vector3(walk_lr*0.01f - mouseMovVec.x * view_rotation_intensity.x, - mouseMovVec.y * view_rotation_intensity.y, 1f),
                 Vector3.up);
     }
 

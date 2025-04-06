@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 public class PhotoCamera : MonoBehaviour
 {
@@ -12,6 +8,14 @@ public class PhotoCamera : MonoBehaviour
     public float paddingPercent = 0.1f;
     private Camera _cam;
     private LayerMask _photoLayerMask;
+
+    public Animator camAnim;
+
+    public enum PhotoCameraState
+    {
+        Idle, Transition, Raised
+    }
+    public PhotoCameraState state;
 
     private void Start()
     {
@@ -21,10 +25,46 @@ public class PhotoCamera : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame && state == PhotoCameraState.Raised)
         {
             TakePhoto();
         }
+        
+        if ((Mouse.current.rightButton.wasPressedThisFrame) &&
+            state == PhotoCameraState.Raised)
+        {
+            Lower();
+        }
+        
+        if ((Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.rightButton.wasPressedThisFrame) &&
+            state == PhotoCameraState.Idle)
+        {
+            Raise();
+        }
+    }
+
+    public void Raise()
+    {
+        state = PhotoCameraState.Transition;
+        camAnim.SetTrigger("Aim");
+        Invoke(nameof(RaiseFinish), 10f/60f);
+    }
+
+    public void RaiseFinish()
+    {
+        state = PhotoCameraState.Raised;
+    }
+
+    public void Lower()
+    {
+        state = PhotoCameraState.Transition;
+        camAnim.SetTrigger("Unaim");
+        Invoke(nameof(LowerFinish), 10f/60f);
+    }
+    
+    public void LowerFinish()
+    {
+        state = PhotoCameraState.Idle;
     }
 
     public void TakePhoto()

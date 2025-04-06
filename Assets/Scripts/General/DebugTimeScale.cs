@@ -3,6 +3,8 @@
 public class DebugTimeScale : MonoBehaviour
 {
     public float timeScale = 1;
+    public bool limitFPS = false;
+    public int targetFPS = 30;
 
     private void Update()
     {
@@ -66,8 +68,16 @@ public class DebugTimeScale : MonoBehaviour
         {
             timeScale = 9;
         }
-#endif
 
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            limitFPS = !limitFPS;
+        }
+#endif
+        if (limitFPS)
+            Application.targetFrameRate = targetFPS;
+        else
+            Application.targetFrameRate = -1;
         Time.timeScale = Mathf.Clamp(timeScale, 0, 100);
     }
 }
