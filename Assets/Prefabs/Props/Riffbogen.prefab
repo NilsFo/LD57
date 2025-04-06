@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4595340511233018230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3387974601660199070}
+  m_Layer: 0
+  m_Name: Riffbogen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3387974601660199070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4595340511233018230}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1075614842901540769}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &677760396244142154
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3387974601660199070}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.4918143
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.45376635
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5423064
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5080537
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 6.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 85.851
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      propertyPath: m_Name
+      value: Riffbogen
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2851113450341166411}
+  m_SourcePrefab: {fileID: 100100000, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+--- !u!1 &407165290497504539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+  m_PrefabInstance: {fileID: 677760396244142154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2851113450341166411
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407165290497504539}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8803937527578110353, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+--- !u!4 &1075614842901540769 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4184d49153b2cfc41b362644ac889fae, type: 3}
+  m_PrefabInstance: {fileID: 677760396244142154}
+  m_PrefabAsset: {fileID: 0}
