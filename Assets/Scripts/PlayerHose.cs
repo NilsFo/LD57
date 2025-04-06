@@ -36,7 +36,7 @@ public class PlayerHose : MonoBehaviour
     {
         isVisible = true;
         ropeViz.gameObject.SetActive(true);
-        target = gameState.allBeaconTerminals[0].transform;
+        target = gameState.hoseStartBeacon.myNode.transform;
     }
     
     public void UnequipHose()
