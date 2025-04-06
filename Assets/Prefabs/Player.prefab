@@ -1013,7 +1013,7 @@ MonoBehaviour:
   crouchEnabled: 0
   jumpEnabled: 0
   inputDisabled: 0
-  tethered: 0
+  tethered: 1
   interactWithRigidbodies: 1
   pushForceMultiplier: 5
   pushForceMax: 10
