@@ -23,8 +23,6 @@ public class BeaconTerminal : MonoBehaviour
     public TMP_Text displayText;
     public GameObject canvasHolder;
 
-    public bool activeOnStart = false;
-
     [Header("Hose timer")]
     public float hoseWaitTime = 10;
     private float _hoseWaitTimeCurrent = 0;
@@ -60,10 +58,6 @@ public class BeaconTerminal : MonoBehaviour
 
     private void Start()
     {
-        if (activeOnStart)
-        {
-            ActivateByPlayer();
-        }
     }
 
     // Update is called once per frame
@@ -144,7 +138,7 @@ public class BeaconTerminal : MonoBehaviour
         return count;
     }
 
-    public void ActivateByPlayer()
+    public void StartLoading()
     {
         beaconState = BeaconState.FISH_COUNT;
     }

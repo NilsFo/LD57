@@ -3,25 +3,25 @@ using UnityEngine;
 
 namespace NodeGraph
 {
-    public class GraphEdge: MonoBehaviour
+    public class GraphEdge : MonoBehaviour
     {
         [SerializeField]
         private GameObject[] nodes;
-        
+
         [SerializeField]
         private Rope rope;
 
         [SerializeField]
         private GameObject ropeStartNode;
-        
+
         [SerializeField]
         private GameObject ropeEndNode;
-        
+
         [SerializeField]
         private float slag;
-        
+
         private Vector3 _direction;
-        
+
         public GameObject[] Nodes
         {
             get => nodes;
@@ -38,7 +38,7 @@ namespace NodeGraph
         {
             get => nodes[0].transform.position;
         }
-        
+
         public Vector3 EndPoint
         {
             get => nodes[1].transform.position;
@@ -46,18 +46,25 @@ namespace NodeGraph
 
         public GameObject[] AddNodes(GameObject startNode, GameObject endNode)
         {
-            nodes = new [] { startNode, endNode };
+            nodes = new[] { startNode, endNode };
 
-            ropeStartNode.transform.position = startNode.transform.position;
-            ropeEndNode.transform.position = endNode.transform.position;
+            try
+            {
+                ropeStartNode.transform.position = startNode.transform.position;
+                ropeEndNode.transform.position = endNode.transform.position;
 
-            rope.ropeLength = (startNode.transform.position - endNode.transform.position).magnitude + slag;
-            rope.RecalculateRope();
-            
+                rope.ropeLength = (startNode.transform.position - endNode.transform.position).magnitude + slag;
+                rope.RecalculateRope();
+            }
+            catch (System.Exception)
+            {
+                Debug.LogError("ERROR CALCULATING ROPE!");
+            }
+
             CalcDirection();
             return nodes;
         }
-        
+
         private void CalcDirection()
         {
             if (nodes == null) return;

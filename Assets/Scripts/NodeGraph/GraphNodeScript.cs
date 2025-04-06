@@ -9,7 +9,6 @@ namespace NodeGraph
     public class GraphNode : MonoBehaviour
     {
         private GameState gameState;
-        public UnityEvent onJoinedNetwork;
 
         [SerializeField] private int id;
 
@@ -28,6 +27,7 @@ namespace NodeGraph
 
         public void AddAsPartialEdgeNode()
         {
+            print("Adding node as partial edge node");
             NodeGraph nodeGraph = gameState.GetComponent<NodeGraph>();
             nodeGraph.AddPartialNodeForEdge(gameObject);
         }
@@ -35,15 +35,6 @@ namespace NodeGraph
         private void Start()
         {
             gameState = FindFirstObjectByType<GameState>();
-            if (onJoinedNetwork == null)
-            {
-                onJoinedNetwork = new UnityEvent();
-            }
-        }
-
-        public void OnJoinedNetwork()
-        {
-            onJoinedNetwork.Invoke();
         }
 
 #if UNITY_EDITOR
