@@ -126,7 +126,7 @@ public class PhotoCamera : MonoBehaviour
 
     public void UpdateDOF()
     {
-        var scroll = Mouse.current.scroll.ReadValue()[0];
+        var scroll = Mouse.current.scroll.ReadValue()[1];
         var deltaFocus = 0f;
         if (scroll > 0 || Keyboard.current.rKey.wasPressedThisFrame)
         {
@@ -201,9 +201,11 @@ public class PhotoCamera : MonoBehaviour
             }
         }
         
+        Debug.Log("Playing Photo Sound");
         // Play Sound
         FindFirstObjectByType<MusicManager>().CreateAudioClip(photoSound, Vector3.zero);
         
+        Debug.Log("Flashing Camera");
         // Flash
         cameraFlash.intensity = cameraFlashIntensity;
         cameraFlash.DOIntensity(0f, 0.2f);

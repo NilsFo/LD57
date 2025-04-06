@@ -22,7 +22,6 @@ public class Beacon : MonoBehaviour
         gameState = FindFirstObjectByType<GameState>();
         if (activeOnStart)
         {
-            myNode.AddAsPartialEdgeNode();
             myTerminal.StartLoading();
             JoinNetwork();
         }
@@ -55,10 +54,12 @@ public class Beacon : MonoBehaviour
 
         if (gameState.playerState == GameState.PLAYER_STATE.HOSE)
         {
+            if (isInNetwork)
+                return;
             JoinNetwork();
             gameState.playerState=GameState.PLAYER_STATE.WALKING;
             print("Attached the hose.");
-            myNode.AddAsPartialEdgeNode();
+            FindFirstObjectByType<NodeGraph.NodeGraph>().AddEdge(myNode.gameObject, gameState.hoseStartBeacon.myNode.gameObject);
             return;
         }
 

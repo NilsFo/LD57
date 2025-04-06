@@ -14,7 +14,7 @@ namespace NodeGraph
 
         [SerializeField] private GameObject partialNodeForEdge;
 
-public int leashDistance = 30;
+        public int leashDistance = 30;
 
         private void Start()
         {
@@ -22,7 +22,7 @@ public int leashDistance = 30;
             nodes = localNodes.OrderBy(node => node.ID).Select(node => node.gameObject).ToList();
         }
 
-        private GraphEdge AddEdge(GameObject startNode, GameObject endNode)
+        public GraphEdge AddEdge(GameObject startNode, GameObject endNode)
         {
             var instance = Instantiate(prefabEdges, transform);
             var edge = instance.GetComponent<GraphEdge>();
@@ -40,7 +40,11 @@ public int leashDistance = 30;
         public void AddPartialNodeForEdge(GameObject node)
         {
             GraphNode comp = node.GetComponent<GraphNode>();
-            if (comp == null) return;
+            if (comp == null)
+            {
+                Debug.Log("Something is wrong...");
+                return;
+            }
             if (partialNodeForEdge == null)
             {
                 partialNodeForEdge = node;
