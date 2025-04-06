@@ -6,9 +6,12 @@ public class SchoolOfFish : MonoBehaviour
 {
 
     public FishData fishData;
-    public SplineContainer mySpline;
     private GameState _gameState;
     public GameObject FishPrefab;
+
+    [Header("Config")]
+    public bool staticMovement = false;
+    public bool singleton = false;
 
     [Header("Movement")] public SplineContainer myContainer;
     public float moveSpeed = 1;
@@ -32,7 +35,14 @@ public class SchoolOfFish : MonoBehaviour
         fishInScool.Clear();
 
         fishInScool.Add(leaderFish);
-        GenerateMoreFish();
+        if (!singleton)
+        {
+            GenerateMoreFish();
+        }
+
+        if(staticMovement){
+            myContainer=null;
+        }
 
         ApplyDataToChildren();
         RegisterToTerminals();
@@ -100,9 +110,9 @@ public class SchoolOfFish : MonoBehaviour
                 myContainer.Evaluate(individualProgress / _pathLength, out var pos, out var tangent, out _);
 
                 Vector3 newPos = new Vector3(
-                    pos.x+fish.spacialOffset.x,
-                    pos.y+fish.spacialOffset.y,
-                    pos.z+fish.spacialOffset.z
+                    pos.x + fish.spacialOffset.x,
+                    pos.y + fish.spacialOffset.y,
+                    pos.z + fish.spacialOffset.z
                 );
                 fish.transform.position = newPos;
             }
