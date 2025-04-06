@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4588960298119266538}
   - component: {fileID: 6331240646006030711}
+  - component: {fileID: 1285209088845176549}
   m_Layer: 0
   m_Name: LightFlare
   m_TagString: Untagged
@@ -46,8 +47,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  scale: 0.1
+  scale: 0.075
   scaleType: 3
+--- !u!114 &1285209088845176549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348851049918028818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7b36aabae72df8c9c856f32bcd7212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0
+      value: 1.0002332
+      inSlope: -0.6387274
+      outSlope: -0.6387274
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.21111052
+    - serializedVersion: 3
+      time: 0.8833119
+      value: 0.0042012767
+      inSlope: -0.010268852
+      outSlope: -0.010268852
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.3676607
+    - serializedVersion: 3
+      time: 1
+      value: 1.0000112
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  interval: 3
+  offset: 0
+  renderer: {fileID: 678261915333222112}
 --- !u!1 &8774764874846021547
 GameObject:
   m_ObjectHideFlags: 0

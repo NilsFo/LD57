@@ -6,11 +6,11 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stone3
-  m_DiffuseTexture: {fileID: 2800000, guid: f3955a2ee4c37e24fbbcc81f7c55b3ea, type: 3}
+  m_Name: Kliff
+  m_DiffuseTexture: {fileID: 2800000, guid: 0b37c2857dd26de468c66c145a18bb88, type: 3}
   m_NormalMapTexture: {fileID: 0}
   m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 4, y: 4}
+  m_TileSize: {x: 2, y: 2}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0

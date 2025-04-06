@@ -14,6 +14,8 @@ namespace NodeGraph
 
         [SerializeField] private GameObject partialNodeForEdge;
 
+public int leashDistance = 30;
+
         private void Start()
         {
             var localNodes = FindObjectsByType<GraphNode>(FindObjectsSortMode.InstanceID);
@@ -56,8 +58,8 @@ namespace NodeGraph
 
         public int GetLeashDistance()
         {
-            // TODO get leash distance based on current anchor?
-            return 30;
+
+            return leashDistance;
         }
 
         public bool RemovePartialNodeForEdge()
