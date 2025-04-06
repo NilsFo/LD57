@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 4193119578840399194}
   - component: {fileID: 548620199405623474}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteractable: 1
-  interactionPrompt: Attach your oxygin hose
+  interactionPrompt: ???
   onPlayerInteract:
     m_PersistentCalls:
       m_Calls: []
@@ -127,6 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8381245788897863888}
+  - component: {fileID: 8561394405525976662}
   m_Layer: 0
   m_Name: NodeButton
   m_TagString: Untagged
@@ -151,3 +152,16 @@ Transform:
   - {fileID: 3856958451954455645}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8561394405525976662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6808262812365623065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc7cc48ec2a2fc640983d7acc1bfab4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: {fileID: 548620199405623474}
