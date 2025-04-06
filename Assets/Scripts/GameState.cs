@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class GameState : MonoBehaviour
 
     public enum PLAYER_STATE : UInt16
     {
+        WALKING,
         CAMERA,
         HOSE,
         ERROR
@@ -29,6 +31,9 @@ public class GameState : MonoBehaviour
     public PLAYER_STATE playerState;
     private GAME_STATE _gameState;
     private PLAYER_STATE _playerState;
+
+    [Header("Read Only Lists")]
+    public List<BeaconTerminal> allBeaconTerminals;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -59,6 +64,8 @@ public class GameState : MonoBehaviour
                 break;
             case PLAYER_STATE.HOSE:
                 break;
+            case PLAYER_STATE.WALKING:
+                break;
             default:
                 break;
         }
@@ -87,6 +94,8 @@ public class GameState : MonoBehaviour
             case PLAYER_STATE.CAMERA:
                 break;
             case PLAYER_STATE.HOSE:
+                break;
+            case PLAYER_STATE.WALKING:
                 break;
             default:
                 playerState = PLAYER_STATE.ERROR;

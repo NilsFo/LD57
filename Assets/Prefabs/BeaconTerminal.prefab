@@ -659,9 +659,8 @@ MonoBehaviour:
   beaconState: 0
   displayText: {fileID: 2053722810270593420}
   canvasHolder: {fileID: 632476368112058932}
-  hose_wait_time: 10
-  _hose_wait_time_current: 0
-  hose_available: 0
+  hoseWaitTime: 10
+  hoseAvailable: 0
   onHoseAvailable:
     m_PersistentCalls:
       m_Calls: []

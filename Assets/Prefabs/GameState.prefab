@@ -196,6 +196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldOrigin: {fileID: 8523768258075064943}
+  gameState: 1
+  playerState: 0
+  allBeaconTerminals: []
 --- !u!114 &7659649879822091338
 MonoBehaviour:
   m_ObjectHideFlags: 0

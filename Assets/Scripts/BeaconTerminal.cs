@@ -16,6 +16,7 @@ public class BeaconTerminal : MonoBehaviour
     }
 
     private MouseLook _mouseLook;
+    private GameState gameState;
     public float activationDistance = 20f;
 
     public BeaconState beaconState = BeaconState.WAITING_FOR_PLAYER;
@@ -43,9 +44,12 @@ public class BeaconTerminal : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        _hoseEventFired = false;
         _knownFish = FindFirstObjectByType<KnownFish>();
         _mouseLook = FindAnyObjectByType<MouseLook>();
-        _hoseEventFired=false;
+
+        gameState = FindAnyObjectByType<GameState>();
+        gameState.allBeaconTerminals.Add(this);
 
         if (onHoseAvailable == null) onHoseAvailable = new UnityEvent();
 
