@@ -64,8 +64,12 @@ public class CharacterMovement : MonoBehaviour
             _eyesToHeadDist = (playerHeightStanding - _camera.transform.localPosition.y * 2);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        velocity.x = _controller.velocity.x;
+        velocity.z = _controller.velocity.z;
+        DampenXZ();
+        
         Vector3 groundNormal = GetNormalBelow();
 
         var velocityXZ = Vector3.ProjectOnPlane(velocity, Vector3.up);
@@ -282,7 +286,7 @@ public class CharacterMovement : MonoBehaviour
         velocity += _acc * Time.deltaTime;
         if (isGrounded && !hasJumped)
         {
-            velocity.y = 0;
+            velocity.y = -1;
         }
 
         // Handle max speed
@@ -306,7 +310,10 @@ public class CharacterMovement : MonoBehaviour
 
         // Apply gravity
         velocity.y -= gravity * Time.deltaTime;
+    }
 
+    private void Update()
+    {
         // Move
         var moveDistance = velocity * Time.deltaTime;
         CollisionFlags flags = _controller.Move(moveDistance);
@@ -328,7 +335,7 @@ public class CharacterMovement : MonoBehaviour
             velocity.y = Mathf.Min(0, velocity.y);
         }
     }
-
+    
     private Vector3 GetNormalBelow()
     {
         RaycastHit hit;
@@ -398,12 +405,6 @@ public class CharacterMovement : MonoBehaviour
         Mathf.Min(pushForceMultiplier * rb.mass / characterMass, 1f);*/
     }
 
-    private void FixedUpdate()
-    {
-        velocity.x = _controller.velocity.x;
-        velocity.z = _controller.velocity.z;
-        DampenXZ();
-    }
 
     private void DampenXZ()
     {
