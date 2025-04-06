@@ -17,9 +17,9 @@ namespace NodeGraph
         private void Start()
         {
             var localNodes = FindObjectsByType<GraphNode>(FindObjectsSortMode.InstanceID);
-            nodes = localNodes.OrderBy(node => node.ID).Select(node => node.gameObject ).ToList();
+            nodes = localNodes.OrderBy(node => node.ID).Select(node => node.gameObject).ToList();
         }
-        
+
         private GraphEdge AddEdge(GameObject startNode, GameObject endNode)
         {
             var instance = Instantiate(prefabEdges, transform);
@@ -31,6 +31,8 @@ namespace NodeGraph
             var end = startNode.GetComponent<GraphNode>();
             start.AddNeighbor(endNode);
             end.AddNeighbor(startNode);
+
+            start.OnJoinedNetwork();
 
             return edge;
         }
@@ -77,7 +79,7 @@ namespace NodeGraph
             foreach (var edge in edges)
             {
                 var resultPoint = NearestPointOnLine(edge.StartPoint, edge.EndPoint, point);
-                
+
                 float distance = (resultPoint - point).magnitude;
                 if (distance < (nearestPoint - point).magnitude)
                 {
@@ -107,7 +109,7 @@ namespace NodeGraph
             lineDir.Normalize(); //this needs to be a unit vector
             var v = pnt - linePnt1;
             var d = Vector3.Dot(v, lineDir);
-            
+
             d = Mathf.Clamp(d, 0f, len);
             return linePnt1 + lineDir * d;
         }

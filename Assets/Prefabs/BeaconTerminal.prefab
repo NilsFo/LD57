@@ -1105,6 +1105,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerButton
       objectReference: {fileID: 0}
+    - target: {fileID: 4412624726569759819, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6626890229341037594, guid: b1e6a407598ece2419f0e5a3ffd3c562, type: 3}
       propertyPath: interactionPrompt
       value: Activate Terminal

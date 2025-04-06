@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace NodeGraph
 {
     public class GraphNode : MonoBehaviour
     {
-        [SerializeField] private GameState gameState;
+        private GameState gameState;
+        public UnityEvent onJoinedNetwork;
 
         [SerializeField] private int id;
 
@@ -33,6 +35,15 @@ namespace NodeGraph
         private void Start()
         {
             gameState = FindFirstObjectByType<GameState>();
+            if (onJoinedNetwork == null)
+            {
+                onJoinedNetwork = new UnityEvent();
+            }
+        }
+
+        public void OnJoinedNetwork()
+        {
+            onJoinedNetwork.Invoke();
         }
 
 #if UNITY_EDITOR
