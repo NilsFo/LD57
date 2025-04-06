@@ -286,7 +286,7 @@ public class CharacterMovement : MonoBehaviour
         velocity += _acc * Time.deltaTime;
         if (isGrounded && !hasJumped)
         {
-            velocity.y = 0;
+            velocity.y = -1;
         }
 
         // Handle max speed
