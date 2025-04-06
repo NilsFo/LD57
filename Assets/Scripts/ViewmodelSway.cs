@@ -6,6 +6,7 @@ public class ViewmodelSway : MonoBehaviour
     public CharacterMovement playerMovement;
     public MouseLook mouseLook;
     private float _swayMultiplier = 0.0005f;
+    public AudioSource stepSound;
 
     void Start()
     {
@@ -53,8 +54,18 @@ public class ViewmodelSway : MonoBehaviour
         Sway(new Vector3(0, v.y * Time.deltaTime * 10, 0));
         var v_xz = new Vector2(v.x, v.z);
         walkSine += Time.deltaTime * v_xz.magnitude / step_size;
+        
         if (walkSine > Mathf.PI * 2)
+        {
             walkSine -= Mathf.PI * 2;
+        }
+
+        var walkSineVal = Mathf.Sin(walkSine);
+        if ((walkSineVal < -0.95 || walkSineVal > 0.95) && !stepSound.isPlaying)
+        {
+            stepSound.Play();
+        }
+
         if (v_xz.magnitude < 0.33)
             walkSine = 0;
         var left_foot = Mathf.Max(0, Mathf.Sin(walkSine + Mathf.PI));
