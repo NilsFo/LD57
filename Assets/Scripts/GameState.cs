@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameState : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class GameState : MonoBehaviour
     [Header("Read Only Lists")]
     public List<BeaconTerminal> allBeaconTerminals;
 
+    public UnityEvent<GAME_STATE> onGameStateChanged;
+    public UnityEvent<PLAYER_STATE> onPlayerStateChanged;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,6 +58,17 @@ public class GameState : MonoBehaviour
         {
             Debug.LogError("GAME STATE IS ERROR");
             return;
+        }
+
+        if (_gameState!=gameState)
+        {
+            GameStateChanged();
+            _gameState = gameState;
+        }
+        if (_playerState!=playerState)
+        {
+            PlayerStateChanged();
+            _playerState = playerState;
         }
 
         // ####################
@@ -86,7 +101,7 @@ public class GameState : MonoBehaviour
 
     }
 
-    public void onPlayerStateChanged()
+    public void PlayerStateChanged()
     {
         print("New player state: " + playerState);
         switch (playerState)
@@ -101,9 +116,10 @@ public class GameState : MonoBehaviour
                 playerState = PLAYER_STATE.ERROR;
                 break;
         }
+        onPlayerStateChanged.Invoke(playerState);
     }
 
-    public void onGameStateChanged()
+    public void GameStateChanged()
     {
         print("New game state: " + gameState);
         switch (gameState)
@@ -118,5 +134,6 @@ public class GameState : MonoBehaviour
                 gameState = GAME_STATE.ERROR;
                 break;
         }
+        onGameStateChanged.Invoke(gameState);
     }
 }
