@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,11 @@ public class PhotoCamera : MonoBehaviour
     public List<GameObject> viewmodelsLowered;
     public Animator camAnim;
     private GameState gameState;
+
+    public AudioClip photoSound;
+
+    public Light cameraFlash;
+    public float cameraFlashIntensity = 2000f;
 
     public enum PhotoCameraState : UInt16
     {
@@ -137,6 +143,13 @@ public class PhotoCamera : MonoBehaviour
                 listener.OnPhotoTaken();
             }
         }
+        
+        // Play Sound
+        FindFirstObjectByType<MusicManager>().CreateAudioClip(photoSound, Vector3.zero);
+        
+        // Flash
+        cameraFlash.intensity = cameraFlashIntensity;
+        cameraFlash.DOIntensity(0f, 0.2f);
     }
 
     private GameObject ShootPhotoRay(Ray r)
