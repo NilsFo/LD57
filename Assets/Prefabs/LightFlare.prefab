@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  scale: 0.1
+  scale: 0.075
   scaleType: 3
 --- !u!114 &1285209088845176549
 MonoBehaviour:
@@ -95,6 +95,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   interval: 3
+  offset: 0
   renderer: {fileID: 678261915333222112}
 --- !u!1 &8774764874846021547
 GameObject:

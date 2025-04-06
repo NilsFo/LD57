@@ -28,6 +28,7 @@ public class CharacterMovement : MonoBehaviour
     public bool crouchEnabled = true;
     public bool jumpEnabled = true;
     public bool inputDisabled = false;
+    public bool tethered = true;
 
     [Header("Physics Interaction")] public bool interactWithRigidbodies = false;
     public float pushForceMultiplier = 0.2f;
@@ -309,10 +310,12 @@ public class CharacterMovement : MonoBehaviour
         // Move
         var moveDistance = velocity * Time.deltaTime;
         CollisionFlags flags = _controller.Move(moveDistance);
+
+        // Leash
         Vector3 nearestPoint = nodeGraph.FindNearestPoint(transform.position);
 
         Vector3 distance = transform.position - nearestPoint;
-        if (distance.magnitude > nodeGraph.GetLeashDistance())
+        if (distance.magnitude > nodeGraph.GetLeashDistance() && tethered)
         {
             Vector3 moveCorrection = nodeGraph.FindNearestBorderPoint(transform.position);
             Vector3 diff = moveCorrection - transform.position;
