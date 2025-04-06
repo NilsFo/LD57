@@ -12,9 +12,9 @@ using Random = UnityEngine.Random;
 public class MusicManager : MonoBehaviour
 {
     public GameObject temporalAudioPlayerPrefab;
-    public static float userDesiredMusicVolume = 0.5f;
-    public static float userDesiredSoundVolume = 0.5f;
-    public static float userDesiredMasterVolume = 0.5f;
+    public static float userDesiredMusicVolume = 1f;
+    public static float userDesiredSoundVolume = 1f;
+    public static float userDesiredMasterVolume = 1f;
 
     [Header("Custom sound level balance")]
     [Range(0, 1)]
