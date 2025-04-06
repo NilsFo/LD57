@@ -65,6 +65,7 @@ public class Beacon : MonoBehaviour
         if (gameState.playerState == GameState.PLAYER_STATE.WALKING)
         {
             gameState.playerState = GameState.PLAYER_STATE.HOSE;
+            gameState.hoseStartBeacon=this;
             print("Picked up a hose.");
             return;
         }
