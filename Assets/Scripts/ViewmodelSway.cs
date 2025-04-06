@@ -6,10 +6,10 @@ public class ViewmodelSway : MonoBehaviour
     public CharacterMovement playerMovement;
     public MouseLook mouseLook;
     private float _swayMultiplier = 0.0005f;
-    
+
     void Start()
     {
-        if(playerMovement == null)
+        if (playerMovement == null)
             playerMovement = FindFirstObjectByType<CharacterMovement>();
         if (mouseLook == null)
             mouseLook = FindFirstObjectByType<MouseLook>();
@@ -30,23 +30,24 @@ public class ViewmodelSway : MonoBehaviour
     private float _breath = 0f;
 
     private Vector2 mouseMovVec;
+
     // Update is called once per frame
     void Update()
     {
         // Looking
         mouseMovVec += mouseLook.GetMouseDelta();
         mouseMovVec = Vector2.Lerp(mouseMovVec, Vector2.zero, Time.deltaTime * view_rotation_recover);
-        
+
         // Swaying
-        _sway_vec.x = Mathf.Lerp(_sway_vec.x, 0f, Time.deltaTime*walk_recover);
-        _sway_vec.y = Mathf.Lerp(_sway_vec.y, 0f, Time.deltaTime*walk_recover);
-        _sway_vec.z = Mathf.Lerp(_sway_vec.z, 0f, Time.deltaTime*walk_recover);
+        _sway_vec.x = Mathf.Lerp(_sway_vec.x, 0f, Time.deltaTime * walk_recover);
+        _sway_vec.y = Mathf.Lerp(_sway_vec.y, 0f, Time.deltaTime * walk_recover);
+        _sway_vec.z = Mathf.Lerp(_sway_vec.z, 0f, Time.deltaTime * walk_recover);
 
         var breath_intensity = 1f;
         _breath += breath_intensity * Time.deltaTime;
-        var breath_p = Mathf.Sin(2*Mathf.PI/breath_period * _breath);
+        var breath_p = Mathf.Sin(2 * Mathf.PI / breath_period * _breath);
         var _breath_pos = Vector3.Lerp(Vector3.zero, breath_transform, breath_p);
-            
+
         // sway for jumping and flying
         var v = playerMovement.velocity;
         Sway(new Vector3(0, v.y * Time.deltaTime * 10, 0));
@@ -54,7 +55,7 @@ public class ViewmodelSway : MonoBehaviour
         walkSine += Time.deltaTime * v_xz.magnitude / step_size;
         if (walkSine > Mathf.PI * 2)
             walkSine -= Mathf.PI * 2;
-        if(v_xz.magnitude < 0.01)
+        if (v_xz.magnitude < 0.01)
             walkSine = 0;
         var left_foot = Mathf.Max(0, Mathf.Sin(walkSine + Mathf.PI));
         var right_foot = Mathf.Max(0, Mathf.Sin(walkSine));
@@ -62,7 +63,10 @@ public class ViewmodelSway : MonoBehaviour
         Sway(hip * (Time.deltaTime * walk_sway));
 
         transform.localPosition = _sway_vec + _breath_pos;
-        transform.localRotation = quaternion.LookRotation(new Vector3(-mouseMovVec.x * view_rotation_intensity.x, -mouseMovVec.y * view_rotation_intensity.y, 1f), Vector3.up);
+        transform.localRotation =
+            quaternion.LookRotation(
+                new Vector3(-mouseMovVec.x * view_rotation_intensity.x, -mouseMovVec.y * view_rotation_intensity.y, 1f),
+                Vector3.up);
     }
 
     public void Sway(Vector3 swayAmount)
