@@ -25,5 +25,10 @@ public class PhotoListener : MonoBehaviour
     {
         onPhotoTaken.Invoke();
     }
+
+    public void OnPhotoOutOfFocus()
+    {
+        Debug.Log("Photo taken but im fuken blurry lmao");
+    }
     
 }

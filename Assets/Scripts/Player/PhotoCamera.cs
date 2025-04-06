@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PhotoCamera : MonoBehaviour
 {
@@ -21,11 +22,16 @@ public class PhotoCamera : MonoBehaviour
     public Light cameraFlash;
     public float cameraFlashIntensity = 2000f;
 
+    public Volume cameraPostProcessing;
+
     public enum PhotoCameraState : UInt16
     {
         Idle, Transition, Raised
     }
     public PhotoCameraState state;
+    public float minFocus = 1f, maxFocus = 50f;
+    private float _currentFocus = 0.5f;
+    public float focusRange = 0.08f;
 
     private void Start()
     {
@@ -54,6 +60,11 @@ public class PhotoCamera : MonoBehaviour
             state == PhotoCameraState.Idle)
         {
             Raise();
+        }
+
+        if (state == PhotoCameraState.Raised)
+        {
+            UpdateDOF();
         }
     }
 
@@ -113,6 +124,45 @@ public class PhotoCamera : MonoBehaviour
         }
     }
 
+    public void UpdateDOF()
+    {
+        var scroll = Mouse.current.scroll.ReadValue()[0];
+        var deltaFocus = 0f;
+        if (scroll > 0 || Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            deltaFocus = 0.05f;
+        }
+        else if (scroll < 0|| Keyboard.current.fKey.wasPressedThisFrame)
+        {
+            deltaFocus = -0.05f;
+        }
+
+        if (deltaFocus == 0f)
+            return;
+
+        
+        _currentFocus = Mathf.Clamp(_currentFocus + deltaFocus, 0, 1);
+        var focusDist = Mathf.Lerp(minFocus, maxFocus, (_currentFocus * _currentFocus));
+
+        UnityEngine.Rendering.Universal.DepthOfField dof;
+
+        if(!cameraPostProcessing.sharedProfile.TryGet(out dof)) return;
+
+        dof.focusDistance.Override(focusDist);
+
+    }
+
+    public bool IsInFocus(Vector3 point)
+    {
+        var dist = Vector3.Distance(transform.position, point);
+
+        var focusDistLower = Mathf.LerpUnclamped(minFocus, maxFocus, ((_currentFocus - focusRange) *
+                                                                      (_currentFocus - focusRange)));
+        var focusDistUpper = Mathf.LerpUnclamped(minFocus, maxFocus, (_currentFocus + focusRange) *
+                                                                      (_currentFocus + focusRange));
+        return dist >= focusDistLower && dist <= focusDistUpper;
+    }
+
     public void TakePhoto()
     {
         int width = Mathf.FloorToInt(cam.pixelWidth * (1 - 2 * paddingPercent));
@@ -140,7 +190,14 @@ public class PhotoCamera : MonoBehaviour
             PhotoListener listener = hit.GetComponentInChildren<PhotoListener>();
             if (listener != null)
             {
-                listener.OnPhotoTaken();
+                if (IsInFocus(listener.transform.position))
+                {
+                    listener.OnPhotoTaken();
+                }
+                else
+                {
+                    listener.OnPhotoOutOfFocus();
+                }
             }
         }
         
