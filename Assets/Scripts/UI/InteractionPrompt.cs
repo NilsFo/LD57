@@ -15,14 +15,17 @@ public class InteractionPrompt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var focus = _interaction.GetInteractableInFocus();
+        PlayerInteractable focus = _interaction.GetInteractableInFocus();
         if (focus == null)
         {
             text.text = "";
         }
         else
         {
-            text.text = "[E]: " + focus.interactionPrompt;
+            if (focus.isInteractable)
+            {
+                text.text = "[E]: " + focus.interactionPrompt;
+            }
         }
     }
 }
