@@ -26,6 +26,10 @@ public class InteractionPrompt : MonoBehaviour
             {
                 text.text = "[E]: " + focus.interactionPrompt;
             }
+            else
+            {
+                text.text = "";
+            }
         }
     }
 }

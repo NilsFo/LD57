@@ -26,8 +26,8 @@ public class PlayerInteractable : MonoBehaviour
 
     void Update()
     {
-        isInteractable = gameState.playerState == GameState.PLAYER_STATE.WALKING ||
-        gameState.playerState == GameState.PLAYER_STATE.HOSE;
+        //isInteractable = gameState.playerState == GameState.PLAYER_STATE.WALKING ||
+        //gameState.playerState == GameState.PLAYER_STATE.HOSE;
     }
 
     private void Awake()

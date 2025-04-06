@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  scale: 0.025
+  scale: 0.1
+  scaleType: 3
 --- !u!1 &8774764874846021547
 GameObject:
   m_ObjectHideFlags: 0

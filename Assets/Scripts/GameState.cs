@@ -33,6 +33,8 @@ public class GameState : MonoBehaviour
     private GAME_STATE _gameState;
     private PLAYER_STATE _playerState;
 
+    public Beacon hoseStartBeacon;
+
     [Header("Read Only Lists")]
     public List<BeaconTerminal> allBeaconTerminals;
 
@@ -117,6 +119,11 @@ public class GameState : MonoBehaviour
                 break;
         }
         onPlayerStateChanged.Invoke(playerState);
+
+        if (_playerState == PLAYER_STATE.HOSE)
+        {
+            hoseStartBeacon = null;
+        }
     }
 
     public void GameStateChanged()
@@ -134,6 +141,6 @@ public class GameState : MonoBehaviour
                 gameState = GAME_STATE.ERROR;
                 break;
         }
-        onGameStateChanged.Invoke(gameState);
+
     }
 }

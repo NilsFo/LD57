@@ -12,13 +12,5 @@ public class NodeButton : MonoBehaviour
         gameState = FindFirstObjectByType<GameState>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(gameState.playerState==GameState.PLAYER_STATE.HOSE){
-            interactable.interactionPrompt="Attach oxygen hose";
-        }else{
-            interactable.interactionPrompt="Take oxygen hose";
-        }
-    }
+
 }

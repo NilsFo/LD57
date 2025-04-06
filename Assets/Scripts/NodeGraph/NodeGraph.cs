@@ -32,8 +32,6 @@ namespace NodeGraph
             start.AddNeighbor(endNode);
             end.AddNeighbor(startNode);
 
-            start.OnJoinedNetwork();
-
             return edge;
         }
 
