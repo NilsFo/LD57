@@ -6,7 +6,7 @@ public class FishData : ScriptableObject
 {
     [Header("Names")] public string displayName;
 
-    [Header("Visuals")] public Texture albumSprite;
+    [Header("Visuals")] public Texture2D albumSprite;
     public int pixelPerMeter = 32;
 
 

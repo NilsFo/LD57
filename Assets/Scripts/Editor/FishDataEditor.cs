@@ -19,7 +19,7 @@ public class ItemInfoEditor : Editor
     {
         if (item.albumSprite != null)
         {
-            return item.albumSprite as Texture2D;
+            
         }
 
         return base.RenderStaticPreview(assetPath, subAssets, width, height);

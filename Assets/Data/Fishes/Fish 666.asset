@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fish 666
   m_EditorClassIdentifier: 
   displayName: ???
-  albumSprite: {fileID: 0}
+  albumSprite: {fileID: 2800000, guid: ab0938e2a7118c94e907ad0f7214fe9f, type: 3}
   pixelPerMeter: 32
