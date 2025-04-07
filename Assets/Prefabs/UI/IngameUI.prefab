@@ -779,8 +779,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 603.8861, y: 125.0302}
+  m_AnchoredPosition: {x: -70, y: -70}
+  m_SizeDelta: {x: 874.6025, y: 125.0302}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &9200049490335853819
 CanvasRenderer:
@@ -837,8 +837,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 84
-  m_fontSizeBase: 84
+  m_fontSize: 90
+  m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2487,10 +2487,10 @@ RectTransform:
   m_Father: {fileID: 3700791101513801622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 1280, y: 180.9}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &5798486410952343676
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2512,7 +2512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6627451}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.4627451}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10487,15 +10487,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1255126675244460487, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1490452311282256298, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2489442633238161337, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3459648755234207590, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_Pivot.x
@@ -10579,7 +10579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547542422730531002, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8052422410494045741, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_Name
