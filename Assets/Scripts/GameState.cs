@@ -126,6 +126,12 @@ public class GameState : MonoBehaviour
                 mouseLook.enabled = true;
                 movement.inputDisabled = false;
                 break;
+            case GAME_STATE.CREDITS:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                mouseLook.enabled = false;
+                movement.inputDisabled = true;
+                break;
             default:
                 break;
         }
