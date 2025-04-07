@@ -42,6 +42,7 @@ public class GameState : MonoBehaviour
 
     [Header("Read Only Lists")]
     public List<BeaconTerminal> allBeaconTerminals;
+    public List<FishData> debugReachableFish;
 
     public UnityEvent<GAME_STATE> onGameStateChanged;
     public UnityEvent<PLAYER_STATE> onPlayerStateChanged;

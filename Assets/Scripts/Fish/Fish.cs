@@ -6,6 +6,7 @@ public class Fish : MonoBehaviour
     [Header("Identity")] public FishData data;
     public Renderer mySpriteRenderer;
     public SpriteRenderer debugSprite;
+    public BillBoard billBoard;
 
     //private GameState _gameState;
     private KnownFish _knownFish;

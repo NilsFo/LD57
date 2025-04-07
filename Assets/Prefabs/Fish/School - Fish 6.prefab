@@ -76,6 +76,14 @@ PrefabInstance:
       propertyPath: fishData
       value: 
       objectReference: {fileID: 11400000, guid: 6dfb8cd410c81584eac8c20aa88d8c63, type: 2}
+    - target: {fileID: 8789481601682036855, guid: c8ceba1f1adbb384e97f5936dcd7ad7d, type: 3}
+      propertyPath: numberOfOtherFishMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789481601682036855, guid: c8ceba1f1adbb384e97f5936dcd7ad7d, type: 3}
+      propertyPath: numberOfOtherFishMin
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

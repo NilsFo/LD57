@@ -655,6 +655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationDistance: 8
+  beaconAvailableClip: {fileID: 8300000, guid: b17e7887e63b96e41a39de6cb3de94cb, type: 3}
   beaconState: 0
   displayText: {fileID: 2053722810270593420}
   canvasHolder: {fileID: 632476368112058932}

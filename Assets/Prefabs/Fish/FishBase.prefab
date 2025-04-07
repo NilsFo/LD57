@@ -185,6 +185,7 @@ MonoBehaviour:
   data: {fileID: 0}
   mySpriteRenderer: {fileID: 1488124292285009426}
   debugSprite: {fileID: 4487150810437638827}
+  billBoard: {fileID: 3302723365026067925}
   temporalOffset: 0
   spacialOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &1647703911712901119
@@ -235,6 +236,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onBlurryPhotoTaken:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8959911806689255622
 GameObject:
   m_ObjectHideFlags: 0

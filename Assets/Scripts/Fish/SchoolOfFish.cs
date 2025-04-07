@@ -16,6 +16,7 @@ public class SchoolOfFish : MonoBehaviour
     [Header("Movement")] public SplineContainer myContainer;
     public float moveSpeed = 1;
     private float _pathLength;
+    public bool reversedDirection;
 
     public float progress = 0;
 
@@ -28,7 +29,7 @@ public class SchoolOfFish : MonoBehaviour
     public List<Fish> fishInScool;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void OnEnable()
+    void Start()
     {
         _pathLength = myContainer.CalculateLength();
         _gameState = FindFirstObjectByType<GameState>();
@@ -40,12 +41,23 @@ public class SchoolOfFish : MonoBehaviour
             GenerateMoreFish();
         }
 
-        if(staticMovement){
-            myContainer=null;
+        if (staticMovement)
+        {
+            myContainer = null;
         }
 
         ApplyDataToChildren();
         RegisterToTerminals();
+
+        if (staticMovement)
+        {
+            leaderFish.billBoard.billboardStrength = 1.0f;
+        }
+    }
+
+    void OnEnable()
+    {
+        ApplyDataToChildren();
     }
 
     public void GenerateMoreFish()
@@ -92,19 +104,25 @@ public class SchoolOfFish : MonoBehaviour
             if (Vector3.Distance(transform.position, terminal.transform.position) < beaconDiscoveryRange)
             {
                 terminal.AddNearbyFish(fishData);
-                beaconFound=true;
+                beaconFound = true;
             }
         }
 
-        if(!beaconFound){
-            Debug.LogWarning("Fish school has no beacon nearby",gameObject);
+        if (!beaconFound)
+        {
+            Debug.LogWarning("Fish school has no beacon nearby", gameObject);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        progress += moveSpeed * Time.deltaTime;
+        float directionFactor = 1.0f;
+        if (reversedDirection)
+        {
+            directionFactor = -1;
+        }
+        progress += (moveSpeed * Time.deltaTime) * directionFactor;
 
         if (myContainer != null)
         {

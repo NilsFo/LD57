@@ -17,7 +17,9 @@ public class BeaconTerminal : MonoBehaviour
 
     private MouseLook _mouseLook;
     private GameState gameState;
+    private MusicManager musicManager;
     public float activationDistance = 20f;
+    public AudioClip beaconAvailableClip;
 
     public BeaconState beaconState = BeaconState.WAITING_FOR_PLAYER;
     public TMP_Text displayText;
@@ -47,6 +49,7 @@ public class BeaconTerminal : MonoBehaviour
         _hoseEventFired = false;
         _knownFish = FindFirstObjectByType<KnownFish>();
         _mouseLook = FindAnyObjectByType<MouseLook>();
+        musicManager = FindAnyObjectByType<MusicManager>();
 
         gameState = FindAnyObjectByType<GameState>();
         gameState.allBeaconTerminals.Add(this);
@@ -120,6 +123,11 @@ public class BeaconTerminal : MonoBehaviour
         if (!nearbyFish.Contains(data))
         {
             nearbyFish.Add(data);
+
+            if (!gameState.debugReachableFish.Contains(data))
+            {
+                gameState.debugReachableFish.Add(data);
+            }
         }
     }
 
@@ -146,6 +154,7 @@ public class BeaconTerminal : MonoBehaviour
     private void OnHoseAvailable()
     {
         onHoseAvailable.Invoke();
+        musicManager.CreateAudioClip(beaconAvailableClip, transform.position, soundVolume: 0.3f);
         Debug.Log("Beacon hose is now available:" + name);
     }
 
