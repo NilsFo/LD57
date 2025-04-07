@@ -14,7 +14,8 @@ public class GameState : MonoBehaviour
         MAIN_MENU,
         PLAYING,
         PAUSED,
-        ERROR
+        ERROR,
+        CREDITS
     }
 
 
@@ -194,6 +195,8 @@ public class GameState : MonoBehaviour
             case GAME_STATE.PAUSED:
                 break;
             case GAME_STATE.PLAYING:
+                break;
+            case GAME_STATE.CREDITS:
                 break;
             default:
                 gameState = GAME_STATE.ERROR;

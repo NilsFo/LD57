@@ -39,7 +39,7 @@ public class BillBoard : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        if (target != null)
+        if (target == null)
         {
             return;
         }
