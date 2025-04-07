@@ -9,6 +9,8 @@ public class FinaleTrigger : MonoBehaviour
     private GameState _gameState;
 
     public AudioClip photoReverb;
+
+    public FishData bossData;
     
 
     private void Start()
@@ -60,5 +62,7 @@ public class FinaleTrigger : MonoBehaviour
         musicmanager.CreateAudioClip(photoReverb, Vector3.zero);
 
         _gameState.gameState = GameState.GAME_STATE.CREDITS;
+        
+        FindFirstObjectByType<KnownFish>().RegisterFish(bossData);
     }
 }
