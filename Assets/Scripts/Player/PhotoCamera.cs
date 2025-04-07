@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
@@ -34,6 +35,8 @@ public class PhotoCamera : MonoBehaviour
     public float focusRange = 0.08f;
 
     public float CurrentFocus => _currentFocus;
+
+    public UnityEvent onBlurryPhoto;
 
     private void Start()
     {
@@ -151,12 +154,12 @@ public class PhotoCamera : MonoBehaviour
                                                                       (_currentFocus + focusRange));
         var inFocus = dist >= focusDistLower && dist <= focusDistUpper;
 
-        if (!inFocus)
+        /*if (!inFocus)
             Debug.Log("Not in Focus: " + dist + " away, should be between " + focusDistLower + " and " + focusDistUpper);
         else
         {
             Debug.Log("Is in Focus!!: " + dist + " away, can be between " + focusDistLower + " and " + focusDistUpper);
-        }
+        }*/
         return inFocus;
     }
 
@@ -182,6 +185,8 @@ public class PhotoCamera : MonoBehaviour
 
         Debug.Log("Photoshoot hit " + hits.Count + " Entities");
 
+        bool anyBlurry = false, anyCaptured = false;
+
         foreach (GameObject hit in hits)
         {
             PhotoListener listener = hit.GetComponentInChildren<PhotoListener>();
@@ -190,12 +195,20 @@ public class PhotoCamera : MonoBehaviour
                 if (IsInFocus(listener.transform.position))
                 {
                     listener.OnPhotoTaken();
+                    anyCaptured = true;
                 }
                 else
                 {
-                    listener.OnPhotoOutOfFocus();
+                    anyBlurry = true;
+                    //listener.OnPhotoOutOfFocus();
                 }
             }
+        }
+
+        if (anyBlurry && !anyCaptured)
+        {
+            Debug.Log("Blurry Photo taken");
+            onBlurryPhoto.Invoke();
         }
 
         Debug.Log("Playing Photo Sound");
