@@ -20,10 +20,14 @@ public class FlashlightControl : MonoBehaviour
             return;
         if (flashlight == null)
             return;
+        Invoke(nameof(FlashlightOn), 3f);
+    }
 
+    public void FlashlightOn()
+    {
         flashlight.gameObject.SetActive(true);
         flashlight.intensity = 0;
-        flashlight.DOIntensity(intensity, 0.5f);
+        flashlight.DOIntensity(intensity, 0.2f);
     }
 
     private void OnTriggerExit(Collider other)

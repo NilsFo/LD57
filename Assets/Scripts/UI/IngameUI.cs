@@ -20,6 +20,7 @@ public class IngameUI : MonoBehaviour
 
     public GameObject walkingHolder;
     public GameObject photoModeHolder;
+    public GameObject creditsHolder;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -78,6 +79,12 @@ public class IngameUI : MonoBehaviour
                 gamplayHolder.SetActive(true);
                 mainMenuHolder.SetActive(false);
                 pauseMenuHolder.SetActive(false);
+                break;
+            case GameState.GAME_STATE.CREDITS:
+                gamplayHolder.SetActive(false);
+                mainMenuHolder.SetActive(false);
+                pauseMenuHolder.SetActive(false);
+                creditsHolder.SetActive(true);
                 break;
         }
     }

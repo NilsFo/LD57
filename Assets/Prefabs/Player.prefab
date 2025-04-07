@@ -1104,7 +1104,7 @@ MonoBehaviour:
   crouchSpeedModifier: 0.5
   acceleration: 10
   dampening: 0.05
-  terminalYVelocity: 55
+  terminalYVelocity: 10
   gravity: 20
   jumpSpeed: 10
   airControlMultiplier: 0.1
@@ -1144,7 +1144,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.8
   m_Radius: 0.35
-  m_SlopeLimit: 45
+  m_SlopeLimit: 60
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698f453859144e4cbb3c685e733c044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thresholdY: -100
+  thresholdY: -250
 --- !u!1 &8861621052091988121
 GameObject:
   m_ObjectHideFlags: 0
