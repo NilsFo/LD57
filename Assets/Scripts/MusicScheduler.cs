@@ -10,7 +10,7 @@ public class MusicScheduler : MonoBehaviour
     public List<int> stingerIndicesUnlocked;
     public List<int> stingerQueue;
 
-    public float stingerTimer = 20;
+    public float stingerTimer = 30;
     public float stingerTimerCurrent = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,6 +21,10 @@ public class MusicScheduler : MonoBehaviour
 
         stingerIndicesUnlocked.Clear();
         UnlockSong(1);
+        UnlockSong(2);
+        UnlockSong(3);
+        UnlockSong(4);
+        UnlockSong(5);
 
         stingerTimerCurrent = stingerTimer;
     }

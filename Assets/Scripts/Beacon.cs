@@ -32,7 +32,7 @@ public class Beacon : MonoBehaviour
 
         if (gameState.playerState == GameState.PLAYER_STATE.WALKING)
         {
-            if (gameState.isCarryingHose)
+            if (gameState.isCarryingHose && gameState.hoseStartBeacon != this)
             {
                 myNodeButton.interactable.isInteractable = true;
                 myNodeButton.interactable.interactionPrompt = "Attach oxygen hose";
