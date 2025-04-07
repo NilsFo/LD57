@@ -5,20 +5,21 @@ using UnityEngine;
 public class BillBoard : MonoBehaviour
 {
 
-    public Transform target;
+    private Transform target;
 
     public float billboardStrength = 0.5f;
+    private GameState _gameState;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (target == null)
-            target = Camera.main?.transform;
+        _gameState = FindFirstObjectByType<GameState>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        target = _gameState.GetCamera().transform;
         var dir = (target.position - transform.position).normalized;
         var billboardRot = Quaternion.LookRotation(dir, Vector3.up);
         var actualRotation = transform.parent.rotation;
