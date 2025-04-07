@@ -27,6 +27,8 @@ public class Fish : MonoBehaviour
         var sizeX = data.albumSprite.width / data.pixelPerMeter;
         var sizeY = data.albumSprite.height / data.pixelPerMeter;
         mySpriteRenderer.transform.localScale = new Vector3(sizeX, sizeY, 1);
+        var box = GetComponent<BoxCollider>();
+        box.size = new Vector3(sizeX, sizeY, 1);
     }
 
     public void OnPhotoTaken()
