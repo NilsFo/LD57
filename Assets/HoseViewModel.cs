@@ -11,13 +11,13 @@ public class HoseViewModel : MonoBehaviour
     {
         _anim = GetComponent<Animator>();
         _gameState = FindFirstObjectByType<GameState>();
-        _gameState.onPlayerStateChanged.AddListener(UpdateState);
+        _gameState.onHoseStateChanged.AddListener(UpdateState);
     }
 
     // Update is called once per frame
-    void UpdateState(GameState.PLAYER_STATE playerState)
+    void UpdateState()
     {
-        if (playerState == GameState.PLAYER_STATE.HOSE)
+        if (_gameState.isCarryingHose)
         {
             _anim.SetBool(Equipped, true);
         }

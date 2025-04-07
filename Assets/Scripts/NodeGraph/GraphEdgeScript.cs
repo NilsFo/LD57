@@ -58,7 +58,7 @@ namespace NodeGraph
             }
             catch (System.Exception)
             {
-                Debug.LogError("ERROR CALCULATING ROPE!");
+                Debug.LogWarning("ERROR CALCULATING ROPE!");
             }
 
             CalcDirection();

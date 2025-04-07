@@ -20,7 +20,6 @@ public class GameState : MonoBehaviour
     {
         WALKING,
         CAMERA,
-        HOSE,
         ERROR
     }
 
@@ -33,6 +32,9 @@ public class GameState : MonoBehaviour
     private GAME_STATE _gameState;
     private PLAYER_STATE _playerState;
 
+    public bool isCarryingHose = false;
+    private bool _isCarryingHose = false;
+
     public Beacon hoseStartBeacon;
 
     [Header("Read Only Lists")]
@@ -40,6 +42,7 @@ public class GameState : MonoBehaviour
 
     public UnityEvent<GAME_STATE> onGameStateChanged;
     public UnityEvent<PLAYER_STATE> onPlayerStateChanged;
+    public UnityEvent onHoseStateChanged;
 
     public Camera mainCameraCache;
 
@@ -51,7 +54,8 @@ public class GameState : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        _isCarryingHose = false;
+        isCarryingHose = false;
     }
 
     // Update is called once per frame
@@ -68,12 +72,12 @@ public class GameState : MonoBehaviour
             return;
         }
 
-        if (_gameState!=gameState)
+        if (_gameState != gameState)
         {
             GameStateChanged();
             _gameState = gameState;
         }
-        if (_playerState!=playerState)
+        if (_playerState != playerState)
         {
             PlayerStateChanged();
             _playerState = playerState;
@@ -84,8 +88,6 @@ public class GameState : MonoBehaviour
         switch (playerState)
         {
             case PLAYER_STATE.CAMERA:
-                break;
-            case PLAYER_STATE.HOSE:
                 break;
             case PLAYER_STATE.WALKING:
                 break;
@@ -98,15 +100,39 @@ public class GameState : MonoBehaviour
         switch (gameState)
         {
             case GAME_STATE.MAIN_MENU:
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 break;
             case GAME_STATE.PAUSED:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 break;
             case GAME_STATE.PLAYING:
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 break;
             default:
                 break;
         }
 
+        if (_isCarryingHose != isCarryingHose)
+        {
+            HoseStateChanged();
+            _isCarryingHose=isCarryingHose;
+        }
+    }
+
+    public void HoseStateChanged()
+    {
+        print("Is carrying hose: " + isCarryingHose);
+
+        if (!isCarryingHose)
+        {
+            hoseStartBeacon=null;
+        }
+
+        onHoseStateChanged.Invoke();
     }
 
     public void PlayerStateChanged()
@@ -116,8 +142,6 @@ public class GameState : MonoBehaviour
         {
             case PLAYER_STATE.CAMERA:
                 break;
-            case PLAYER_STATE.HOSE:
-                break;
             case PLAYER_STATE.WALKING:
                 break;
             default:
@@ -126,7 +150,7 @@ public class GameState : MonoBehaviour
         }
         onPlayerStateChanged.Invoke(playerState);
 
-        if (_playerState == PLAYER_STATE.HOSE)
+        if (!isCarryingHose)
         {
             hoseStartBeacon = null;
         }
@@ -153,7 +177,7 @@ public class GameState : MonoBehaviour
     {
         return mainCameraCache;
     }
-    
+
     private void LateUpdate()
     {
         mainCameraCache = Camera.main;

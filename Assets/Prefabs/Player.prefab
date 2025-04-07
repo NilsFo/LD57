@@ -53,7 +53,7 @@ MonoBehaviour:
   sensitivityScaling: 3
   mouseLookEnabled: 1
   clampInDegrees: {x: 360, y: 180}
-  lockCursor: 1
+  lockCursor: 0
   sensitivity: {x: 1, y: 1}
   smoothing: {x: 3, y: 3}
   targetDirection: {x: 0, y: 0}
@@ -833,6 +833,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5503221591866195394}
   - component: {fileID: 7781140996266298353}
+  - component: {fileID: 5955518858657343219}
   m_Layer: 3
   m_Name: Hose
   m_TagString: Untagged
@@ -878,6 +879,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5955518858657343219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6974998437417169533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81156ed78ddfa4f9da07138ca356e0d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7902113730428884437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,7 +1351,7 @@ PrefabInstance:
     - target: {fileID: 4902425073745614288, guid: e8e19afbfc6b25e47b4d129b0e30b213, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 84a53081139c2a345a118d37b69c8e7e, type: 2}
+      objectReference: {fileID: 2100000, guid: f83e7ac7c8fc2a244912fcb8a1a5d49f, type: 2}
     - target: {fileID: 5145102766073627129, guid: e8e19afbfc6b25e47b4d129b0e30b213, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1811,7 +1824,7 @@ PrefabInstance:
     - target: {fileID: 4902425073745614288, guid: e8e19afbfc6b25e47b4d129b0e30b213, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 84a53081139c2a345a118d37b69c8e7e, type: 2}
+      objectReference: {fileID: 2100000, guid: f83e7ac7c8fc2a244912fcb8a1a5d49f, type: 2}
     - target: {fileID: 5145102766073627129, guid: e8e19afbfc6b25e47b4d129b0e30b213, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

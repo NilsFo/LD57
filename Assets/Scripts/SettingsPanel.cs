@@ -17,7 +17,7 @@ public class SettingsPanel : MonoBehaviour
     void Start()
     {
         musicManager = FindFirstObjectByType<MusicManager>();
-        mouseLook = FindFirstObjectByType<MouseLook>();
+        mouseLook = FindFirstObjectByType<MouseLook>(FindObjectsInactive.Include);
 
         volumeSlider.value = MusicManager.userDesiredMasterVolume;
         sensitivitySlider.value = mouseLook.sensitivitySettings;

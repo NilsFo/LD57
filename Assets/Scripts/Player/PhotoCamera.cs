@@ -43,10 +43,6 @@ public class PhotoCamera : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame && state == PhotoCameraState.Raised)
         {
-            if(gameState.playerState==GameState.PLAYER_STATE.HOSE){
-                gameState.playerState=GameState.PLAYER_STATE.WALKING;
-            }
-
             TakePhoto();
         }
 
@@ -78,13 +74,6 @@ public class PhotoCamera : MonoBehaviour
     public void RaiseFinish()
     {
         state = PhotoCameraState.Raised;
-
-        if (gameState.playerState == GameState.PLAYER_STATE.HOSE)
-        {
-            Lower();
-            return;
-        }
-
         gameState.playerState = GameState.PLAYER_STATE.CAMERA;
         foreach (var viewmodel in viewmodelsLowered)
         {
@@ -116,12 +105,6 @@ public class PhotoCamera : MonoBehaviour
     public void LowerFinish()
     {
         state = PhotoCameraState.Idle;
-
-        if (gameState.playerState == GameState.PLAYER_STATE.HOSE)
-        {
-            Raise();
-            return;
-        }
     }
 
     public void UpdateDOF()
