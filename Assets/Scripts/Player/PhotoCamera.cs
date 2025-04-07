@@ -209,7 +209,7 @@ public class PhotoCamera : MonoBehaviour
                 else
                 {
                     anyBlurry = true;
-                    //listener.OnPhotoOutOfFocus();
+                    listener.OnPhotoOutOfFocus();
                 }
             }
         }

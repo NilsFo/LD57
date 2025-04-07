@@ -51,7 +51,7 @@ public class ViewmodelSway : MonoBehaviour
 
         // sway for jumping and flying
         var v = playerMovement.velocity;
-        Sway(new Vector3(0, v.y * Time.deltaTime * 10, 0));
+        Sway(new Vector3(0, Mathf.Max(v.y, -1) * Time.deltaTime * 10, 0));
         var v_xz = new Vector2(v.x, v.z);
         walkSine += Time.deltaTime * v_xz.magnitude / step_size;
         

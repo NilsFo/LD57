@@ -76,9 +76,9 @@ public class GameState : MonoBehaviour
     public void SetUpTutorial()
     {
         print("Setting up tutorial.");
-        messageSystem.EnqueueMessage("Explore and take pictures\nof the local wildlife.");
-        messageSystem.EnqueueMessage("Connect oxygen supply beacons.");
-        messageSystem.EnqueueMessage("You are tethered to the beacons.");
+        messageSystem.EnqueueMessage("Explore and take pictures\nof the local wildlife".ToUpper());
+        messageSystem.EnqueueMessage("Connect oxygen supply beacons".ToUpper());
+        messageSystem.EnqueueMessage("You are tethered to the beacons".ToUpper());
     }
 
     // Update is called once per frame
@@ -254,7 +254,7 @@ public class GameState : MonoBehaviour
         if (_msgTetherExceededTimer < 0)
         {
             _msgTetherExceededTimer = msgTetherExceededTimer;
-            messageSystem.EnqueueMessage("Tehter range exceeded!");
+            messageSystem.EnqueueMessage("Tether range exceeded".ToUpper());
         }
     }
 }
