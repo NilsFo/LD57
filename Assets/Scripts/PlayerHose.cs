@@ -1,4 +1,5 @@
 using System;
+using GogoGaga.OptimizedRopesAndCables;
 using UnityEngine;
 
 public class PlayerHose : MonoBehaviour
@@ -39,6 +40,8 @@ public class PlayerHose : MonoBehaviour
         isVisible = true;
         ropeViz.gameObject.SetActive(true);
         target = gameState.hoseStartBeacon.myNode.transform;
+        ropeStart.transform.position = target.transform.position;
+        ropeViz.GetComponent<Rope>().RecalculateRope();
     }
 
     public void UnequipHose()
