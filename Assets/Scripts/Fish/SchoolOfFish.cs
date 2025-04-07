@@ -85,13 +85,19 @@ public class SchoolOfFish : MonoBehaviour
 
     public void RegisterToTerminals()
     {
+        bool beaconFound = false;
         foreach (BeaconTerminal terminal in _gameState.allBeaconTerminals)
         {
             float beaconDiscoveryRange = terminal.fishDiscoveryRange;
             if (Vector3.Distance(transform.position, terminal.transform.position) < beaconDiscoveryRange)
             {
                 terminal.AddNearbyFish(fishData);
+                beaconFound=true;
             }
+        }
+
+        if(!beaconFound){
+            Debug.LogWarning("Fish school has no beacon nearby",gameObject);
         }
     }
 
