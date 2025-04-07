@@ -28,7 +28,7 @@ public class SchoolOfFish : MonoBehaviour
     public List<Fish> fishInScool;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
         _pathLength = myContainer.CalculateLength();
         _gameState = FindFirstObjectByType<GameState>();
@@ -115,6 +115,7 @@ public class SchoolOfFish : MonoBehaviour
                     pos.z + fish.spacialOffset.z
                 );
                 fish.transform.position = newPos;
+                fish.transform.rotation = Quaternion.LookRotation(tangent, Vector3.up);
             }
         }
         progress = progress % _pathLength;
