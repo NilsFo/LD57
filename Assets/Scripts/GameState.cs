@@ -73,7 +73,7 @@ public class GameState : MonoBehaviour
         isCarryingHose = false;
     }
 
-    public void SetUpTutorial()
+    public void PlayTutorial()
     {
         print("Setting up tutorial.");
         messageSystem.EnqueueMessage("Explore and take pictures\nof the local wildlife".ToUpper());
@@ -160,7 +160,6 @@ public class GameState : MonoBehaviour
 
         Keyboard keyboard = Keyboard.current;
         // Pause menu
-
         if (keyboard.tabKey.wasPressedThisFrame)
         {
             if (gameState == GAME_STATE.PAUSED)
@@ -171,6 +170,14 @@ public class GameState : MonoBehaviour
             if (gameState == GAME_STATE.PLAYING)
             {
                 gameState = GAME_STATE.PAUSED;
+            }
+        }
+
+        if (keyboard.hKey.wasPressedThisFrame)
+        {
+            if (gameState == GAME_STATE.PLAYING)
+            {
+                PlayTutorial();
             }
         }
     }
@@ -229,8 +236,6 @@ public class GameState : MonoBehaviour
         if (_gameState == GAME_STATE.MAIN_MENU)
         {
             musicManager.Stop();
-
-            Invoke(nameof(SetUpTutorial), 2);
         }
     }
 

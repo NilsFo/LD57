@@ -1143,7 +1143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Take Photo [LMB]
+  m_text: 'Take photo [LMB]
 
     Return [RMB]
 
@@ -2164,7 +2164,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use [E]
+  m_text: 'How to play [H]
+
+    Use [E]
 
     View photos [Tab]
 
