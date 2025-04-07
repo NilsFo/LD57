@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3304053351503096118
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6830,15 +6830,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1255126675244460487, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1490452311282256298, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2489442633238161337, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3459648755234207590, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_Pivot.x
@@ -6922,11 +6922,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547542422730531002, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8052422410494045741, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_Name
       value: SettingsPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052422410494045741, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
