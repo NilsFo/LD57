@@ -16,7 +16,6 @@ public class SchoolOfFish : MonoBehaviour
     [Header("Movement")] public SplineContainer myContainer;
     public float moveSpeed = 1;
     private float _pathLength;
-    public bool reversedDirection;
 
     public float progress = 0;
 
@@ -118,10 +117,6 @@ public class SchoolOfFish : MonoBehaviour
     void Update()
     {
         float directionFactor = 1.0f;
-        if (reversedDirection)
-        {
-            directionFactor = -1;
-        }
         progress += (moveSpeed * Time.deltaTime) * directionFactor;
 
         if (myContainer != null)
