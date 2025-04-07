@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Fish 2
   m_EditorClassIdentifier: 
   displayName: Deep Amnesiac
-  albumSprite: {fileID: 21300000, guid: 68158e7c579bcf14abeb78ba7bb2c48b, type: 3}
+  albumSprite: {fileID: 0}
+  pixelPerMeter: 32

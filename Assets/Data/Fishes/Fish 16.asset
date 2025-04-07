@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Fish 16
   m_EditorClassIdentifier: 
   displayName: Mourning Bones
-  albumSprite: {fileID: 21300000, guid: 7aa015f84fff1fa43bb3b7f4de8d6287, type: 3}
+  albumSprite: {fileID: 0}
+  pixelPerMeter: 32

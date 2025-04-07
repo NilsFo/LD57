@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Fish 14
   m_EditorClassIdentifier: 
   displayName: Domenican Flatbone
-  albumSprite: {fileID: 21300000, guid: 508f814e97b01e642925cc134af8affe, type: 3}
+  albumSprite: {fileID: 0}
+  pixelPerMeter: 32

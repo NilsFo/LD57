@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Fish 8
   m_EditorClassIdentifier: 
   displayName: Pink Pearlmouth
-  albumSprite: {fileID: 21300000, guid: b5fb2d03bd718f64bbc85f73f5152950, type: 3}
+  albumSprite: {fileID: 0}
+  pixelPerMeter: 32

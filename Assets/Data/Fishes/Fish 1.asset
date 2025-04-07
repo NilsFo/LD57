@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Fish 1
   m_EditorClassIdentifier: 
   displayName: Fey Monarch
-  albumSprite: {fileID: 21300000, guid: ce0e81b8be4138940bf48de1465eea51, type: 3}
+  albumSprite: {fileID: 0}
+  pixelPerMeter: 32

@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575b3ec764e2089ef815c147bb0f39ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRange: 25
+  maxRange: 60
   paddingPercent: 0.1
   cam: {fileID: 20774325737128242}
   viewmodelsRaised:

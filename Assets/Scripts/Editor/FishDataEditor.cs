@@ -19,19 +19,7 @@ public class ItemInfoEditor : Editor
     {
         if (item.albumSprite != null)
         {
-            Type t = GetType("UnityEditor.SpriteUtility");
-            if (t != null)
-            {
-                MethodInfo method = t.GetMethod("RenderStaticPreview",
-                    new Type[] { typeof(Sprite), typeof(Color), typeof(int), typeof(int) });
-                if (method != null)
-                {
-                    object ret = method.Invoke("RenderStaticPreview",
-                        new object[] { item.albumSprite, Color.white, width, height });
-                    if (ret is Texture2D)
-                        return ret as Texture2D;
-                }
-            }
+            return item.albumSprite as Texture2D;
         }
 
         return base.RenderStaticPreview(assetPath, subAssets, width, height);

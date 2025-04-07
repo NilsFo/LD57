@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Fish 15
   m_EditorClassIdentifier: 
   displayName: Regal Soprano
-  albumSprite: {fileID: 21300000, guid: 1504842cf68e5e7449f11b5c39cf9327, type: 3}
+  albumSprite: {fileID: 0}
+  pixelPerMeter: 32

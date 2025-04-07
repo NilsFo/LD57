@@ -160,7 +160,15 @@ public class PhotoCamera : MonoBehaviour
                                                                       (_currentFocus - focusRange)));
         var focusDistUpper = Mathf.LerpUnclamped(minFocus, maxFocus, (_currentFocus + focusRange) *
                                                                       (_currentFocus + focusRange));
-        return dist >= focusDistLower && dist <= focusDistUpper;
+        var inFocus =  dist >= focusDistLower && dist <= focusDistUpper;
+
+        if(!inFocus)
+            Debug.Log("Not in Focus: " + dist + " away, should be between " + focusDistLower + " and " + focusDistUpper);
+        else
+        {
+            Debug.Log("Is in Focus!!: " + dist + " away, can be between " + focusDistLower + " and " + focusDistUpper);
+        }
+        return inFocus;
     }
 
     public void TakePhoto()
