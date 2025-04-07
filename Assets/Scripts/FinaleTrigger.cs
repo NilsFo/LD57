@@ -43,6 +43,8 @@ public class FinaleTrigger : MonoBehaviour
 
         _gameState.movement.maximumSpeed = 0f;
         _gameState.movement.tethered = false;
+
+        _gameState.isCarryingHose = false;
         
         Invoke(nameof(StartMusic), 5f);
     }
@@ -64,5 +66,14 @@ public class FinaleTrigger : MonoBehaviour
         _gameState.gameState = GameState.GAME_STATE.CREDITS;
         
         FindFirstObjectByType<KnownFish>().RegisterFish(bossData);
+        
+        Invoke(nameof(PostFinale), 10f);
+    }
+
+    public void PostFinale()
+    {
+        _gameState.movement.transform.position = new Vector3(80.800827f,15.4800005f,-59.6245499f);
+        var musicmanager = FindFirstObjectByType<MusicManager>();
+        musicmanager.Play(0, true);
     }
 }

@@ -823,6 +823,9 @@ MonoBehaviour:
   minFocus: 1
   maxFocus: 50
   focusRange: 0.12
+  onBlurryPhoto:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6974998437417169533
 GameObject:
   m_ObjectHideFlags: 0

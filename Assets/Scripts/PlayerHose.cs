@@ -23,6 +23,8 @@ public class PlayerHose : MonoBehaviour
                 UnequipHose();
             }
         });
+        
+        UnequipHose();
     }
 
     // Update is called once per frame

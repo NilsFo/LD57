@@ -563,6 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossRenderer: {fileID: 3852207229669950139}
   photoReverb: {fileID: 8300000, guid: a97fb82060f4c4f4aa51f5e5ae4e8daa, type: 3}
+  bossData: {fileID: 11400000, guid: 0a6f889083cae2640af30a72c02c230d, type: 2}
 --- !u!1001 &4036118864756070936
 PrefabInstance:
   m_ObjectHideFlags: 0
