@@ -36,6 +36,9 @@ public class FinaleTrigger : MonoBehaviour
 
         FindFirstObjectByType<MusicScheduler>().gameObject.SetActive(false);
         //musicmanager.SkipFade();
+
+        _gameState.movement.maximumSpeed = 0f;
+        _gameState.movement.tethered = false;
         
         Invoke(nameof(StartMusic), 5f);
     }
@@ -45,7 +48,6 @@ public class FinaleTrigger : MonoBehaviour
         bossRenderer.material.DOColor(Color.white, 10f);
         var musicmanager = FindFirstObjectByType<MusicManager>();
         musicmanager.Play(6);
-        
     }
 
     public void FinalePhoto()
