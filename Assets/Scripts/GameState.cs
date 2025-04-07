@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
@@ -45,10 +47,16 @@ public class GameState : MonoBehaviour
     public UnityEvent onHoseStateChanged;
 
     public Camera mainCameraCache;
+    public MouseLook mouseLook;
+    public CharacterMovement movement;
+    private MusicManager musicManager;
 
     private void Awake()
     {
         mainCameraCache = Camera.main;
+        mouseLook = FindFirstObjectByType<MouseLook>();
+        movement = FindFirstObjectByType<CharacterMovement>();
+        musicManager = FindFirstObjectByType<MusicManager>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -100,17 +108,22 @@ public class GameState : MonoBehaviour
         switch (gameState)
         {
             case GAME_STATE.MAIN_MENU:
-
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                mouseLook.enabled = false;
+                movement.inputDisabled = true;
                 break;
             case GAME_STATE.PAUSED:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                mouseLook.enabled = false;
+                movement.inputDisabled = true;
                 break;
             case GAME_STATE.PLAYING:
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                mouseLook.enabled = true;
+                movement.inputDisabled = false;
                 break;
             default:
                 break;
@@ -119,7 +132,22 @@ public class GameState : MonoBehaviour
         if (_isCarryingHose != isCarryingHose)
         {
             HoseStateChanged();
-            _isCarryingHose=isCarryingHose;
+            _isCarryingHose = isCarryingHose;
+        }
+
+        Keyboard keyboard = Keyboard.current;
+        // Pause menu
+
+        if (keyboard.tabKey.wasPressedThisFrame)
+        {
+            if (gameState == GAME_STATE.PAUSED)
+            {
+                gameState = GAME_STATE.PLAYING;
+            }else
+            if (gameState == GAME_STATE.PLAYING)
+            {
+                gameState = GAME_STATE.PAUSED;
+            }
         }
     }
 
@@ -129,7 +157,7 @@ public class GameState : MonoBehaviour
 
         if (!isCarryingHose)
         {
-            hoseStartBeacon=null;
+            hoseStartBeacon = null;
         }
 
         onHoseStateChanged.Invoke();
@@ -171,6 +199,11 @@ public class GameState : MonoBehaviour
                 gameState = GAME_STATE.ERROR;
                 break;
         }
+
+        if (_gameState == GAME_STATE.MAIN_MENU)
+        {
+            musicManager.Stop();
+        }
     }
 
     public Camera GetCamera()
@@ -181,5 +214,10 @@ public class GameState : MonoBehaviour
     private void LateUpdate()
     {
         mainCameraCache = Camera.main;
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
