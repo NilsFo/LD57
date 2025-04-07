@@ -654,19 +654,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823960fa48a4e7d4480a7fc0caabd553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activationDistance: 20
+  activationDistance: 8
   beaconState: 0
   displayText: {fileID: 2053722810270593420}
   canvasHolder: {fileID: 632476368112058932}
-  activeOnStart: 0
-  hoseWaitTime: 10
+  hoseWaitTime: 5
   hoseAvailable: 0
   onHoseAvailable:
     m_PersistentCalls:
       m_Calls: []
   nearbyFish: []
   nearbyFishForce: []
-  fishDiscoveryRange: 0
+  fishDiscoveryRange: 60
   showFishDiscoverRange: 0
   showActivationDistanceRange: 0
 --- !u!1 &7099193311815494358
