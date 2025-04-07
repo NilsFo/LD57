@@ -43,6 +43,8 @@ public class FinaleTrigger : MonoBehaviour
 
         _gameState.movement.maximumSpeed = 0f;
         _gameState.movement.tethered = false;
+
+        _gameState.isCarryingHose = false;
         
         Invoke(nameof(StartMusic), 5f);
     }
