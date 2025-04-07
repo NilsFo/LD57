@@ -9,6 +9,8 @@ public class Beacon : MonoBehaviour
     public BeaconTerminal myTerminal;
     public GraphNode myNode;
     private GameState gameState;
+    private MusicManager musicManager;
+    public AudioClip hosePickUpClip;
 
     public bool terminalFinishedLoading;
     public bool isInNetwork;
@@ -18,6 +20,7 @@ public class Beacon : MonoBehaviour
     void Start()
     {
         gameState = FindFirstObjectByType<GameState>();
+        musicManager = FindFirstObjectByType<MusicManager>();
         if (activeOnStart)
         {
             myTerminal.StartLoading();
@@ -32,10 +35,13 @@ public class Beacon : MonoBehaviour
 
         if (gameState.playerState == GameState.PLAYER_STATE.WALKING)
         {
-            if (gameState.isCarryingHose && gameState.hoseStartBeacon != this)
+            if (gameState.isCarryingHose)
             {
-                myNodeButton.interactable.isInteractable = true;
-                myNodeButton.interactable.interactionPrompt = "Attach oxygen hose";
+                if (gameState.hoseStartBeacon != this)
+                {
+                    myNodeButton.interactable.isInteractable = true;
+                    myNodeButton.interactable.interactionPrompt = "Attach oxygen hose";
+                }
             }
             else
             {
@@ -58,6 +64,7 @@ public class Beacon : MonoBehaviour
                 if (isInNetwork)
                     return;
                 JoinNetwork();
+                musicManager.CreateAudioClip(hosePickUpClip, transform.position);
                 gameState.isCarryingHose = false;
                 print("Attached the hose.");
                 FindFirstObjectByType<NodeGraph.NodeGraph>().AddEdge(myNode.gameObject, gameState.hoseStartBeacon.myNode.gameObject);
@@ -67,6 +74,7 @@ public class Beacon : MonoBehaviour
             {
                 gameState.isCarryingHose = true;
                 gameState.hoseStartBeacon = this;
+                musicManager.CreateAudioClip(hosePickUpClip, transform.position);
                 print("Picked up a hose.");
                 return;
             }

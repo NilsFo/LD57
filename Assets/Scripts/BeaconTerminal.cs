@@ -19,7 +19,7 @@ public class BeaconTerminal : MonoBehaviour
     private GameState gameState;
     private MusicManager musicManager;
     public float activationDistance = 20f;
-    public AudioClip beaconAvailableClip;
+    public AudioSource beaconReadyPing;
 
     public BeaconState beaconState = BeaconState.WAITING_FOR_PLAYER;
     public TMP_Text displayText;
@@ -154,7 +154,7 @@ public class BeaconTerminal : MonoBehaviour
     private void OnHoseAvailable()
     {
         onHoseAvailable.Invoke();
-        musicManager.CreateAudioClip(beaconAvailableClip, transform.position, soundVolume: 0.3f);
+        beaconReadyPing.Play();
         Debug.Log("Beacon hose is now available:" + name);
     }
 
