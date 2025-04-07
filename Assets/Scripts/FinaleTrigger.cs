@@ -35,6 +35,8 @@ public class FinaleTrigger : MonoBehaviour
         flashlightControl.flashlight.DOIntensity(0, 2f);
 
         FindFirstObjectByType<MusicScheduler>().gameObject.SetActive(false);
+        var musicmanager = FindFirstObjectByType<MusicManager>();
+        musicmanager.Stop();
         //musicmanager.SkipFade();
 
         _gameState.movement.maximumSpeed = 0f;
