@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Fish 666
   m_EditorClassIdentifier: 
   displayName: ???
-  albumSprite: {fileID: 21300000, guid: ab0938e2a7118c94e907ad0f7214fe9f, type: 3}
+  whereFindText: ???
+  albumSprite: {fileID: 2800000, guid: ab0938e2a7118c94e907ad0f7214fe9f, type: 3}
+  sprite: {fileID: 21300000, guid: 3316f0b8795b7be4887657435863ca50, type: 3}
+  pixelPerMeter: 32

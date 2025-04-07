@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Fish 3
   m_EditorClassIdentifier: 
   displayName: Foxface
-  albumSprite: {fileID: 21300000, guid: c1d154ec57cecea46a65a28bc16e7083, type: 3}
+  whereFindText: Common and colorful. Often spotet near the surface.
+  albumSprite: {fileID: 2800000, guid: c1d154ec57cecea46a65a28bc16e7083, type: 3}
+  sprite: {fileID: 21300000, guid: 442f6ae4e1774b240a035a1787c04203, type: 3}
+  pixelPerMeter: 32

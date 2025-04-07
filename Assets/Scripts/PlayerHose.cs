@@ -12,9 +12,9 @@ public class PlayerHose : MonoBehaviour
     void Start()
     {
         gameState = FindFirstObjectByType<GameState>();
-        gameState.onPlayerStateChanged.AddListener((newState) =>
+        gameState.onHoseStateChanged.AddListener(() =>
         {
-            if (newState == GameState.PLAYER_STATE.HOSE)
+            if (gameState.isCarryingHose)
             {
                 EquipHose();
             }
@@ -28,7 +28,7 @@ public class PlayerHose : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isVisible)
+        if (isVisible)
             ropeStart.transform.position = target.transform.position;
     }
 
@@ -38,7 +38,7 @@ public class PlayerHose : MonoBehaviour
         ropeViz.gameObject.SetActive(true);
         target = gameState.hoseStartBeacon.myNode.transform;
     }
-    
+
     public void UnequipHose()
     {
         isVisible = false;

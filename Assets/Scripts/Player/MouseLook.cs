@@ -39,14 +39,14 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-        if (!mouseLookEnabled || Time.timeScale == 0)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            if(!lockCursor)
-                Cursor.visible = true;
-
-            return;
-        }
+        //if (!mouseLookEnabled || Time.timeScale == 0)
+        //{
+        //    Cursor.lockState = CursorLockMode.None;
+        //    if(!lockCursor)
+        //        Cursor.visible = true;
+//
+        //    return;
+        //}
 
         // Ensure the cursor is always locked when set
         if (lockCursor)

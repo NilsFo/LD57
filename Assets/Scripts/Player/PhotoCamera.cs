@@ -33,6 +33,8 @@ public class PhotoCamera : MonoBehaviour
     private float _currentFocus = 0.5f;
     public float focusRange = 0.08f;
 
+    public float CurrentFocus => _currentFocus;
+
     private void Start()
     {
         gameState = FindFirstObjectByType<GameState>();
@@ -41,28 +43,28 @@ public class PhotoCamera : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && state == PhotoCameraState.Raised)
+        if (Mouse.current.leftButton.wasPressedThisFrame &&
+         state == PhotoCameraState.Raised &&
+          gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
-            if(gameState.playerState==GameState.PLAYER_STATE.HOSE){
-                gameState.playerState=GameState.PLAYER_STATE.WALKING;
-            }
-
             TakePhoto();
         }
 
         if ((Mouse.current.rightButton.wasPressedThisFrame) &&
-            state == PhotoCameraState.Raised)
+            state == PhotoCameraState.Raised &&
+            gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
             Lower();
         }
 
         if ((Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.rightButton.wasPressedThisFrame) &&
-            state == PhotoCameraState.Idle)
+            state == PhotoCameraState.Idle &&
+            gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
             Raise();
         }
 
-        if (state == PhotoCameraState.Raised)
+        if (state == PhotoCameraState.Raised && gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
             UpdateDOF();
         }
@@ -78,13 +80,6 @@ public class PhotoCamera : MonoBehaviour
     public void RaiseFinish()
     {
         state = PhotoCameraState.Raised;
-
-        if (gameState.playerState == GameState.PLAYER_STATE.HOSE)
-        {
-            Lower();
-            return;
-        }
-
         gameState.playerState = GameState.PLAYER_STATE.CAMERA;
         foreach (var viewmodel in viewmodelsLowered)
         {
@@ -101,7 +96,7 @@ public class PhotoCamera : MonoBehaviour
         state = PhotoCameraState.Transition;
         camAnim.SetTrigger("Unaim");
         Invoke(nameof(LowerFinish), 10f / 30f);
-        
+
         gameState.playerState = GameState.PLAYER_STATE.WALKING;
         foreach (var viewmodel in viewmodelsLowered)
         {
@@ -116,12 +111,6 @@ public class PhotoCamera : MonoBehaviour
     public void LowerFinish()
     {
         state = PhotoCameraState.Idle;
-
-        if (gameState.playerState == GameState.PLAYER_STATE.HOSE)
-        {
-            Raise();
-            return;
-        }
     }
 
     public void UpdateDOF()
@@ -132,7 +121,7 @@ public class PhotoCamera : MonoBehaviour
         {
             deltaFocus = 0.05f;
         }
-        else if (scroll < 0|| Keyboard.current.fKey.wasPressedThisFrame)
+        else if (scroll < 0 || Keyboard.current.fKey.wasPressedThisFrame)
         {
             deltaFocus = -0.05f;
         }
@@ -140,13 +129,13 @@ public class PhotoCamera : MonoBehaviour
         if (deltaFocus == 0f)
             return;
 
-        
+
         _currentFocus = Mathf.Clamp(_currentFocus + deltaFocus, 0, 1);
         var focusDist = Mathf.Lerp(minFocus, maxFocus, (_currentFocus * _currentFocus));
 
         UnityEngine.Rendering.Universal.DepthOfField dof;
 
-        if(!cameraPostProcessing.sharedProfile.TryGet(out dof)) return;
+        if (!cameraPostProcessing.sharedProfile.TryGet(out dof)) return;
 
         dof.focusDistance.Override(focusDist);
 
@@ -160,7 +149,15 @@ public class PhotoCamera : MonoBehaviour
                                                                       (_currentFocus - focusRange)));
         var focusDistUpper = Mathf.LerpUnclamped(minFocus, maxFocus, (_currentFocus + focusRange) *
                                                                       (_currentFocus + focusRange));
-        return dist >= focusDistLower && dist <= focusDistUpper;
+        var inFocus = dist >= focusDistLower && dist <= focusDistUpper;
+
+        if (!inFocus)
+            Debug.Log("Not in Focus: " + dist + " away, should be between " + focusDistLower + " and " + focusDistUpper);
+        else
+        {
+            Debug.Log("Is in Focus!!: " + dist + " away, can be between " + focusDistLower + " and " + focusDistUpper);
+        }
+        return inFocus;
     }
 
     public void TakePhoto()
@@ -200,11 +197,11 @@ public class PhotoCamera : MonoBehaviour
                 }
             }
         }
-        
+
         Debug.Log("Playing Photo Sound");
         // Play Sound
         FindFirstObjectByType<MusicManager>().CreateAudioClip(photoSound, Vector3.zero);
-        
+
         Debug.Log("Flashing Camera");
         // Flash
         cameraFlash.intensity = cameraFlashIntensity;

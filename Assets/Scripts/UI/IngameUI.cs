@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IngameUI : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class IngameUI : MonoBehaviour
     public GameObject gamplayHolder;
     public GameObject mainMenuHolder;
     public GameObject pauseMenuHolder;
+    public Slider photoFcousSlider;
+    private PhotoCamera photoCamera;
 
 
     public GameObject walkingHolder;
@@ -24,6 +27,7 @@ public class IngameUI : MonoBehaviour
     {
         gameState = FindFirstObjectByType<GameState>();
         knownFish = FindFirstObjectByType<KnownFish>();
+        photoCamera = FindFirstObjectByType<PhotoCamera>();
     }
 
     // Update is called once per frame
@@ -39,6 +43,7 @@ public class IngameUI : MonoBehaviour
                 break;
         }
 
+        photoFcousSlider.value=photoCamera.CurrentFocus;
 
         switch (gameState.playerState)
         {

@@ -14,8 +14,6 @@ public class Beacon : MonoBehaviour
     public bool isInNetwork;
     public bool activeOnStart = false;
 
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,18 +30,20 @@ public class Beacon : MonoBehaviour
     {
         myNodeButton.interactable.isInteractable = false;
 
-        if (gameState.playerState == GameState.PLAYER_STATE.HOSE)
-        {
-            myNodeButton.interactable.isInteractable = true;
-            myNodeButton.interactable.interactionPrompt = "Attach oxygen hose";
-        }
-
         if (gameState.playerState == GameState.PLAYER_STATE.WALKING)
         {
-            if (terminalFinishedLoading)
+            if (gameState.isCarryingHose && gameState.hoseStartBeacon != this)
             {
                 myNodeButton.interactable.isInteractable = true;
-                myNodeButton.interactable.interactionPrompt = "Take oxygen hose";
+                myNodeButton.interactable.interactionPrompt = "Attach oxygen hose";
+            }
+            else
+            {
+                if (terminalFinishedLoading)
+                {
+                    myNodeButton.interactable.isInteractable = true;
+                    myNodeButton.interactable.interactionPrompt = "Take oxygen hose";
+                }
             }
         }
     }
@@ -51,24 +51,25 @@ public class Beacon : MonoBehaviour
     public void OnPlayerInteract()
     {
         print("Beacon player interact");
-
-        if (gameState.playerState == GameState.PLAYER_STATE.HOSE)
-        {
-            if (isInNetwork)
-                return;
-            JoinNetwork();
-            gameState.playerState=GameState.PLAYER_STATE.WALKING;
-            print("Attached the hose.");
-            FindFirstObjectByType<NodeGraph.NodeGraph>().AddEdge(myNode.gameObject, gameState.hoseStartBeacon.myNode.gameObject);
-            return;
-        }
-
         if (gameState.playerState == GameState.PLAYER_STATE.WALKING)
         {
-            gameState.playerState = GameState.PLAYER_STATE.HOSE;
-            gameState.hoseStartBeacon=this;
-            print("Picked up a hose.");
-            return;
+            if (gameState.isCarryingHose)
+            {
+                if (isInNetwork)
+                    return;
+                JoinNetwork();
+                gameState.isCarryingHose = false;
+                print("Attached the hose.");
+                FindFirstObjectByType<NodeGraph.NodeGraph>().AddEdge(myNode.gameObject, gameState.hoseStartBeacon.myNode.gameObject);
+                return;
+            }
+            if (!gameState.isCarryingHose)
+            {
+                gameState.isCarryingHose = true;
+                gameState.hoseStartBeacon = this;
+                print("Picked up a hose.");
+                return;
+            }
         }
     }
 

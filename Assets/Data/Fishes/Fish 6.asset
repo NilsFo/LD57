@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Fish 6
   m_EditorClassIdentifier: 
   displayName: Baltic Tinyfin
-  albumSprite: {fileID: 21300000, guid: bba640fc3ba0852449fe149080db3a43, type: 3}
+  whereFindText: Common and colorful. Likes to hide in reefs.
+  albumSprite: {fileID: 2800000, guid: bba640fc3ba0852449fe149080db3a43, type: 3}
+  sprite: {fileID: 21300000, guid: 887945324d49e3548a5f5d616572e8a8, type: 3}
+  pixelPerMeter: 32

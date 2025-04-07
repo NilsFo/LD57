@@ -4,9 +4,10 @@ using UnityEngine.Splines;
 public class Fish : MonoBehaviour
 {
     [Header("Identity")] public FishData data;
-    public SpriteRenderer mySpriteRenderer;
+    public Renderer mySpriteRenderer;
+    public SpriteRenderer debugSprite;
 
-    private GameState _gameState;
+    //private GameState _gameState;
     private KnownFish _knownFish;
 
     [Header("I am an individual and i have individual traits")]
@@ -16,14 +17,18 @@ public class Fish : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _gameState = FindFirstObjectByType<GameState>();
+        //_gameState = FindFirstObjectByType<GameState>();
         _knownFish = FindFirstObjectByType<KnownFish>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        mySpriteRenderer.sprite = data.albumSprite;
+        debugSprite.gameObject.SetActive(false);
+        mySpriteRenderer.gameObject.SetActive(true);
+
+        mySpriteRenderer.material.mainTexture = data.albumSprite;
+        var sizeX = data.albumSprite.width / data.pixelPerMeter;
+        var sizeY = data.albumSprite.height / data.pixelPerMeter;
+        mySpriteRenderer.transform.localScale = new Vector3(sizeX, sizeY, 1);
+        var box = GetComponent<BoxCollider>();
+        box.size = new Vector3(sizeX, sizeY, 1);
     }
 
     public void OnPhotoTaken()
