@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: fishData
       value: 
       objectReference: {fileID: 11400000, guid: 77bea04d36deb264b810f4f216199cbb, type: 2}
+    - target: {fileID: 8789481601682036855, guid: c8ceba1f1adbb384e97f5936dcd7ad7d, type: 3}
+      propertyPath: singleton
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
