@@ -41,6 +41,12 @@ public class GameState : MonoBehaviour
     public UnityEvent<GAME_STATE> onGameStateChanged;
     public UnityEvent<PLAYER_STATE> onPlayerStateChanged;
 
+    public Camera mainCameraCache;
+
+    private void Awake()
+    {
+        mainCameraCache = Camera.main;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -141,6 +147,15 @@ public class GameState : MonoBehaviour
                 gameState = GAME_STATE.ERROR;
                 break;
         }
+    }
 
+    public Camera GetCamera()
+    {
+        return mainCameraCache;
+    }
+    
+    private void LateUpdate()
+    {
+        mainCameraCache = Camera.main;
     }
 }

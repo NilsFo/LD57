@@ -196,9 +196,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldOrigin: {fileID: 8523768258075064943}
-  gameState: 1
+  gameState: 0
   playerState: 0
+  hoseStartBeacon: {fileID: 0}
   allBeaconTerminals: []
+  onGameStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7659649879822091338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +222,7 @@ MonoBehaviour:
   nodes: []
   edges: []
   partialNodeForEdge: {fileID: 0}
+  leashDistance: 40
 --- !u!1 &6499105059534784662
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,3 +268,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScale: 1
+  limitFPS: 0
+  targetFPS: 30
