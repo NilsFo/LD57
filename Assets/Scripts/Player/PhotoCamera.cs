@@ -33,6 +33,8 @@ public class PhotoCamera : MonoBehaviour
     private float _currentFocus = 0.5f;
     public float focusRange = 0.08f;
 
+    public float CurrentFocus => _currentFocus;
+
     private void Start()
     {
         gameState = FindFirstObjectByType<GameState>();
