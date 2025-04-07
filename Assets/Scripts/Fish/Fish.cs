@@ -5,6 +5,7 @@ public class Fish : MonoBehaviour
 {
     [Header("Identity")] public FishData data;
     public Renderer mySpriteRenderer;
+    public SpriteRenderer debugSprite;
 
     //private GameState _gameState;
     private KnownFish _knownFish;
@@ -18,7 +19,10 @@ public class Fish : MonoBehaviour
     {
         //_gameState = FindFirstObjectByType<GameState>();
         _knownFish = FindFirstObjectByType<KnownFish>();
-        
+
+        debugSprite.gameObject.SetActive(false);
+        mySpriteRenderer.gameObject.SetActive(true);
+
         mySpriteRenderer.material.mainTexture = data.albumSprite;
         var sizeX = data.albumSprite.width / data.pixelPerMeter;
         var sizeY = data.albumSprite.height / data.pixelPerMeter;

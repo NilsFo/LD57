@@ -17,9 +17,18 @@ public class ItemInfoEditor : Editor
 
     public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
     {
-        if (item.albumSprite != null)
+        Type t = GetType("UnityEditor.SpriteUtility");
+        if (t != null)
         {
-            
+            MethodInfo method = t.GetMethod("RenderStaticPreview",
+                new Type[] { typeof(Sprite), typeof(Color), typeof(int), typeof(int) });
+            if (method != null)
+            {
+                object ret = method.Invoke("RenderStaticPreview",
+                    new object[] { item.sprite, Color.white, width, height });
+                if (ret is Texture2D)
+                    return ret as Texture2D;
+            }
         }
 
         return base.RenderStaticPreview(assetPath, subAssets, width, height);

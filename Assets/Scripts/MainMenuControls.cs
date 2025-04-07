@@ -22,8 +22,8 @@ public class MainMenuControls : MonoBehaviour
 
     public void StartGame()
     {
-        playerHolder.gameObject.SetActive(false);
-        mainCameraHolder.gameObject.SetActive(true);
+        playerHolder.gameObject.SetActive(true);
+        mainCameraHolder.gameObject.SetActive(false);
         _gameState.gameState = GameState.GAME_STATE.PLAYING;
     }
 }
