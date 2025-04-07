@@ -41,7 +41,11 @@ public class MessageSystem : MonoBehaviour
     public void FishCaptured(FishData data)
     {
         Debug.Log("Message received: New Fish added");
-        msgQueue.Enqueue("NEW SPECIES ADDED\n" + data.displayName.ToUpper() + "\n[TAB] TO VIEW");
+        EnqueueMessage("NEW SPECIES ADDED\n" + data.displayName.ToUpper() + "\n[TAB] TO VIEW");
+    }
+
+    public void EnqueueMessage(string text){
+        msgQueue.Enqueue(text);
     }
 
     public void BlurryPhoto()

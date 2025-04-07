@@ -818,6 +818,7 @@ MonoBehaviour:
   photoSound: {fileID: 8300000, guid: 32a683341a0aa654d9c59f173af71db9, type: 3}
   cameraFlash: {fileID: 9138335745719797890}
   cameraFlashIntensity: 2000
+  cameraCooldown: 1
   cameraPostProcessing: {fileID: 4994674639970322384}
   state: 0
   minFocus: 1
@@ -1126,6 +1127,7 @@ MonoBehaviour:
   playerHeightCrouching: 1.1
   crouching: 0
   sprinting: 0
+  messageSystem: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
 --- !u!143 &1627091183779636985
 CharacterController:

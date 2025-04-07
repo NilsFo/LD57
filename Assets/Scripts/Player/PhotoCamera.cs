@@ -23,6 +23,9 @@ public class PhotoCamera : MonoBehaviour
     public Light cameraFlash;
     public float cameraFlashIntensity = 2000f;
 
+    public float cameraCooldown = 1f;
+    private float _cameraCooldown = 0;
+
     public Volume cameraPostProcessing;
 
     public enum PhotoCameraState : UInt16
@@ -46,11 +49,17 @@ public class PhotoCamera : MonoBehaviour
 
     private void Update()
     {
+        _cameraCooldown -= Time.deltaTime;
+
         if (Mouse.current.leftButton.wasPressedThisFrame &&
          state == PhotoCameraState.Raised &&
           gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
-            TakePhoto();
+            if (_cameraCooldown <= 0)
+            {
+                _cameraCooldown = cameraCooldown;
+                TakePhoto();
+            }
         }
 
         if ((Mouse.current.rightButton.wasPressedThisFrame) &&

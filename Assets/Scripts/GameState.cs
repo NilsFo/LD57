@@ -52,11 +52,16 @@ public class GameState : MonoBehaviour
     public MouseLook mouseLook;
     public CharacterMovement movement;
     private MusicManager musicManager;
+    public MessageSystem messageSystem;
+
+    public float msgTetherExceededTimer = 5;
+    public float _msgTetherExceededTimer = 5;
 
     private void Awake()
     {
         mainCameraCache = Camera.main;
         mouseLook = FindFirstObjectByType<MouseLook>();
+        messageSystem = FindFirstObjectByType<MessageSystem>();
         movement = FindFirstObjectByType<CharacterMovement>();
         musicManager = FindFirstObjectByType<MusicManager>();
     }
@@ -68,9 +73,19 @@ public class GameState : MonoBehaviour
         isCarryingHose = false;
     }
 
+    public void SetUpTutorial()
+    {
+        print("Setting up tutorial.");
+        messageSystem.EnqueueMessage("Explore and take pictures\nof the local wildlife.");
+        messageSystem.EnqueueMessage("Connect oxygen supply beacons.");
+        messageSystem.EnqueueMessage("You are tethered to the beacons.");
+    }
+
     // Update is called once per frame
     void Update()
     {
+        _msgTetherExceededTimer -= Time.deltaTime;
+
         if (playerState == PLAYER_STATE.ERROR)
         {
             Debug.LogError("PLAYER STATE IS ERROR");
@@ -151,7 +166,8 @@ public class GameState : MonoBehaviour
             if (gameState == GAME_STATE.PAUSED)
             {
                 gameState = GAME_STATE.PLAYING;
-            }else
+            }
+            else
             if (gameState == GAME_STATE.PLAYING)
             {
                 gameState = GAME_STATE.PAUSED;
@@ -213,6 +229,8 @@ public class GameState : MonoBehaviour
         if (_gameState == GAME_STATE.MAIN_MENU)
         {
             musicManager.Stop();
+
+            Invoke(nameof(SetUpTutorial), 2);
         }
     }
 
@@ -229,5 +247,14 @@ public class GameState : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene("MainScene");
+    }
+
+    internal void OnTetherLengthExceeded()
+    {
+        if (_msgTetherExceededTimer < 0)
+        {
+            _msgTetherExceededTimer = msgTetherExceededTimer;
+            messageSystem.EnqueueMessage("Tehter range exceeded!");
+        }
     }
 }

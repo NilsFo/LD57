@@ -5022,7 +5022,7 @@ MonoBehaviour:
   pfsUpdateTimer: 1
   text: {fileID: 4585923512795884969}
   showFPS: 1
-  showLog: 1
+  showLog: 0
   showWholeStackTrace: 0
   writeLogToFile: 0
 --- !u!1001 &83888538050435566

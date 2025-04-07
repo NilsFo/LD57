@@ -43,6 +43,7 @@ public class CharacterMovement : MonoBehaviour
 
     [Header("Game Hookup")] private CharacterController _controller;
     private Camera _camera;
+    public MessageSystem messageSystem;
 
     [Header("Readonly")] public Vector3 velocity;
     private Vector3 _acc;
@@ -55,6 +56,7 @@ public class CharacterMovement : MonoBehaviour
     {
         velocity = new Vector3();
         _controller = GetComponent<CharacterController>();
+        messageSystem = FindFirstObjectByType<MessageSystem>();
         _camera = GetComponentInChildren<Camera>();
         _myLayerMask = GetPhysicsLayerMask(gameObject.layer);
         gameState = FindFirstObjectByType<GameState>();
@@ -69,7 +71,7 @@ public class CharacterMovement : MonoBehaviour
         velocity.x = _controller.velocity.x;
         velocity.z = _controller.velocity.z;
         DampenXZ();
-        
+
         Vector3 groundNormal = GetNormalBelow();
 
         var velocityXZ = Vector3.ProjectOnPlane(velocity, Vector3.up);
@@ -327,6 +329,8 @@ public class CharacterMovement : MonoBehaviour
             Vector3 moveCorrection = nodeGraph.FindNearestBorderPoint(transform.position);
             Vector3 diff = moveCorrection - transform.position;
             flags |= _controller.Move(diff);
+
+            gameState.OnTetherLengthExceeded();
         }
 
         if ((flags & CollisionFlags.Above) != 0)
@@ -335,7 +339,7 @@ public class CharacterMovement : MonoBehaviour
             velocity.y = Mathf.Min(0, velocity.y);
         }
     }
-    
+
     private Vector3 GetNormalBelow()
     {
         RaycastHit hit;
@@ -411,7 +415,7 @@ public class CharacterMovement : MonoBehaviour
         Vector3 vXY = new Vector3(velocity.x, 0, velocity.z);
         if (vXY.magnitude == 0)
             return;
-        var damp = Vector3.MoveTowards(vXY, Vector3.zero, dampening*vXY.magnitude);
+        var damp = Vector3.MoveTowards(vXY, Vector3.zero, dampening * vXY.magnitude);
         /*if (damp.magnitude > vXY.magnitude)
         {
             vXY.x = 0;
