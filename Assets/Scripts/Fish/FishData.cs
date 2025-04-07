@@ -5,8 +5,10 @@ using UnityEngine;
 public class FishData : ScriptableObject
 {
     [Header("Names")] public string displayName;
+    public string whereFindText="";
 
     [Header("Visuals")] public Texture2D albumSprite;
+    public Sprite sprite;
     public int pixelPerMeter = 32;
 
 

@@ -56,6 +56,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: School - Fish 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6701804482674244262, guid: c8ceba1f1adbb384e97f5936dcd7ad7d, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701804482674244262, guid: c8ceba1f1adbb384e97f5936dcd7ad7d, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701804482674244262, guid: c8ceba1f1adbb384e97f5936dcd7ad7d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 887945324d49e3548a5f5d616572e8a8, type: 3}
+    - target: {fileID: 6701804482674244262, guid: c8ceba1f1adbb384e97f5936dcd7ad7d, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8789481601682036855, guid: c8ceba1f1adbb384e97f5936dcd7ad7d, type: 3}
       propertyPath: fishData
       value: 

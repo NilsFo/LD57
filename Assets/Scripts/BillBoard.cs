@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class BillBoard : MonoBehaviour
 {
 
-    private Transform target;
+    public Transform target;
 
     public float billboardStrength = 0.5f;
     private GameState _gameState;
@@ -32,4 +34,20 @@ public class BillBoard : MonoBehaviour
 
         //transform.Rotate(0,180,0);
     }
+
+#if UNITY_EDITOR
+
+    void OnDrawGizmosSelected()
+    {
+        if (target != null)
+        {
+            return;
+        }
+
+        Handles.color = Color.white;
+        Handles.DrawLine(transform.position, target.transform.position);
+    }
+    
+#endif
+
 }
