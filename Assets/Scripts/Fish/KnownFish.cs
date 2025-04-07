@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class KnownFish : MonoBehaviour
 {
     public List<FishData> allFish;
     public List<FishData> currentlyKnownFish;
     public List<FishData> initiallyKnownFish;
+    public UnityEvent<FishData> onFishDataKnown;
 
     public int KnownFishCount => currentlyKnownFish.Count;
     public int AllFishCount => allFish.Count;
@@ -16,6 +18,11 @@ public class KnownFish : MonoBehaviour
         foreach (FishData data in initiallyKnownFish)
         {
             RegisterFish(data);
+        }
+
+        if (onFishDataKnown==null)
+        {
+            onFishDataKnown=new UnityEvent<FishData>();
         }
     }
 
@@ -36,6 +43,8 @@ public class KnownFish : MonoBehaviour
 
         Debug.Log("New fish added to album: " + data.displayName);
         Debug.Log("Fish known now: " + KnownFishCount + "/" + AllFishCount);
+
+        onFishDataKnown.Invoke(data);
     }
 
     public bool IsKnown(FishData data)
