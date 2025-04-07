@@ -5,6 +5,7 @@ public class PhotoListener : MonoBehaviour
 {
 
     public UnityEvent onPhotoTaken;
+    public UnityEvent onBlurryPhotoTaken;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,6 +30,7 @@ public class PhotoListener : MonoBehaviour
     public void OnPhotoOutOfFocus()
     {
         Debug.Log("Photo taken but im fuken blurry lmao");
+        onBlurryPhotoTaken.Invoke();
     }
     
 }
