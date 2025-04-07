@@ -30,18 +30,23 @@ public class PauseMenuUI : MonoBehaviour
         {
             if (poster.isHovered)
             {
-                selectedData=poster.fishData;
+                selectedData = poster.fishData;
             }
         }
 
         var description = "Mouse over species to learn more.";
-        if (selectedData!=null)
+        if (selectedData != null)
         {
+            print("selected");
             if (knownFish.IsKnown(selectedData))
             {
-                description=selectedData.displayName;
-            }else{
-                description=selectedData.whereFindText;
+                description = selectedData.displayName;
+                print("known");
+            }
+            else
+            {
+                description = selectedData.whereFindText;
+                print("unknown");
             }
         }
 

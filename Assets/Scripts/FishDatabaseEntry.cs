@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class FishDatabaseEntry : MonoBehaviour,IPointerEnterHandler
+public class FishDatabaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
     public FishData fishData;
@@ -18,7 +18,7 @@ public class FishDatabaseEntry : MonoBehaviour,IPointerEnterHandler
     void Start()
     {
         knownFish = FindFirstObjectByType<KnownFish>();
-        isHovered=false;
+        isHovered = false;
     }
 
     // Update is called once per frame
@@ -39,27 +39,35 @@ public class FishDatabaseEntry : MonoBehaviour,IPointerEnterHandler
     void OnMouseEnter()
     {
         print("Mouse enter");
-        isHovered=true;
+        isHovered = true;
     }
 
     void OnMouseExit()
     {
-        print("Mouse enter");
-        isHovered=false;
+        print("Mouse exit");
+        isHovered = false;
     }
 
     void OnEnable()
     {
-        isHovered=false;
+        isHovered = false;
     }
 
     void OnDisable()
     {
-        isHovered=false;
+        isHovered = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        print("pointer enter");
+        isHovered = true;
     }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        print("pointer exit");
+        isHovered = false;
+    }
+
 }
