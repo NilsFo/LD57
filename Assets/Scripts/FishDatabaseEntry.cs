@@ -38,13 +38,11 @@ public class FishDatabaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     void OnMouseEnter()
     {
-        print("Mouse enter");
         isHovered = true;
     }
 
     void OnMouseExit()
     {
-        print("Mouse exit");
         isHovered = false;
     }
 
@@ -60,13 +58,11 @@ public class FishDatabaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        print("pointer enter");
         isHovered = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        print("pointer exit");
         isHovered = false;
     }
 

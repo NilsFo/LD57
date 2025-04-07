@@ -37,16 +37,13 @@ public class PauseMenuUI : MonoBehaviour
         var description = "Mouse over species to learn more.";
         if (selectedData != null)
         {
-            print("selected");
             if (knownFish.IsKnown(selectedData))
             {
-                description = selectedData.displayName;
-                print("known");
+                description = selectedData.displayName + ": " + selectedData.whereFindText;
             }
             else
             {
                 description = selectedData.whereFindText;
-                print("unknown");
             }
         }
 
