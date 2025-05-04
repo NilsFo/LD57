@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class MusicScheduler : MonoBehaviour
 {
-
     private MusicManager musicManager;
     private GameState gameState;
 
@@ -108,11 +107,11 @@ public class MusicScheduler : MonoBehaviour
         {
             stingerQueue.Add(index);
         }
+
         stingerIndicesUnlocked.Add(index);
     }
 
     public void OnMusicStopped()
     {
     }
-
 }

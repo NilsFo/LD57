@@ -20,9 +20,9 @@ public class KnownFish : MonoBehaviour
             RegisterFish(data);
         }
 
-        if (onFishDataKnown==null)
+        if (onFishDataKnown == null)
         {
-            onFishDataKnown=new UnityEvent<FishData>();
+            onFishDataKnown = new UnityEvent<FishData>();
         }
     }
 

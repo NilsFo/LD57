@@ -6832,15 +6832,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1255126675244460487, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1490452311282256298, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2489442633238161337, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3459648755234207590, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_Pivot.x
@@ -6924,7 +6924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547542422730531002, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8052422410494045741, guid: b30f4943174fadb4ca8508dc6055af62, type: 3}
       propertyPath: m_Name

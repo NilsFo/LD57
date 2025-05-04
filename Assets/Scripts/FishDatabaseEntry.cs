@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class FishDatabaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
     public FishData fishData;
     public Image wantedSprite;
     public Image fishSprite;
@@ -65,5 +64,4 @@ public class FishDatabaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         isHovered = false;
     }
-
 }

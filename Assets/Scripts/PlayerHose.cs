@@ -24,7 +24,7 @@ public class PlayerHose : MonoBehaviour
                 UnequipHose();
             }
         });
-        
+
         UnequipHose();
     }
 

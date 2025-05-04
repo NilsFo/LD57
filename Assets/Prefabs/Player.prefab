@@ -995,6 +995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 6467932015882015342}
   mouseLook: {fileID: 4978155765164253461}
+  swayStrength: 5
   stepSound: {fileID: 3879631782192511344}
   step_size: 1.5
   walk_sway: 45

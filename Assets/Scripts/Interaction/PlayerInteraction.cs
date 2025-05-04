@@ -76,7 +76,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 _interactableCache = hitInteractable;
             }
-            
+
             return hitInteractable;
         }
 
@@ -91,7 +91,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             return;
         }
-        
+
         PlayerInteractable interactableInFocus = GetInteractableInFocus();
         if (interactableInFocus.IsDestroyed() || interactableInFocus == null)
         {

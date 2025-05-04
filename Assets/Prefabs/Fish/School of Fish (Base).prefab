@@ -219,18 +219,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishData: {fileID: 0}
-  FishPrefab: {fileID: 8560867237153035702, guid: 34331a4bb285e034589981624ea3b7fd, type: 3}
+  fishPrefab: {fileID: 8560867237153035702, guid: 34331a4bb285e034589981624ea3b7fd, type: 3}
   staticMovement: 0
   singleton: 0
   myContainer: {fileID: 6255729085192667395}
   moveSpeed: 1
-  progress: 0
   leaderFish: {fileID: 6318998931809182291}
   numberOfOtherFishMin: 5
   numberOfOtherFishMax: 10
   randomSpacialDistanceJitter: 3
   randomTemporalDistanceJitter: 0.1
-  fishInScool: []
+  schools: []
 --- !u!1001 &7152868805861367821
 PrefabInstance:
   m_ObjectHideFlags: 0

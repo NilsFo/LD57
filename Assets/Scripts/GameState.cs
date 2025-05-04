@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
-
     public enum GAME_STATE : UInt16
     {
         MAIN_MENU,
@@ -29,8 +28,7 @@ public class GameState : MonoBehaviour
 
     public Transform worldOrigin;
 
-    [Header("States")]
-    public GAME_STATE gameState;
+    [Header("States")] public GAME_STATE gameState;
     public PLAYER_STATE playerState;
     private GAME_STATE _gameState;
     private PLAYER_STATE _playerState;
@@ -40,8 +38,7 @@ public class GameState : MonoBehaviour
 
     public Beacon hoseStartBeacon;
 
-    [Header("Read Only Lists")]
-    public List<BeaconTerminal> allBeaconTerminals;
+    [Header("Read Only Lists")] public List<BeaconTerminal> allBeaconTerminals;
     public List<FishData> debugReachableFish;
 
     public UnityEvent<GAME_STATE> onGameStateChanged;
@@ -91,6 +88,7 @@ public class GameState : MonoBehaviour
             Debug.LogError("PLAYER STATE IS ERROR");
             return;
         }
+
         if (gameState == GAME_STATE.ERROR)
         {
             Debug.LogError("GAME STATE IS ERROR");
@@ -102,6 +100,7 @@ public class GameState : MonoBehaviour
             GameStateChanged();
             _gameState = gameState;
         }
+
         if (_playerState != playerState)
         {
             PlayerStateChanged();
@@ -166,8 +165,7 @@ public class GameState : MonoBehaviour
             {
                 gameState = GAME_STATE.PLAYING;
             }
-            else
-            if (gameState == GAME_STATE.PLAYING)
+            else if (gameState == GAME_STATE.PLAYING)
             {
                 gameState = GAME_STATE.PAUSED;
             }
@@ -207,6 +205,7 @@ public class GameState : MonoBehaviour
                 playerState = PLAYER_STATE.ERROR;
                 break;
         }
+
         onPlayerStateChanged.Invoke(playerState);
 
         if (!isCarryingHose)

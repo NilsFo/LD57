@@ -4,7 +4,6 @@ using UnityEngine.Events;
 
 public class PlayerInteractable : MonoBehaviour
 {
-
     private GameState gameState;
 
     [Header("Properties")] public bool isInteractable = true;

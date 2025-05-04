@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PauseMenuUI : MonoBehaviour
 {
-
     public List<FishDatabaseEntry> fishPoser;
     private GameState _gameState;
     private MouseLook mouseLook;
@@ -24,7 +23,6 @@ public class PauseMenuUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         FishData selectedData = null;
         foreach (var poster in fishPoser)
         {
@@ -59,5 +57,4 @@ public class PauseMenuUI : MonoBehaviour
     {
         _gameState.BackToMenu();
     }
-
 }

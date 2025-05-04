@@ -30,8 +30,11 @@ public class PhotoCamera : MonoBehaviour
 
     public enum PhotoCameraState : UInt16
     {
-        Idle, Transition, Raised
+        Idle,
+        Transition,
+        Raised
     }
+
     public PhotoCameraState state;
     public float minFocus = 1f, maxFocus = 50f;
     private float _currentFocus = 0.5f;
@@ -52,8 +55,8 @@ public class PhotoCamera : MonoBehaviour
         _cameraCooldown -= Time.deltaTime;
 
         if (Mouse.current.leftButton.wasPressedThisFrame &&
-         state == PhotoCameraState.Raised &&
-          gameState.gameState == GameState.GAME_STATE.PLAYING)
+            state == PhotoCameraState.Raised &&
+            gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
             if (_cameraCooldown <= 0)
             {
@@ -97,6 +100,7 @@ public class PhotoCamera : MonoBehaviour
         {
             viewmodel.SetActive(false);
         }
+
         foreach (var viewmodel in viewmodelsRaised)
         {
             viewmodel.SetActive(true);
@@ -114,6 +118,7 @@ public class PhotoCamera : MonoBehaviour
         {
             viewmodel.SetActive(true);
         }
+
         foreach (var viewmodel in viewmodelsRaised)
         {
             viewmodel.SetActive(false);
@@ -150,7 +155,6 @@ public class PhotoCamera : MonoBehaviour
         if (!cameraPostProcessing.sharedProfile.TryGet(out dof)) return;
 
         dof.focusDistance.Override(focusDist);
-
     }
 
     public bool IsInFocus(Vector3 point)
@@ -160,7 +164,7 @@ public class PhotoCamera : MonoBehaviour
         var focusDistLower = Mathf.LerpUnclamped(minFocus, maxFocus, ((_currentFocus - focusRange) *
                                                                       (_currentFocus - focusRange)));
         var focusDistUpper = Mathf.LerpUnclamped(minFocus, maxFocus, (_currentFocus + focusRange) *
-                                                                      (_currentFocus + focusRange));
+                                                                     (_currentFocus + focusRange));
         var inFocus = dist >= focusDistLower && dist <= focusDistUpper;
 
         /*if (!inFocus)
@@ -241,6 +245,7 @@ public class PhotoCamera : MonoBehaviour
             if (hit.collider.tag.Equals("Photogenic"))
                 return hit.collider.gameObject;
         }
+
         Debug.DrawRay(transform.position, r.direction * maxRange, Color.white, .5f);
         return null;
     }

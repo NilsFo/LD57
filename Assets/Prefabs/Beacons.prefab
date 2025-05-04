@@ -259,6 +259,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6331002050611926277}
     m_Modifications:
+    - target: {fileID: 3105583855686655103, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
+      propertyPath: nearbyFishForce.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105583855686655103, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
+      propertyPath: 'nearbyFishForce.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: cd8c170989c8be44584fe204d113b953, type: 2}
     - target: {fileID: 3532000636770010632, guid: a38044a37087fcb4cacd29049b01382b, type: 3}
       propertyPath: activeOnStart
       value: 0

@@ -16,8 +16,7 @@ public class MusicManager : MonoBehaviour
     public static float userDesiredSoundVolume = 1f;
     public static float userDesiredMasterVolume = 1f;
 
-    [Header("Custom sound level balance")]
-    [Range(0, 1)]
+    [Header("Custom sound level balance")] [Range(0, 1)]
     public float baselineMusicVolume = 1.0f;
 
     [Range(0, 1)] public float baselineSoundVolume = 1.0f;
@@ -43,8 +42,7 @@ public class MusicManager : MonoBehaviour
 
     [Header("Playlist")] public List<AudioSource> initiallyKnownSongs;
 
-    [Header("Events")]
-    public UnityEvent<int> onMusicStopped;
+    [Header("Events")] public UnityEvent<int> onMusicStopped;
 
     // ############
     // internal states
@@ -237,6 +235,7 @@ public class MusicManager : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
 
