@@ -50,6 +50,7 @@ public class GameState : MonoBehaviour
     public CharacterMovement movement;
     private MusicManager musicManager;
     public MessageSystem messageSystem;
+    private GamepadInputDetector _gamepadInputDetector;
 
     public float msgTetherExceededTimer = 5;
     public float _msgTetherExceededTimer = 5;
@@ -61,6 +62,7 @@ public class GameState : MonoBehaviour
         messageSystem = FindFirstObjectByType<MessageSystem>();
         movement = FindFirstObjectByType<CharacterMovement>();
         musicManager = FindFirstObjectByType<MusicManager>();
+        _gamepadInputDetector = FindFirstObjectByType<GamepadInputDetector>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -158,8 +160,27 @@ public class GameState : MonoBehaviour
         }
 
         Keyboard keyboard = Keyboard.current;
+        Gamepad gamepad = Gamepad.current;
+
+        bool pauseRequested = false;
+        bool helpRequested = false;
+
+        if (_gamepadInputDetector.isGamePad)
+        {
+            if (gamepad != null)
+            {
+                pauseRequested = gamepad.startButton.wasPressedThisFrame;
+                helpRequested = gamepad.selectButton.wasPressedThisFrame;
+            }
+        }
+        else if (keyboard != null)
+        {
+            pauseRequested = keyboard.tabKey.wasPressedThisFrame;
+            helpRequested = keyboard.hKey.wasPressedThisFrame;
+        }
+
         // Pause menu
-        if (keyboard.tabKey.wasPressedThisFrame)
+        if (pauseRequested)
         {
             if (gameState == GAME_STATE.PAUSED)
             {
@@ -171,7 +192,7 @@ public class GameState : MonoBehaviour
             }
         }
 
-        if (keyboard.hKey.wasPressedThisFrame)
+        if (helpRequested)
         {
             if (gameState == GAME_STATE.PLAYING)
             {

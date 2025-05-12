@@ -16,11 +16,14 @@ public class MessageSystem : MonoBehaviour
 
     public Sequence currentSeq;
 
+    private GamepadInputDetector _gamepadInputDetector;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _knownFish = FindFirstObjectByType<KnownFish>();
         _photoCamera = FindFirstObjectByType<PhotoCamera>();
+        _gamepadInputDetector = FindFirstObjectByType<GamepadInputDetector>();
 
         _knownFish.onFishDataKnown.AddListener(FishCaptured);
         _photoCamera.onBlurryPhoto.AddListener(BlurryPhoto);
@@ -42,7 +45,14 @@ public class MessageSystem : MonoBehaviour
     public void FishCaptured(FishData data)
     {
         Debug.Log("Message received: New Fish added");
-        EnqueueMessage("NEW SPECIES ADDED\n" + data.displayName.ToUpper() + "\n[TAB] TO VIEW");
+
+        string keyPrompt = "[TAB]";
+        if (_gamepadInputDetector.isGamePad)
+        {
+            keyPrompt = "[START]";
+        }
+
+        EnqueueMessage("NEW SPECIES ADDED\n" + data.displayName.ToUpper() + "\n" + keyPrompt + " TO VIEW");
     }
 
     public void EnqueueMessage(string text)
@@ -53,7 +63,14 @@ public class MessageSystem : MonoBehaviour
     public void BlurryPhoto()
     {
         Debug.Log("Message received: Blurry");
-        var msg = "OUT OF FOCUS\nADJUST FOCAL DEPTH\n[MWHEEL +/-]";
+
+        string keyPrompt = "[MWHEEL +/-]";
+        if (_gamepadInputDetector.isGamePad)
+        {
+            keyPrompt = "[D-Pad]";
+        }
+
+        string msg = "OUT OF FOCUS\nADJUST FOCAL DEPTH\n" + keyPrompt;
         if (!msgQueue.Contains(msg))
             msgQueue.Enqueue(msg);
     }

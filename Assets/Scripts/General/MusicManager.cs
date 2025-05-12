@@ -22,13 +22,13 @@ public class MusicManager : MonoBehaviour
     [Range(0, 1)] public float baselineSoundVolume = 1.0f;
     [Range(0, 1)] public float baselineMasterVolume = 1.0f;
 
-    public float userDesiredMusicVolumeDB =>
+    public float UserDesiredMusicVolumeDB =>
         Mathf.Log10(Mathf.Clamp(userDesiredMusicVolume * baselineMusicVolume, 0.0001f, 1.0f)) * 20;
 
-    public float userDesiredSoundVolumeDB =>
+    public float UserDesiredSoundVolumeDB =>
         Mathf.Log10(Mathf.Clamp(userDesiredSoundVolume * baselineSoundVolume, 0.0001f, 1.0f)) * 20;
 
-    public float userDesiredMasterVolumeDB =>
+    public float UserDesiredMasterVolumeDB =>
         Mathf.Log10(Mathf.Clamp(userDesiredMasterVolume * baselineMasterVolume, 0.0001f, 1.0f)) * 20;
 
     [Header("Mixer")] public AudioMixer audioMixer;
@@ -50,7 +50,7 @@ public class MusicManager : MonoBehaviour
 
     private List<AudioSource> _playList;
     private List<int> _desiredMixingVolumes;
-    private List<int> lastKnownPlayingStates;
+    private List<int> _lastKnownPlayingStates;
 
     // Audio Binning
     private Dictionary<string, float> _audioJail;
@@ -59,7 +59,7 @@ public class MusicManager : MonoBehaviour
     {
         _playList = new List<AudioSource>();
         _desiredMixingVolumes = new List<int>();
-        lastKnownPlayingStates = new List<int>();
+        _lastKnownPlayingStates = new List<int>();
 
         foreach (AudioSource song in initiallyKnownSongs)
         {
@@ -99,9 +99,9 @@ public class MusicManager : MonoBehaviour
         {
             _playList[index].Play();
 
-            if (lastKnownPlayingStates.Contains(index))
+            if (_lastKnownPlayingStates.Contains(index))
             {
-                lastKnownPlayingStates.Add(index);
+                _lastKnownPlayingStates.Add(index);
             }
 
             Debug.Log("MusicManager: Now Playing: " + _playList[index].gameObject.name);
@@ -129,9 +129,9 @@ public class MusicManager : MonoBehaviour
     {
         // ################################
         // Forcing Mixer Settings
-        audioMixer.SetFloat(musicTrackName, userDesiredMusicVolumeDB);
-        audioMixer.SetFloat(soundEffectsTrackName, userDesiredSoundVolumeDB);
-        audioMixer.SetFloat(masterTrackName, userDesiredMasterVolumeDB);
+        audioMixer.SetFloat(musicTrackName, UserDesiredMusicVolumeDB);
+        audioMixer.SetFloat(soundEffectsTrackName, UserDesiredSoundVolumeDB);
+        audioMixer.SetFloat(masterTrackName, UserDesiredMasterVolumeDB);
 
         // if setup failed, silently fail
         if (_audioJail == null) return;
@@ -181,9 +181,9 @@ public class MusicManager : MonoBehaviour
             AudioSource audioSource = _playList[i];
 
             // checking if we stopped (ether because of natural reasons or because the audio source has run out)
-            if (audioSource.isPlaying && lastKnownPlayingStates.Contains(i))
+            if (audioSource.isPlaying && _lastKnownPlayingStates.Contains(i))
             {
-                lastKnownPlayingStates.Remove(i);
+                _lastKnownPlayingStates.Remove(i);
                 Debug.Log("MuscManager: Stopped playing: " + audioSource.gameObject.name);
                 OnMusicStoppedPlaying(i);
             }

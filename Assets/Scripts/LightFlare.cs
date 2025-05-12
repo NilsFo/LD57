@@ -9,7 +9,6 @@ public class LightFlare : MonoBehaviour
 
     public Renderer renderer;
 
-
     private float _timer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
