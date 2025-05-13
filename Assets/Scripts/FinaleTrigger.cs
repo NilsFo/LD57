@@ -37,9 +37,8 @@ public class FinaleTrigger : MonoBehaviour
         _flashlightControl.flashlight.DOIntensity(0, 2f);
 
         FindFirstObjectByType<MusicScheduler>().gameObject.SetActive(false);
-        var musicmanager = FindFirstObjectByType<MusicManager>();
-        musicmanager.Stop();
-        //musicmanager.SkipFade();
+        MusicManager musicManager = FindFirstObjectByType<MusicManager>();
+        musicManager.Stop();
 
         _gameState.movement.maximumSpeed = 0f;
         _gameState.movement.tethered = false;
@@ -52,8 +51,8 @@ public class FinaleTrigger : MonoBehaviour
     private void StartMusic()
     {
         bossRenderer.material.DOColor(Color.white, 10f);
-        var musicmanager = FindFirstObjectByType<MusicManager>();
-        musicmanager.Play(6);
+        MusicManager musicManager = FindFirstObjectByType<MusicManager>();
+        musicManager.Play(6);
     }
 
     public void FinalePhoto()
@@ -73,7 +72,7 @@ public class FinaleTrigger : MonoBehaviour
     public void PostFinale()
     {
         _gameState.movement.transform.position = new Vector3(80.800827f, 15.4800005f, -59.6245499f);
-        var musicmanager = FindFirstObjectByType<MusicManager>();
-        musicmanager.Play(0, true);
+        MusicManager musicManager = FindFirstObjectByType<MusicManager>();
+        musicManager.Play(0, true);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,15 +10,23 @@ public class FishDatabaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public FishData fishData;
     public Image wantedSprite;
     public Image fishSprite;
+    public GameObject foregroundSprite;
     private KnownFish knownFish;
+    private GamepadInputDetector _gamepadInputDetector;
+
 
     public bool isHovered = false;
+
+    private void Awake()
+    {
+        isHovered = false;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _gamepadInputDetector = FindFirstObjectByType<GamepadInputDetector>();
         knownFish = FindFirstObjectByType<KnownFish>();
-        isHovered = false;
     }
 
     // Update is called once per frame
@@ -33,6 +42,8 @@ public class FishDatabaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerEx
             wantedSprite.gameObject.SetActive(true);
             fishSprite.gameObject.SetActive(false);
         }
+
+        foregroundSprite.SetActive(isHovered);
     }
 
     void OnMouseEnter()

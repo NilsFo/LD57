@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    private MouseLook playerLook;
+    private MouseLook _playerLook;
 
     [FormerlySerializedAs("interactionDistance")]
     public float interactionCylinderRadius = 2.5f;
@@ -16,8 +16,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Start()
     {
-        playerLook = FindFirstObjectByType<MouseLook>();
-        Debug.Assert(playerLook != null, "parentPlayer is missing!", gameObject);
+        _playerLook = FindFirstObjectByType<MouseLook>();
+        Debug.Assert(_playerLook != null, "parentPlayer is missing!", gameObject);
     }
 
     private void LateUpdate()
@@ -32,7 +32,7 @@ public class PlayerInteraction : MonoBehaviour
             layerMask = LayerMask.GetMask("Default");
 
         // MouseLook mainCamera = parentPlayer.mouseLook;
-        bool isHit = Physics.Raycast(playerLook.transform.position, playerLook.transform.forward,
+        bool isHit = Physics.Raycast(_playerLook.transform.position, _playerLook.transform.forward,
             out RaycastHit hit, distance, layerMask);
         return (isHit, hit);
     }
@@ -48,11 +48,11 @@ public class PlayerInteraction : MonoBehaviour
             layerMask = LayerMask.GetMask("Default", "Entities", "Slot");
 
         //MouseLook mainCamera = parentPlayer.mouseLook;
-        bool isHit = Physics.Raycast(playerLook.transform.position, playerLook.transform.forward,
+        bool isHit = Physics.Raycast(_playerLook.transform.position, _playerLook.transform.forward,
             out RaycastHit hit, Mathf.Sqrt(radius * radius + height * height), layerMask);
         if (isHit)
         {
-            if (Vector3.ProjectOnPlane(hit.point - playerLook.transform.position, Vector3.up).magnitude <= radius)
+            if (Vector3.ProjectOnPlane(hit.point - _playerLook.transform.position, Vector3.up).magnitude <= radius)
             {
                 return (true, hit);
             }
@@ -103,7 +103,7 @@ public class PlayerInteraction : MonoBehaviour
         if (c != null)
             Gizmos.DrawWireCube(c.bounds.center, c.bounds.size);
 
-        Gizmos.DrawLine(playerLook.transform.position,
+        Gizmos.DrawLine(_playerLook.transform.position,
             interactableInFocus.transform.position);
     }
 #endif

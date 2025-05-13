@@ -49,7 +49,6 @@ public class GameState : MonoBehaviour
     public MouseLook mouseLook;
     public CharacterMovement movement;
     private MusicManager musicManager;
-    public MessageSystem messageSystem;
     private GamepadInputDetector _gamepadInputDetector;
 
     public float msgTetherExceededTimer = 5;
@@ -59,7 +58,6 @@ public class GameState : MonoBehaviour
     {
         mainCameraCache = Camera.main;
         mouseLook = FindFirstObjectByType<MouseLook>();
-        messageSystem = FindFirstObjectByType<MessageSystem>();
         movement = FindFirstObjectByType<CharacterMovement>();
         musicManager = FindFirstObjectByType<MusicManager>();
         _gamepadInputDetector = FindFirstObjectByType<GamepadInputDetector>();
@@ -75,6 +73,7 @@ public class GameState : MonoBehaviour
     public void PlayTutorial()
     {
         print("Setting up tutorial.");
+        var messageSystem = FindFirstObjectByType<MessageSystem>();
         messageSystem.EnqueueMessage("Explore and take pictures\nof the local wildlife".ToUpper());
         messageSystem.EnqueueMessage("Connect oxygen supply beacons".ToUpper());
         messageSystem.EnqueueMessage("You are tethered to the beacons".ToUpper());
@@ -126,26 +125,22 @@ public class GameState : MonoBehaviour
         switch (gameState)
         {
             case GAME_STATE.MAIN_MENU:
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                SetCursorLockState(false);
                 mouseLook.enabled = false;
                 movement.inputDisabled = true;
                 break;
             case GAME_STATE.PAUSED:
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                SetCursorLockState(false);
                 mouseLook.enabled = false;
                 movement.inputDisabled = true;
                 break;
             case GAME_STATE.PLAYING:
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                SetCursorLockState(true);
                 mouseLook.enabled = true;
                 movement.inputDisabled = false;
                 break;
             case GAME_STATE.CREDITS:
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                SetCursorLockState(false);
                 mouseLook.enabled = false;
                 movement.inputDisabled = true;
                 break;
@@ -259,6 +254,27 @@ public class GameState : MonoBehaviour
         }
     }
 
+    public void SetCursorLockState(bool locked)
+    {
+        if (_gamepadInputDetector.isGamePad)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            return;
+        }
+
+        if (locked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
     public Camera GetCamera()
     {
         return mainCameraCache;
@@ -279,6 +295,7 @@ public class GameState : MonoBehaviour
         if (_msgTetherExceededTimer < 0)
         {
             _msgTetherExceededTimer = msgTetherExceededTimer;
+            var messageSystem = FindFirstObjectByType<MessageSystem>();
             messageSystem.EnqueueMessage("Tether range exceeded".ToUpper());
         }
     }

@@ -57,7 +57,10 @@ public class MessageSystem : MonoBehaviour
 
     public void EnqueueMessage(string text)
     {
-        msgQueue.Enqueue(text);
+        text = text.ToUpper();
+        
+        if (!msgQueue.Contains(text))
+            msgQueue.Enqueue(text);
     }
 
     public void BlurryPhoto()
@@ -71,16 +74,16 @@ public class MessageSystem : MonoBehaviour
         }
 
         string msg = "OUT OF FOCUS\nADJUST FOCAL DEPTH\n" + keyPrompt;
-        if (!msgQueue.Contains(msg))
-            msgQueue.Enqueue(msg);
+        EnqueueMessage(msg);
     }
 
     public void ShowMessage(string msg)
     {
         Debug.Log("Showing Message: " + msg);
-        var msgObj = Instantiate(messagePrefab, transform);
+        
+        UIPhotoMessage msgObj = Instantiate(messagePrefab, transform);
         msgObj.GetComponentInChildren<TextMeshProUGUI>().text = msg;
-        var seq = DOTween.Sequence();
+        Sequence seq = DOTween.Sequence();
         seq.Append(msgObj.transform.DOMove(transform.position + Vector3.down * 200, 0.4f).From());
         seq.AppendInterval(3f);
         seq.Append(msgObj.transform.DOMove(transform.position + Vector3.down * 200, 0.3f));
