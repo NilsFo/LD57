@@ -30,6 +30,9 @@ public class PhotoCamera : MonoBehaviour
 
     public Volume cameraPostProcessing;
 
+    public float addFov = -5f;
+    private float _baseFov;
+
     public enum PhotoCameraState : UInt16
     {
         Idle,
@@ -40,6 +43,7 @@ public class PhotoCamera : MonoBehaviour
     public PhotoCameraState state;
     public float minFocus = 1f, maxFocus = 50f;
     private float _currentFocus = 0.5f;
+    private float _targetFocus = 0.5f;
     public float focusRange = 0.08f;
 
     public float CurrentFocus => _currentFocus;
@@ -51,6 +55,7 @@ public class PhotoCamera : MonoBehaviour
         _gamepadInputDetector = FindFirstObjectByType<GamepadInputDetector>();
         _gameState = FindFirstObjectByType<GameState>();
         _photoLayerMask = LayerMask.GetMask("Default", "Entities");
+        _baseFov = cam.fieldOfView;
     }
 
     private void Update()
@@ -215,10 +220,11 @@ public class PhotoCamera : MonoBehaviour
             deltaFocus *= 3;
         }
 
-        if (deltaFocus == 0f)
-            return;
+        // if (deltaFocus == 0f)
+        //     return;
 
-        _currentFocus = Mathf.Clamp(_currentFocus + deltaFocus, 0, 1);
+        _targetFocus = Mathf.Clamp(_targetFocus + deltaFocus, 0, 1);
+        _currentFocus = Mathf.MoveTowards(_currentFocus, _targetFocus, Time.deltaTime);
         float focusDist = Mathf.Lerp(minFocus, maxFocus, (_currentFocus * _currentFocus));
 
         UnityEngine.Rendering.Universal.DepthOfField dof;
@@ -226,6 +232,7 @@ public class PhotoCamera : MonoBehaviour
         if (!cameraPostProcessing.sharedProfile.TryGet(out dof)) return;
 
         dof.focusDistance.Override(focusDist);
+        cam.fieldOfView = Mathf.Lerp(_baseFov, _baseFov + addFov, _currentFocus);
     }
 
     public bool IsInFocus(Vector3 point)
