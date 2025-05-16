@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class SettingsPanel : MonoBehaviour
 {
-
     private MouseLook mouseLook;
     private GameState gameState;
     private MusicManager musicManager;

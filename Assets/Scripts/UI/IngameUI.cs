@@ -4,14 +4,12 @@ using UnityEngine.UI;
 
 public class IngameUI : MonoBehaviour
 {
-
     private GameState gameState;
     private KnownFish knownFish;
 
     public TMP_Text objectiveTF;
 
-    [Header("GameStateUIs")]
-    public GameObject gamplayHolder;
+    [Header("GameStateUIs")] public GameObject gamplayHolder;
     public GameObject mainMenuHolder;
     public GameObject pauseMenuHolder;
     public Slider photoFcousSlider;
@@ -44,7 +42,7 @@ public class IngameUI : MonoBehaviour
                 break;
         }
 
-        photoFcousSlider.value=photoCamera.CurrentFocus;
+        photoFcousSlider.value = photoCamera.CurrentFocus;
 
         switch (gameState.playerState)
         {

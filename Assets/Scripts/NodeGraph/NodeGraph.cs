@@ -45,6 +45,7 @@ namespace NodeGraph
                 Debug.Log("Something is wrong...");
                 return;
             }
+
             if (partialNodeForEdge == null)
             {
                 partialNodeForEdge = node;
@@ -62,7 +63,6 @@ namespace NodeGraph
 
         public int GetLeashDistance()
         {
-
             return leashDistance;
         }
 

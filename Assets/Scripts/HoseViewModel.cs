@@ -6,6 +6,7 @@ public class HoseViewModel : MonoBehaviour
     private GameState _gameState;
 
     private Animator _anim;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

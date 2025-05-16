@@ -4,8 +4,7 @@ using UnityEngine.Events;
 
 public class PlayerInteractable : MonoBehaviour
 {
-
-    private GameState gameState;
+    private GameState _gameState;
 
     [Header("Properties")] public bool isInteractable = true;
 
@@ -16,7 +15,7 @@ public class PlayerInteractable : MonoBehaviour
 
     private void Start()
     {
-        gameState = FindFirstObjectByType<GameState>();
+        _gameState = FindFirstObjectByType<GameState>();
 
         if (onPlayerInteract == null)
         {

@@ -1,43 +1,65 @@
+using System;
 using UnityEngine;
 using UnityEngine.Splines;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class SchoolOfFish : MonoBehaviour
 {
-
     public FishData fishData;
     private GameState _gameState;
-    public GameObject FishPrefab;
+    public GameObject fishPrefab;
 
-    [Header("Config")]
-    public bool staticMovement = false;
+    [Header("Config")] public bool staticMovement = false;
     public bool singleton = false;
 
     [Header("Movement")] public SplineContainer myContainer;
     public float moveSpeed = 1;
     private float _pathLength;
 
-    public float progress = 0;
-
-    [Header("School size")]
-    public Fish leaderFish;
+    [Header("School size")] public Fish leaderFish;
     public int numberOfOtherFishMin = 5;
     public int numberOfOtherFishMax = 10;
     public float randomSpacialDistanceJitter = 3f;
     public float randomTemporalDistanceJitter = 0.1f;
-    public List<Fish> fishInScool;
+    [Range(1, 10)] public int schoolMirrors = 1;
+
+    [Header("Readonly Debug")] [SerializeField]
+    public List<School> schools;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _pathLength = myContainer.CalculateLength();
         _gameState = FindFirstObjectByType<GameState>();
-        fishInScool.Clear();
 
-        fishInScool.Add(leaderFish);
+        if (singleton)
+        {
+            schoolMirrors = 1;
+        }
+
+        schools = new List<School>();
+        schools.Clear();
+        schools.Add(new School());
+
+        // initial random progress
+        if (!singleton || !staticMovement)
+        {
+            schools[0].progress = Random.Range(0f, _pathLength);
+        }
+
+        schools[0].fish.Add(leaderFish);
+
         if (!singleton)
         {
-            GenerateMoreFish();
+            for (int i = 0; i < schoolMirrors; i++)
+            {
+                GenerateMoreFish(i);
+
+                float offset = (float)i / (float)schoolMirrors;
+                schools[i].progress = schools[0].progress + offset * _pathLength;
+            }
         }
 
         if (staticMovement)
@@ -59,18 +81,18 @@ public class SchoolOfFish : MonoBehaviour
         ApplyDataToChildren();
     }
 
-    public void GenerateMoreFish()
+    public void GenerateMoreFish(int schoolIndex)
     {
         int moreCount = Random.Range(numberOfOtherFishMin, numberOfOtherFishMax);
         for (int i = 0; i < moreCount; i++)
         {
-            NextFish();
+            NextFish(schoolIndex);
         }
     }
 
-    private void NextFish()
+    private void NextFish(int schoolIndex)
     {
-        GameObject newFishObj = Instantiate(FishPrefab, transform);
+        GameObject newFishObj = Instantiate(fishPrefab, transform);
         Fish newFish = newFishObj.GetComponent<Fish>();
 
         newFish.temporalOffset = Random.Range(randomTemporalDistanceJitter * -1, 0);
@@ -80,7 +102,12 @@ public class SchoolOfFish : MonoBehaviour
             Random.Range(randomSpacialDistanceJitter * -1, randomSpacialDistanceJitter)
         );
 
-        fishInScool.Add(newFish);
+        if (schools.Count <= schoolIndex || schools[schoolIndex] == null)
+        {
+            schools.Insert(schoolIndex, new School());
+        }
+
+        schools[schoolIndex].fish.Add(newFish);
     }
 
     private void ApplyDataToChildren()
@@ -116,12 +143,18 @@ public class SchoolOfFish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float directionFactor = 1.0f;
-        progress += (moveSpeed * Time.deltaTime) * directionFactor;
-
-        if (myContainer != null)
+        if (myContainer == null)
         {
-            foreach (Fish fish in fishInScool)
+            return;
+        }
+
+        float directionFactor = 1.0f;
+
+        foreach (School school in schools)
+        {
+            float progress = school.progress + (moveSpeed * Time.deltaTime) * directionFactor;
+
+            foreach (Fish fish in school.fish)
             {
                 float individualProgress = progress + fish.temporalOffset;
                 individualProgress = individualProgress % _pathLength;
@@ -136,7 +169,22 @@ public class SchoolOfFish : MonoBehaviour
                 fish.transform.position = newPos;
                 fish.transform.rotation = Quaternion.LookRotation(tangent, Vector3.up);
             }
+
+            progress = progress % _pathLength;
+            school.progress = progress;
         }
-        progress = progress % _pathLength;
+    }
+
+    [Serializable]
+    public class School
+    {
+        public List<Fish> fish;
+        public float progress;
+
+        public School()
+        {
+            fish = new List<Fish>();
+            progress = 0;
+        }
     }
 }

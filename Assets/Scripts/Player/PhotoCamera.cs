@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.Rendering;
 
 public class PhotoCamera : MonoBehaviour
@@ -12,11 +13,12 @@ public class PhotoCamera : MonoBehaviour
     public float paddingPercent = 0.1f;
     public Camera cam;
     private LayerMask _photoLayerMask;
+    private GamepadInputDetector _gamepadInputDetector;
 
     public List<GameObject> viewmodelsRaised;
     public List<GameObject> viewmodelsLowered;
     public Animator camAnim;
-    private GameState gameState;
+    private GameState _gameState;
 
     public AudioClip photoSound;
 
@@ -30,8 +32,11 @@ public class PhotoCamera : MonoBehaviour
 
     public enum PhotoCameraState : UInt16
     {
-        Idle, Transition, Raised
+        Idle,
+        Transition,
+        Raised
     }
+
     public PhotoCameraState state;
     public float minFocus = 1f, maxFocus = 50f;
     private float _currentFocus = 0.5f;
@@ -43,7 +48,8 @@ public class PhotoCamera : MonoBehaviour
 
     private void Start()
     {
-        gameState = FindFirstObjectByType<GameState>();
+        _gamepadInputDetector = FindFirstObjectByType<GamepadInputDetector>();
+        _gameState = FindFirstObjectByType<GameState>();
         _photoLayerMask = LayerMask.GetMask("Default", "Entities");
     }
 
@@ -51,9 +57,33 @@ public class PhotoCamera : MonoBehaviour
     {
         _cameraCooldown -= Time.deltaTime;
 
-        if (Mouse.current.leftButton.wasPressedThisFrame &&
-         state == PhotoCameraState.Raised &&
-          gameState.gameState == GameState.GAME_STATE.PLAYING)
+        bool inputTakePhoto = false;
+        bool inputRaise = false;
+
+        if (_gamepadInputDetector.isGamePad)
+        {
+            Gamepad gamepad = Gamepad.current;
+            if (gamepad != null)
+            {
+                inputTakePhoto = gamepad.rightTrigger.wasPressedThisFrame;
+                inputRaise = gamepad.buttonSouth.wasPressedThisFrame
+                             || gamepad.buttonEast.wasPressedThisFrame
+                             || gamepad.leftTrigger.wasPressedThisFrame;
+            }
+        }
+        else
+        {
+            Mouse mouse = Mouse.current;
+            if (mouse != null)
+            {
+                inputTakePhoto = mouse.leftButton.wasPressedThisFrame;
+                inputRaise = mouse.rightButton.wasPressedThisFrame;
+            }
+        }
+
+        if (inputTakePhoto &&
+            state == PhotoCameraState.Raised &&
+            _gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
             if (_cameraCooldown <= 0)
             {
@@ -62,21 +92,21 @@ public class PhotoCamera : MonoBehaviour
             }
         }
 
-        if ((Mouse.current.rightButton.wasPressedThisFrame) &&
+        if (inputRaise &&
             state == PhotoCameraState.Raised &&
-            gameState.gameState == GameState.GAME_STATE.PLAYING)
+            _gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
             Lower();
         }
 
-        if ((Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.rightButton.wasPressedThisFrame) &&
+        if ((inputTakePhoto || inputRaise) &&
             state == PhotoCameraState.Idle &&
-            gameState.gameState == GameState.GAME_STATE.PLAYING)
+            _gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
             Raise();
         }
 
-        if (state == PhotoCameraState.Raised && gameState.gameState == GameState.GAME_STATE.PLAYING)
+        if (state == PhotoCameraState.Raised && _gameState.gameState == GameState.GAME_STATE.PLAYING)
         {
             UpdateDOF();
         }
@@ -92,11 +122,12 @@ public class PhotoCamera : MonoBehaviour
     public void RaiseFinish()
     {
         state = PhotoCameraState.Raised;
-        gameState.playerState = GameState.PLAYER_STATE.CAMERA;
+        _gameState.playerState = GameState.PLAYER_STATE.CAMERA;
         foreach (var viewmodel in viewmodelsLowered)
         {
             viewmodel.SetActive(false);
         }
+
         foreach (var viewmodel in viewmodelsRaised)
         {
             viewmodel.SetActive(true);
@@ -109,11 +140,12 @@ public class PhotoCamera : MonoBehaviour
         camAnim.SetTrigger("Unaim");
         Invoke(nameof(LowerFinish), 10f / 30f);
 
-        gameState.playerState = GameState.PLAYER_STATE.WALKING;
+        _gameState.playerState = GameState.PLAYER_STATE.WALKING;
         foreach (var viewmodel in viewmodelsLowered)
         {
             viewmodel.SetActive(true);
         }
+
         foreach (var viewmodel in viewmodelsRaised)
         {
             viewmodel.SetActive(false);
@@ -127,30 +159,73 @@ public class PhotoCamera : MonoBehaviour
 
     public void UpdateDOF()
     {
-        var scroll = Mouse.current.scroll.ReadValue()[1];
-        var deltaFocus = 0f;
-        if (scroll > 0 || Keyboard.current.rKey.wasPressedThisFrame)
+        float deltaFocus = 0f;
+
+        bool inputScrollDown = false;
+        bool inputScrollUp = false;
+        bool fastScroll = false;
+        float scroll = 0;
+
+        if (_gamepadInputDetector.isGamePad)
+        {
+            Gamepad gamepad = Gamepad.current;
+            if (gamepad != null)
+            {
+                DpadControl dpadControl = gamepad.dpad;
+                if (dpadControl != null)
+                {
+                    inputScrollDown = dpadControl.down.wasPressedThisFrame || dpadControl.left.wasPressedThisFrame;
+                    inputScrollUp = dpadControl.up.wasPressedThisFrame || dpadControl.right.wasPressedThisFrame;
+
+                    if (dpadControl.left.wasPressedThisFrame || dpadControl.right.wasPressedThisFrame)
+                    {
+                        fastScroll = true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            Keyboard keyboard = Keyboard.current;
+            Mouse mouse = Mouse.current;
+
+            if (mouse != null)
+            {
+                scroll = Mouse.current.scroll.ReadValue()[1];
+            }
+
+            if (keyboard != null)
+            {
+                inputScrollDown = keyboard.fKey.wasPressedThisFrame;
+                inputScrollUp = keyboard.rKey.wasPressedThisFrame;
+            }
+        }
+
+        if (scroll > 0 || inputScrollUp)
         {
             deltaFocus = 0.05f;
         }
-        else if (scroll < 0 || Keyboard.current.fKey.wasPressedThisFrame)
+        else if (scroll < 0 || inputScrollDown)
         {
             deltaFocus = -0.05f;
+        }
+
+        if (fastScroll)
+        {
+            deltaFocus *= 3;
         }
 
         if (deltaFocus == 0f)
             return;
 
-
         _currentFocus = Mathf.Clamp(_currentFocus + deltaFocus, 0, 1);
-        var focusDist = Mathf.Lerp(minFocus, maxFocus, (_currentFocus * _currentFocus));
+        float focusDist = Mathf.Lerp(minFocus, maxFocus, (_currentFocus * _currentFocus));
 
         UnityEngine.Rendering.Universal.DepthOfField dof;
 
         if (!cameraPostProcessing.sharedProfile.TryGet(out dof)) return;
 
         dof.focusDistance.Override(focusDist);
-
     }
 
     public bool IsInFocus(Vector3 point)
@@ -160,7 +235,7 @@ public class PhotoCamera : MonoBehaviour
         var focusDistLower = Mathf.LerpUnclamped(minFocus, maxFocus, ((_currentFocus - focusRange) *
                                                                       (_currentFocus - focusRange)));
         var focusDistUpper = Mathf.LerpUnclamped(minFocus, maxFocus, (_currentFocus + focusRange) *
-                                                                      (_currentFocus + focusRange));
+                                                                     (_currentFocus + focusRange));
         var inFocus = dist >= focusDistLower && dist <= focusDistUpper;
 
         /*if (!inFocus)
@@ -241,6 +316,7 @@ public class PhotoCamera : MonoBehaviour
             if (hit.collider.tag.Equals("Photogenic"))
                 return hit.collider.gameObject;
         }
+
         Debug.DrawRay(transform.position, r.direction * maxRange, Color.white, .5f);
         return null;
     }

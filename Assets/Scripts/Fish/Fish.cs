@@ -13,6 +13,7 @@ public class Fish : MonoBehaviour
 
     [Header("I am an individual and i have individual traits")]
     public float temporalOffset = 0;
+
     public Vector3 spacialOffset = Vector3.zero;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,7 +29,7 @@ public class Fish : MonoBehaviour
         var sizeX = (float)data.albumSprite.width / (float)data.pixelPerMeter;
         var sizeY = (float)data.albumSprite.height / (float)data.pixelPerMeter;
         mySpriteRenderer.transform.localScale = new Vector3(sizeX, sizeY, 1);
-        
+
         var box = GetComponent<BoxCollider>();
         box.size = new Vector3(sizeX, sizeY, 1);
     }

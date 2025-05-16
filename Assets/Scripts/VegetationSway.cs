@@ -9,6 +9,7 @@ public class VegetationSway : MonoBehaviour
     public float swayAmount = 5f;
     public float swaySpeed = 1f;
     private Quaternion initRot;
+
     void Start()
     {
         initRot = transform.rotation;
@@ -17,7 +18,7 @@ public class VegetationSway : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float xRot = Mathf.Sin((Time.time + transform.position.magnitude*10) * swaySpeed) * swayAmount;
+        float xRot = Mathf.Sin((Time.time + transform.position.magnitude * 10) * swaySpeed) * swayAmount;
         transform.rotation = initRot * Quaternion.Euler(xRot, 0, 0);
     }
 }

@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
-
     public enum GAME_STATE : UInt16
     {
         MAIN_MENU,
@@ -29,8 +28,7 @@ public class GameState : MonoBehaviour
 
     public Transform worldOrigin;
 
-    [Header("States")]
-    public GAME_STATE gameState;
+    [Header("States")] public GAME_STATE gameState;
     public PLAYER_STATE playerState;
     private GAME_STATE _gameState;
     private PLAYER_STATE _playerState;
@@ -40,8 +38,7 @@ public class GameState : MonoBehaviour
 
     public Beacon hoseStartBeacon;
 
-    [Header("Read Only Lists")]
-    public List<BeaconTerminal> allBeaconTerminals;
+    [Header("Read Only Lists")] public List<BeaconTerminal> allBeaconTerminals;
     public List<FishData> debugReachableFish;
 
     public UnityEvent<GAME_STATE> onGameStateChanged;
@@ -52,7 +49,7 @@ public class GameState : MonoBehaviour
     public MouseLook mouseLook;
     public CharacterMovement movement;
     private MusicManager musicManager;
-    public MessageSystem messageSystem;
+    private GamepadInputDetector _gamepadInputDetector;
 
     public float msgTetherExceededTimer = 5;
     public float _msgTetherExceededTimer = 5;
@@ -61,9 +58,9 @@ public class GameState : MonoBehaviour
     {
         mainCameraCache = Camera.main;
         mouseLook = FindFirstObjectByType<MouseLook>();
-        messageSystem = FindFirstObjectByType<MessageSystem>();
         movement = FindFirstObjectByType<CharacterMovement>();
         musicManager = FindFirstObjectByType<MusicManager>();
+        _gamepadInputDetector = FindFirstObjectByType<GamepadInputDetector>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -73,9 +70,10 @@ public class GameState : MonoBehaviour
         isCarryingHose = false;
     }
 
-    public void SetUpTutorial()
+    public void PlayTutorial()
     {
         print("Setting up tutorial.");
+        var messageSystem = FindFirstObjectByType<MessageSystem>();
         messageSystem.EnqueueMessage("Explore and take pictures\nof the local wildlife".ToUpper());
         messageSystem.EnqueueMessage("Connect oxygen supply beacons".ToUpper());
         messageSystem.EnqueueMessage("You are tethered to the beacons".ToUpper());
@@ -91,6 +89,7 @@ public class GameState : MonoBehaviour
             Debug.LogError("PLAYER STATE IS ERROR");
             return;
         }
+
         if (gameState == GAME_STATE.ERROR)
         {
             Debug.LogError("GAME STATE IS ERROR");
@@ -102,6 +101,7 @@ public class GameState : MonoBehaviour
             GameStateChanged();
             _gameState = gameState;
         }
+
         if (_playerState != playerState)
         {
             PlayerStateChanged();
@@ -125,26 +125,22 @@ public class GameState : MonoBehaviour
         switch (gameState)
         {
             case GAME_STATE.MAIN_MENU:
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                SetCursorLockState(false);
                 mouseLook.enabled = false;
                 movement.inputDisabled = true;
                 break;
             case GAME_STATE.PAUSED:
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                SetCursorLockState(false);
                 mouseLook.enabled = false;
                 movement.inputDisabled = true;
                 break;
             case GAME_STATE.PLAYING:
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                SetCursorLockState(true);
                 mouseLook.enabled = true;
                 movement.inputDisabled = false;
                 break;
             case GAME_STATE.CREDITS:
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                SetCursorLockState(false);
                 mouseLook.enabled = false;
                 movement.inputDisabled = true;
                 break;
@@ -159,18 +155,43 @@ public class GameState : MonoBehaviour
         }
 
         Keyboard keyboard = Keyboard.current;
-        // Pause menu
+        Gamepad gamepad = Gamepad.current;
 
-        if (keyboard.tabKey.wasPressedThisFrame)
+        bool pauseRequested = false;
+        bool helpRequested = false;
+
+        if (_gamepadInputDetector.isGamePad)
+        {
+            if (gamepad != null)
+            {
+                pauseRequested = gamepad.startButton.wasPressedThisFrame;
+                helpRequested = gamepad.selectButton.wasPressedThisFrame;
+            }
+        }
+        else if (keyboard != null)
+        {
+            pauseRequested = keyboard.tabKey.wasPressedThisFrame;
+            helpRequested = keyboard.hKey.wasPressedThisFrame;
+        }
+
+        // Pause menu
+        if (pauseRequested)
         {
             if (gameState == GAME_STATE.PAUSED)
             {
                 gameState = GAME_STATE.PLAYING;
             }
-            else
-            if (gameState == GAME_STATE.PLAYING)
+            else if (gameState == GAME_STATE.PLAYING)
             {
                 gameState = GAME_STATE.PAUSED;
+            }
+        }
+
+        if (helpRequested)
+        {
+            if (gameState == GAME_STATE.PLAYING)
+            {
+                PlayTutorial();
             }
         }
     }
@@ -200,6 +221,7 @@ public class GameState : MonoBehaviour
                 playerState = PLAYER_STATE.ERROR;
                 break;
         }
+
         onPlayerStateChanged.Invoke(playerState);
 
         if (!isCarryingHose)
@@ -229,8 +251,27 @@ public class GameState : MonoBehaviour
         if (_gameState == GAME_STATE.MAIN_MENU)
         {
             musicManager.Stop();
+        }
+    }
 
-            Invoke(nameof(SetUpTutorial), 2);
+    public void SetCursorLockState(bool locked)
+    {
+        if (_gamepadInputDetector.isGamePad)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            return;
+        }
+
+        if (locked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
@@ -254,6 +295,7 @@ public class GameState : MonoBehaviour
         if (_msgTetherExceededTimer < 0)
         {
             _msgTetherExceededTimer = msgTetherExceededTimer;
+            var messageSystem = FindFirstObjectByType<MessageSystem>();
             messageSystem.EnqueueMessage("Tether range exceeded".ToUpper());
         }
     }

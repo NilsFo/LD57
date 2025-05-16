@@ -5,20 +5,15 @@ namespace NodeGraph
 {
     public class GraphEdge : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject[] nodes;
+        [SerializeField] private GameObject[] nodes;
 
-        [SerializeField]
-        private Rope rope;
+        [SerializeField] private Rope rope;
 
-        [SerializeField]
-        private GameObject ropeStartNode;
+        [SerializeField] private GameObject ropeStartNode;
 
-        [SerializeField]
-        private GameObject ropeEndNode;
+        [SerializeField] private GameObject ropeEndNode;
 
-        [SerializeField]
-        private float slag;
+        [SerializeField] private float slag;
 
         private Vector3 _direction;
 

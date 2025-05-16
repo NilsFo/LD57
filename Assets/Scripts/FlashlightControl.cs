@@ -9,7 +9,7 @@ public class FlashlightControl : MonoBehaviour
 
     private void Start()
     {
-        if(flashlight != null)
+        if (flashlight != null)
             intensity = flashlight.intensity;
     }
 
@@ -38,7 +38,7 @@ public class FlashlightControl : MonoBehaviour
 
         if (flashlight == null)
             return;
-        
+
         flashlight.DOIntensity(0f, 0.5f);
     }
 }

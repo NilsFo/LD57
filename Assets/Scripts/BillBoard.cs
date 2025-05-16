@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class BillBoard : MonoBehaviour
 {
-
     public Transform target;
 
     public float billboardStrength = 0.5f;
@@ -47,7 +46,6 @@ public class BillBoard : MonoBehaviour
         Handles.color = Color.white;
         Handles.DrawLine(transform.position, target.transform.position);
     }
-    
-#endif
 
+#endif
 }

@@ -13,10 +13,11 @@ public class MouseLook : MonoBehaviour
     public float sensitivityScaling = 3;
     private float _sensitivitySettings;
 
-    [Header("Editor Config")] public bool mouseLookEnabled = true;
+    [Header("Gamepad Config")] public bool useGamepadOverKBM = true;
+    public Vector2 gamepadScaling = new Vector2(13f, 10f);
 
+    [Header("Editor Config")] public bool mouseLookEnabled = true;
     public Vector2 clampInDegrees = new Vector2(360, 180);
-    public bool lockCursor;
     public Vector2 sensitivity = new Vector2(4, 4);
     public Vector2 smoothing = new Vector2(3, 3);
 
@@ -39,22 +40,6 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-        //if (!mouseLookEnabled || Time.timeScale == 0)
-        //{
-        //    Cursor.lockState = CursorLockMode.None;
-        //    if(!lockCursor)
-        //        Cursor.visible = true;
-//
-        //    return;
-        //}
-
-        // Ensure the cursor is always locked when set
-        if (lockCursor)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-
         // Updating sensitivity
         _sensitivitySettings = sensitivitySettings * Mathf.Pow(sensitivityScaling, sensitivitySettings);
         _sensitivitySettings = Mathf.Clamp(_sensitivitySettings, 0.01f, sensitivityScaling);
@@ -63,8 +48,24 @@ public class MouseLook : MonoBehaviour
         var targetOrientation = Quaternion.Euler(targetDirection);
         var targetCharacterOrientation = Quaternion.Euler(targetCharacterDirection);
 
-        // Get raw mouse input for a cleaner reading on more sensitive mice.
-        var mouseDelta = Mouse.current.delta.ReadValue();
+        // Get raw mouse / gamepad input for a cleaner reading on more sensitive mice.
+        Vector2 mouseDelta = new Vector2(0f, 0f);
+        if (useGamepadOverKBM)
+        {
+            Gamepad gamepad = Gamepad.current;
+            if (gamepad != null)
+            {
+                mouseDelta = gamepad.rightStick.ReadValue() * gamepadScaling;
+            }
+        }
+        else
+        {
+            Mouse mouse = Mouse.current;
+            if (mouse != null)
+            {
+                mouseDelta = mouse.delta.ReadValue();
+            }
+        }
 
         // Scale input against the sensitivity setting and multiply that against the smoothing value.
         mouseDelta = Vector2.Scale(mouseDelta,
@@ -87,7 +88,7 @@ public class MouseLook : MonoBehaviour
             _mouseAbsolute.y = Mathf.Clamp(_mouseAbsolute.y, -clampInDegrees.y * 0.5f, clampInDegrees.y * 0.5f);
 
         transform.localRotation = Quaternion.AngleAxis(-_mouseAbsolute.y, targetOrientation * Vector3.right) *
-                                    targetOrientation;
+                                  targetOrientation;
 
         // If there's a character body that acts as a parent to the camera
         if (characterBody)

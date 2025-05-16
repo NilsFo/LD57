@@ -28,6 +28,8 @@ public class CharacterMovement : MonoBehaviour
     public bool crouchEnabled = true;
     public bool jumpEnabled = true;
     public bool inputDisabled = false;
+    
+    [Header("Project specific config")]
     public bool tethered = true;
 
     [Header("Physics Interaction")] public bool interactWithRigidbodies = false;

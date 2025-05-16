@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class InteractionPrompt : MonoBehaviour
 {
+    public GameObject iconHolder;
     private PlayerInteraction _interaction;
     public TMP_Text text;
 
@@ -19,16 +20,19 @@ public class InteractionPrompt : MonoBehaviour
         if (focus == null)
         {
             text.text = "";
+            iconHolder.SetActive(false);
         }
         else
         {
             if (focus.isInteractable)
             {
-                text.text = "[E]: " + focus.interactionPrompt;
+                text.text = focus.interactionPrompt;
+                iconHolder.SetActive(true);
             }
             else
             {
                 text.text = "";
+                iconHolder.SetActive(false);
             }
         }
     }

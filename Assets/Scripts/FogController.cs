@@ -15,6 +15,7 @@ public class FogController : MonoBehaviour
     private float _t;
 
     public bool triggered = false;
+
     private void OnTriggerEnter(Collider other)
     {
         var player = other.GetComponent<CharacterController>();

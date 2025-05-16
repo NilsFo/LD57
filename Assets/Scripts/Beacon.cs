@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Beacon : MonoBehaviour
 {
-
     public NodeButton myNodeButton;
 
     public BeaconTerminal myTerminal;
@@ -67,9 +66,11 @@ public class Beacon : MonoBehaviour
                 musicManager.CreateAudioClip(hosePickUpClip, transform.position);
                 gameState.isCarryingHose = false;
                 print("Attached the hose.");
-                FindFirstObjectByType<NodeGraph.NodeGraph>().AddEdge(myNode.gameObject, gameState.hoseStartBeacon.myNode.gameObject);
+                FindFirstObjectByType<NodeGraph.NodeGraph>()
+                    .AddEdge(myNode.gameObject, gameState.hoseStartBeacon.myNode.gameObject);
                 return;
             }
+
             if (!gameState.isCarryingHose)
             {
                 gameState.isCarryingHose = true;

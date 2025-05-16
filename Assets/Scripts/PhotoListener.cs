@@ -3,10 +3,9 @@ using UnityEngine.Events;
 
 public class PhotoListener : MonoBehaviour
 {
-
     public UnityEvent onPhotoTaken;
     public UnityEvent onBlurryPhotoTaken;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +18,6 @@ public class PhotoListener : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void OnPhotoTaken()
@@ -32,5 +30,4 @@ public class PhotoListener : MonoBehaviour
         Debug.Log("Photo taken but im fuken blurry lmao");
         onBlurryPhotoTaken.Invoke();
     }
-    
 }

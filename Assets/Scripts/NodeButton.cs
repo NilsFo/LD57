@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class NodeButton : MonoBehaviour
 {
-
     private GameState gameState;
     public PlayerInteractable interactable;
 
@@ -11,6 +10,4 @@ public class NodeButton : MonoBehaviour
     {
         gameState = FindFirstObjectByType<GameState>();
     }
-
-
 }
