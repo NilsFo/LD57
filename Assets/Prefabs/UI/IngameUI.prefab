@@ -4139,6 +4139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3424267396479838031}
+  - component: {fileID: 4865222267381843594}
   - component: {fileID: 3424773344760582013}
   m_Layer: 5
   m_Name: MessageSystem
@@ -4166,6 +4167,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4865222267381843594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8243841520717535823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba5f54d28344059b347954752f4c32b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageSystem: {fileID: 3424773344760582013}
 --- !u!114 &3424773344760582013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4178,6 +4192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53295dec9122dc3cf8b1d80d4f19dbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDuplicates: 0
   messagePrefab: {fileID: 7616929972703425939, guid: 981bcd985001f294d9903f52f8b331f6, type: 3}
 --- !u!1 &8436016931610014424
 GameObject:

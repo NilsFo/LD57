@@ -868,6 +868,7 @@ MonoBehaviour:
   cameraFlashIntensity: 2000
   cameraCooldown: 1
   cameraPostProcessing: {fileID: 4994674639970322384}
+  addFov: -15
   state: 0
   minFocus: 1
   maxFocus: 50
