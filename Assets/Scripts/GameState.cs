@@ -47,9 +47,11 @@ public class GameState : MonoBehaviour
 
     public Camera mainCameraCache;
     public MouseLook mouseLook;
-    public CharacterMovement movement;
-    private MusicManager musicManager;
+    private CharacterMovement _movement;
+    private MusicManager _musicManager;
     private GamepadInputDetector _gamepadInputDetector;
+
+    public CharacterMovement PlayerMovementController => _movement;
 
     public float msgTetherExceededTimer = 5;
     public float _msgTetherExceededTimer = 5;
@@ -58,8 +60,8 @@ public class GameState : MonoBehaviour
     {
         mainCameraCache = Camera.main;
         mouseLook = FindFirstObjectByType<MouseLook>();
-        movement = FindFirstObjectByType<CharacterMovement>();
-        musicManager = FindFirstObjectByType<MusicManager>();
+        _movement = FindFirstObjectByType<CharacterMovement>();
+        _musicManager = FindFirstObjectByType<MusicManager>();
         _gamepadInputDetector = FindFirstObjectByType<GamepadInputDetector>();
     }
 
@@ -127,22 +129,22 @@ public class GameState : MonoBehaviour
             case GAME_STATE.MAIN_MENU:
                 SetCursorLockState(false);
                 mouseLook.enabled = false;
-                movement.inputDisabled = true;
+                _movement.inputDisabled = true;
                 break;
             case GAME_STATE.PAUSED:
                 SetCursorLockState(false);
                 mouseLook.enabled = false;
-                movement.inputDisabled = true;
+                _movement.inputDisabled = true;
                 break;
             case GAME_STATE.PLAYING:
                 SetCursorLockState(true);
                 mouseLook.enabled = true;
-                movement.inputDisabled = false;
+                _movement.inputDisabled = false;
                 break;
             case GAME_STATE.CREDITS:
                 SetCursorLockState(false);
                 mouseLook.enabled = false;
-                movement.inputDisabled = true;
+                _movement.inputDisabled = true;
                 break;
             default:
                 break;
@@ -250,7 +252,7 @@ public class GameState : MonoBehaviour
 
         if (_gameState == GAME_STATE.MAIN_MENU)
         {
-            musicManager.Stop();
+            _musicManager.Stop();
         }
     }
 

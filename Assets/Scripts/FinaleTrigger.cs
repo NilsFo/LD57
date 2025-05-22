@@ -40,8 +40,8 @@ public class FinaleTrigger : MonoBehaviour
         MusicManager musicManager = FindFirstObjectByType<MusicManager>();
         musicManager.Stop();
 
-        _gameState.movement.maximumSpeed = 0f;
-        _gameState.movement.tethered = false;
+        _gameState.PlayerMovementController.maximumSpeed = 0f;
+        _gameState.PlayerMovementController.tethered = false;
 
         _gameState.isCarryingHose = false;
 
@@ -57,10 +57,10 @@ public class FinaleTrigger : MonoBehaviour
 
     public void FinalePhoto()
     {
-        var musicmanager = FindFirstObjectByType<MusicManager>();
-        musicmanager.Stop();
+        MusicManager musicManager = FindFirstObjectByType<MusicManager>();
+        musicManager.Stop();
 
-        musicmanager.CreateAudioClip(photoReverb, Vector3.zero);
+        musicManager.CreateAudioClip(photoReverb, Vector3.zero);
 
         _gameState.gameState = GameState.GAME_STATE.CREDITS;
 
@@ -71,7 +71,7 @@ public class FinaleTrigger : MonoBehaviour
 
     public void PostFinale()
     {
-        _gameState.movement.transform.position = new Vector3(80.800827f, 15.4800005f, -59.6245499f);
+        _gameState.PlayerMovementController.transform.position = new Vector3(80.800827f, 15.4800005f, -59.6245499f);
         MusicManager musicManager = FindFirstObjectByType<MusicManager>();
         musicManager.Play(0, true);
     }
