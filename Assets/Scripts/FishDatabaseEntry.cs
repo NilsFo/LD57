@@ -14,7 +14,6 @@ public class FishDatabaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private KnownFish knownFish;
     private GamepadInputDetector _gamepadInputDetector;
 
-
     public bool isHovered = false;
 
     private void Awake()

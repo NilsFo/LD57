@@ -45,6 +45,11 @@ public class PauseMenuUI : MonoBehaviour
     {
         UnselectAllEntries();
 
+        foreach (FishDatabaseEntry databaseEntry in fishPoster)
+        {
+            databaseEntry.isHovered = false;
+        }
+
         if (_gamepadInputDetector != null && _gamepadInputDetector.isGamePad)
         {
             fishPoster[0].isHovered = true;
@@ -131,12 +136,14 @@ public class PauseMenuUI : MonoBehaviour
 
         //print("new selected index: " + selectedIndex + " -> " + selectedIndex % 18
         //      + " [old: " + oldSelectedIndex + "]");
-        while (selectedIndex < 0)
+        if (_gamepadInputDetector.isGamePad)
         {
-            selectedIndex += 18;
+            while (selectedIndex < 0)
+            {
+                selectedIndex += 18;
+            }
+            selectedIndex = selectedIndex % 18;
         }
-
-        selectedIndex = selectedIndex % 18;
 
         if (selectedIndex != oldSelectedIndex && oldSelectedIndex != -1)
         {

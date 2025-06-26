@@ -26,11 +26,11 @@ public class Fish : MonoBehaviour
         mySpriteRenderer.gameObject.SetActive(true);
 
         mySpriteRenderer.material.mainTexture = data.albumSprite;
-        var sizeX = (float)data.albumSprite.width / (float)data.pixelPerMeter;
-        var sizeY = (float)data.albumSprite.height / (float)data.pixelPerMeter;
+        float sizeX = (float)data.albumSprite.width / (float)data.pixelPerMeter;
+        float sizeY = (float)data.albumSprite.height / (float)data.pixelPerMeter;
         mySpriteRenderer.transform.localScale = new Vector3(sizeX, sizeY, 1);
 
-        var box = GetComponent<BoxCollider>();
+        BoxCollider box = GetComponent<BoxCollider>();
         box.size = new Vector3(sizeX, sizeY, 1);
     }
 

@@ -23,14 +23,14 @@ public class CharacterMovement : MonoBehaviour
     private float _jumpCoyoteTimer;
 
     [Header("Gamepad Config")] public bool useGamepadOverKBM = false;
+    [Range(0f, 1f)] public float controlStickDeadZone = 0.2f;
 
     [Header("Movement Config")] public bool sprintEnabled = true;
     public bool crouchEnabled = true;
     public bool jumpEnabled = true;
     public bool inputDisabled = false;
-    
-    [Header("Project specific config")]
-    public bool tethered = true;
+
+    [Header("Project specific config")] public bool tethered = true;
 
     [Header("Physics Interaction")] public bool interactWithRigidbodies = false;
     public float pushForceMultiplier = 0.2f;
@@ -100,7 +100,9 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
-        float x = 0, z = 0;
+        float x = 0.0f;
+        float z = 0.0f;
+
         Keyboard keyboard = Keyboard.current;
         Gamepad gamepad = Gamepad.current;
         if (keyboard != null)
@@ -131,10 +133,19 @@ public class CharacterMovement : MonoBehaviour
             StickControl stick = gamepad.leftStick;
             if (stick != null)
             {
-                var stickX = stick.x.ReadValue();
-                var stickY = stick.y.ReadValue();
-                x = stickX;
-                z = stickY;
+                float stickX = stick.x.ReadValue();
+                float stickY = stick.y.ReadValue();
+
+                x = Mathf.Abs(stickX) < controlStickDeadZone ? 0 : (stickX > 0 ? 1 : -1);
+                z = Mathf.Abs(stickY) < controlStickDeadZone ? 0 : (stickY > 0 ? 1 : -1);
+
+                // print(
+                //     "Stick Y - Raw: " + stickY + ". Collapsed: " + z + ". "
+                //     +
+                //     "Stick X - Raw: " + stickX + ". Collapsed: " + x + "."
+                //     +
+                //     "DZ: " + movementControlStickDeadZone + "."
+                // );
             }
         }
 

@@ -100,6 +100,7 @@ MonoBehaviour:
   sensitivityScaling: 3
   useGamepadOverKBM: 1
   gamepadScaling: {x: 13, y: 10}
+  controlStickDeadZone: 0.01
   mouseLookEnabled: 1
   clampInDegrees: {x: 360, y: 180}
   sensitivity: {x: 1, y: 1}
@@ -1165,6 +1166,7 @@ MonoBehaviour:
   airControlMultiplier: 0.1
   coyoteTime: 0.1
   useGamepadOverKBM: 0
+  controlStickDeadZone: 0.1337
   sprintEnabled: 0
   crouchEnabled: 0
   jumpEnabled: 0

@@ -15,6 +15,7 @@ public class MouseLook : MonoBehaviour
 
     [Header("Gamepad Config")] public bool useGamepadOverKBM = true;
     public Vector2 gamepadScaling = new Vector2(13f, 10f);
+    [Range(0f, 1f)] public float controlStickDeadZone = 0.2f;
 
     [Header("Editor Config")] public bool mouseLookEnabled = true;
     public Vector2 clampInDegrees = new Vector2(360, 180);
@@ -55,7 +56,11 @@ public class MouseLook : MonoBehaviour
             Gamepad gamepad = Gamepad.current;
             if (gamepad != null)
             {
-                mouseDelta = gamepad.rightStick.ReadValue() * gamepadScaling;
+                Vector2 gamepadStickRaw = gamepad.rightStick.ReadValue() * gamepadScaling;
+                if (gamepadStickRaw.magnitude>=controlStickDeadZone)
+                {
+                    mouseDelta = gamepadStickRaw;
+                }
             }
         }
         else
